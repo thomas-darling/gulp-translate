@@ -1,8 +1,16 @@
 ## Ignore source files
 
 /src/
-tsconfig.json
 
 ## Ignore example files
 
 /example/
+
+## Ignore config files
+
+/.git/
+/.vscode/
+.gitattributes
+.gitignore
+.npmignore
+tsconfig.json
