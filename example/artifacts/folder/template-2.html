@@ -1,0 +1,34 @@
+<template>
+
+    <!-- export, import and options -->
+
+    <div>
+
+        <div foo="should not be exported">should not be exported</div>
+
+        <div>should not be exported</div>
+        <div foo="should not be exported"></div>
+
+        <div>element with non-unique content</div>
+        <div>element with unique content 2</div>
+
+        <div>element with non-unique hint</div>
+        <div>element with unique hint</div>
+
+        <div foo="attribute with direct annotation"></div>
+
+        <div foo="attribute with non-unique content"></div>
+        <div foo="attribute with unique content 2"></div>
+
+        <div foo="attribute with non-unique hint"></div>
+        <div foo="attribute with unique hint"></div>
+
+        <div>element with context</div>
+
+        <div>element with id and export disabled by default</div>
+        <div>element with id and export enabled</div>
+        <div>element with id and export disabled</div>
+
+    </div>
+
+</template>

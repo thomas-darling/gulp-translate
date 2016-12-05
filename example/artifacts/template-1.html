@@ -1,0 +1,119 @@
+<template>
+
+    <!-- export, import and options -->
+
+    <div>
+
+        <div foo="should not be exported">should not be exported</div>
+
+        <div>should not be exported</div>
+        <div foo="should not be exported"></div>
+
+        <div>element with non-unique content</div>
+        <div>element with unique content 1</div>
+
+        <div>element with non-unique hint</div>
+        <div>element with unique hint</div>
+
+        <div foo="attribute with direct annotation"></div>
+
+        <div foo="attribute with non-unique content"></div>
+        <div foo="attribute with unique content 1"></div>
+
+        <div foo="attribute with non-unique hint"></div>
+        <div foo="attribute with unique hint"></div>
+
+        <div>element with context</div>
+
+        <div>element with id and export disabled by default</div>
+        <div>element with id and export enabled</div>
+        <div>element with id and export disabled</div>
+
+    </div>
+
+    <!-- encoding, expressions, exclusion, inclusion -->
+
+    <div>
+
+        <div>
+            element with special characters
+            <span>" © < ></span>
+        </div>
+        <div>
+            element with html-like content in binding expression
+            <span>before ${</span></div> || {foo:{bar:{}}} || </span></div> || "\}" || \\\"'`</span></div>" || '\\\'"`</span></div>' || `\\\`"'</span></div>` || "${nested}" } after</span>
+        </div>
+        <div>
+            element with child content excluded from translation
+            <span>this should not be translated, <span>but this should</span></span>
+        </div>
+        <div>
+            should not be exported
+            <span>this should be translated, <span>but this should not</span></span>
+            <div foo="this should be translated"></div>
+            <div foo="this should be translated"></div>
+            <div foo="this should be translated"></div>
+        </div>
+
+    </div>
+
+    <!-- default whitespace handling -->
+
+    <p placeholder="
+        attribute  with  default
+        whitespace  handling
+        ">
+        element  with  default
+        whitespace  handling
+    </p>
+
+    <div>
+        <button>  button  should  default  to  normal  whitespace  handling  </button>
+    </div>
+
+    <div>
+        <textarea>  textarea  should  default  to  pre  whitespace  handling  </textarea>
+        <select>
+            <option>  select  should  default  to  pre  whitespace  handling  </option>
+        </select>
+        <select>
+            <option>  option  should  default  to  pre  whitespace  handling  </option>
+        </select>
+        <pre>  pre  should  default  to  pre  whitespace  handling  </pre>
+    </div>
+
+    <!-- explicit whitespace handling -->
+
+    <p placeholder="
+        attribute  with  trim
+        whitespace  handling
+        ">
+        element  with  normal
+        whitespace  handling
+    </p>
+
+    <p placeholder="
+        attribute  with  normal
+        whitespace  handling
+        ">
+        element  with  pre-trim
+        whitespace  handling
+    </p>
+
+    <p placeholder="
+        attribute  with  pre
+        whitespace  handling
+        ">
+        element  with  pre
+        whitespace  handling
+    </p>
+
+    <p placeholder="
+        attribute  with  pre-line
+        whitespace  handling
+        ">
+        element  with  pre-line
+        whitespace  handling
+    </p>
+
+</template>

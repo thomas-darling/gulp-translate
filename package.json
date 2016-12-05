@@ -1,0 +1,58 @@
+{
+  "name": "gulp-translate",
+  "version": "1.0.0",
+  "description": "Gulp plugin that localizes HTML templates and JSON files by extracting and injecting localizable content.",
+  "keywords": [
+    "gulp",
+    "translate",
+    "translation",
+    "localize",
+    "internationalization",
+    "i18n",
+    "localization",
+    "l10n",
+    "globalization",
+    "g11n",
+    "template",
+    "html",
+    "aurelia",
+    "angular"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Thomas Darling"
+  },
+  "homepage": "https://github.com/thomas-darling/gulp-translate",
+  "bugs": {
+    "url": "https://github.com/thomas-darling/gulp-translate/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thomas-darling/gulp-translate.git"
+  },
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "csv-parse": "^1.1.7",
+    "csv-stringify": "^1.0.4",
+    "gulp-util": "^3.0.7",
+    "mkdirp": "^0.5.1",
+    "through2": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/chalk": "^0.4.31",
+    "@types/cheerio": "^0.17.31",
+    "@types/gulp-util": "0.0.0",
+    "@types/mkdirp": "^0.3.29",
+    "@types/node": "0.0.2",
+    "@types/through2": "^2.0.32",
+    "@types/vinyl": "^2.0.0",
+    "del": "^2.2.2",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-rename": "^1.2.2",
+    "typescript": "^2.1.1"
+  },
+  "scripts":{
+    "prepublish": "tsc"
+  },
+  "main": "lib/index.js"
+}

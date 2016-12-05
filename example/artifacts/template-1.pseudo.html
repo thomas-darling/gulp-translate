@@ -1,0 +1,95 @@
+<template>
+
+    <!-- export, import and options -->
+
+    <div>
+
+        <div foo="should not be exported">should not be exported</div>
+
+        <div>should not be exported</div>
+        <div foo="should not be exported"></div>
+
+        <div>[e:l:e:m:e:n:t w:i:t:h n:o:n-u:n:i:q:u:e c:o:n:t:e:n:t]</div>
+        <div>[e:l:e:m:e:n:t w:i:t:h u:n:i:q:u:e c:o:n:t:e:n:t 1]</div>
+
+        <div>[e:l:e:m:e:n:t w:i:t:h n:o:n-u:n:i:q:u:e h:i:n:t]</div>
+        <div>[e:l:e:m:e:n:t w:i:t:h u:n:i:q:u:e h:i:n:t]</div>
+
+        <div foo="[a:t:t:r:i:b:u:t:e w:i:t:h d:i:r:e:c:t a:n:n:o:t:a:t:i:o:n]"></div>
+
+        <div foo="[a:t:t:r:i:b:u:t:e w:i:t:h n:o:n-u:n:i:q:u:e c:o:n:t:e:n:t]"></div>
+        <div foo="[a:t:t:r:i:b:u:t:e w:i:t:h u:n:i:q:u:e c:o:n:t:e:n:t 1]"></div>
+
+        <div foo="[a:t:t:r:i:b:u:t:e w:i:t:h n:o:n-u:n:i:q:u:e h:i:n:t]"></div>
+        <div foo="[a:t:t:r:i:b:u:t:e w:i:t:h u:n:i:q:u:e h:i:n:t]"></div>
+
+        <div>[e:l:e:m:e:n:t w:i:t:h c:o:n:t:e:x:t]</div>
+
+        <div>[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-1]</div>
+        <div>[e:l:e:m:e:n:t w:i:t:h i:d a:n:d e:x:p:o:r:t e:n:a:b:l:e:d]</div>
+        <div>[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-3]</div>
+
+    </div>
+
+    <!-- encoding, expressions, exclusion, inclusion -->
+
+    <div>
+
+        <div>[e:l:e:m:e:n:t w:i:t:h s:p:e:c:i:a:l c:h:a:r:a:c:t:e:r:s ]<span>[" © < >]</span></div>
+        <div>[e:l:e:m:e:n:t w:i:t:h h:t:m:l-l:i:k:e c:o:n:t:e:n:t i:n b:i:n:d:i:n:g e:x:p:r:e:s:s:i:o:n ]<span>[b:e:f:o:r:e ${</span></div> || {foo:{bar:{}}} || </span></div> || "\}" || \\\"'`</span></div>" || '\\\'"`</span></div>' || `\\\`"'</span></div>` || "${nested}" } a:f:t:e:r]</span></div>
+        <div>[e:l:e:m:e:n:t w:i:t:h c:h:i:l:d c:o:n:t:e:n:t e:x:c:l:u:d:e:d f:r:o:m t:r:a:n:s:l:a:t:i:o:n ]<span>this should not be translated, <span>[b:u:t t:h:i:s s:h:o:u:l:d]</span></span></div>
+        <div>
+            should not be exported
+            <span>[t:h:i:s s:h:o:u:l:d b:e t:r:a:n:s:l:a:t:e:d, ]<span>but this should not</span></span>
+            <div foo="[t:h:i:s s:h:o:u:l:d b:e t:r:a:n:s:l:a:t:e:d]"></div>
+            <div foo="[t:h:i:s s:h:o:u:l:d b:e t:r:a:n:s:l:a:t:e:d]"></div>
+            <div foo="[t:h:i:s s:h:o:u:l:d b:e t:r:a:n:s:l:a:t:e:d]"></div>
+        </div>
+
+    </div>
+
+    <!-- default whitespace handling -->
+
+    <p placeholder="[
+        a:t:t:r:i:b:u:t:e  w:i:t:h  d:e:f:a:u:l:t
+        w:h:i:t:e:s:p:a:c:e  h:a:n:d:l:i:n:g
+        ]">[e:l:e:m:e:n:t w:i:t:h d:e:f:a:u:l:t w:h:i:t:e:s:p:a:c:e h:a:n:d:l:i:n:g]</p>
+
+    <div>
+        <button>[b:u:t:t:o:n s:h:o:u:l:d d:e:f:a:u:l:t t:o n:o:r:m:a:l w:h:i:t:e:s:p:a:c:e h:a:n:d:l:i:n:g]</button>
+    </div>
+
+    <div>
+        <textarea>[  t:e:x:t:a:r:e:a  s:h:o:u:l:d  d:e:f:a:u:l:t  t:o  p:r:e  w:h:i:t:e:s:p:a:c:e  h:a:n:d:l:i:n:g  ]</textarea>
+        <select>
+            <option>[  s:e:l:e:c:t  s:h:o:u:l:d  d:e:f:a:u:l:t  t:o  p:r:e  w:h:i:t:e:s:p:a:c:e  h:a:n:d:l:i:n:g  ]</option>
+        </select>
+        <select>
+            <option>[  o:p:t:i:o:n  s:h:o:u:l:d  d:e:f:a:u:l:t  t:o  p:r:e  w:h:i:t:e:s:p:a:c:e  h:a:n:d:l:i:n:g  ]</option>
+        </select>
+        <pre>[  p:r:e  s:h:o:u:l:d  d:e:f:a:u:l:t  t:o  p:r:e  w:h:i:t:e:s:p:a:c:e  h:a:n:d:l:i:n:g  ]</pre>
+    </div>
+
+    <!-- explicit whitespace handling -->
+
+    <p placeholder="[a:t:t:r:i:b:u:t:e w:i:t:h t:r:i:m w:h:i:t:e:s:p:a:c:e h:a:n:d:l:i:n:g]">[e:l:e:m:e:n:t w:i:t:h n:o:r:m:a:l w:h:i:t:e:s:p:a:c:e h:a:n:d:l:i:n:g]</p>
+
+    <p placeholder="[ a:t:t:r:i:b:u:t:e w:i:t:h n:o:r:m:a:l w:h:i:t:e:s:p:a:c:e h:a:n:d:l:i:n:g ]">[ e:l:e:m:e:n:t w:i:t:h p:r:e-t:r:i:m w:h:i:t:e:s:p:a:c:e h:a:n:d:l:i:n:g ]</p>
+
+    <p placeholder="[
+        a:t:t:r:i:b:u:t:e  w:i:t:h  p:r:e
+        w:h:i:t:e:s:p:a:c:e  h:a:n:d:l:i:n:g
+        ]">[
+        e:l:e:m:e:n:t  w:i:t:h  p:r:e
+        w:h:i:t:e:s:p:a:c:e  h:a:n:d:l:i:n:g
+    ]</p>
+
+    <p placeholder="[
+a:t:t:r:i:b:u:t:e w:i:t:h p:r:e-l:i:n:e
+w:h:i:t:e:s:p:a:c:e h:a:n:d:l:i:n:g
+]">[
+e:l:e:m:e:n:t w:i:t:h p:r:e-l:i:n:e
+w:h:i:t:e:s:p:a:c:e h:a:n:d:l:i:n:g
+]</p>
+
+</template>
