@@ -54,5 +54,6 @@
   "scripts":{
     "prepublish": "tsc"
   },
+  "types": "lib/index.d.ts",
   "main": "lib/index.js"
 }
