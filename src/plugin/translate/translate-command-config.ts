@@ -15,7 +15,7 @@ export interface ITranslateCommandConfig
     /**
      * The extension of the destination file name, used to
      * determine its format.
-     * Default is the same as the source file.
+     * Default is the same format as the source file.
      */
     fileNameExtension?: string;
 }
@@ -44,14 +44,13 @@ export class TranslateCommandConfig
     /**
      * The content translator to use, or undefined to use
      * no content translator.
-     * Default is undefined.
      */
     translator?: "pseudo"|IContentTranslator;
 
     /**
      * The extension of the destination file name, used to
-     * determine its format.
-     * Default is the same as the source file.
+     * determine its format, or undefined to use the same
+     * format as the source file.
      */
     fileNameExtension?: string;
 }

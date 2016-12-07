@@ -6,23 +6,27 @@ import * as chalk from "chalk";
 export interface ITemplateParserConfig
 {
     /**
-     * The name of the attribute identifying elements whose content should be localized.
+     * The name of the attribute identifying elements whose content should
+     * be localized.
      */
     attributeName: string;
 
     /**
-     * The pattern used when identifying attributes whose value should be localized,
-     * where '*' represents the name of the target attribute.
+     * The pattern used when identifying attributes whose value should be
+     * localized, where '*' represents the name of the target attribute.
      */
     attributePattern: string;
 
     /**
-     * True to enable direct annotations of attributes, such that if the target attribute does
-     * not exist, then the attribute matched by the attribute pattern is assumed to be the
-     * attribute containing the content. This means, that if no options need to be specified,
-     * we can just change the attribute name to match the pattern, instead of adding a separate
-     * annotation attribute. Note however, that this also means that orphaned annotations will
-     * not be treated as errors, as they will be assumed to contain localizable content.
+     * True to enable direct annotations of attributes, such that if the
+     * target attribute does not exist, the attribute matched by the attribute
+     * pattern is assumed to be the attribute containing the content. This
+     * means, that if no options need to be specified, we can just change
+     * the attribute name to match the pattern, instead of adding a separate
+     * annotation attribute. Note however, that this also means that orphaned
+     * annotations will not be treated as errors, as they will be assumed to
+     * contain localizable content. If enabled, warnings may be logged during
+     * export, if the content looks suspiciously like an annotation.
      */
     allowDirectAnnotation: boolean;
 }
@@ -44,29 +48,34 @@ export class TemplateParserConfig
     }
 
     /**
-     * The name of the attribute identifying elements whose content should be localized.
+     * The name of the attribute identifying elements whose content should
+     * be localized.
      */
     public attributeName: string;
 
     /**
-     * The pattern used when identifying attributes whose value should be localized.
+     * The pattern used when identifying attributes whose value should be
+     * localized.
      */
     public attributePattern: AttributePattern;
 
     /**
-     * True to enable direct annotations of attributes, such that if the target attribute does
-     * not exist, then the attribute matched by the attribute pattern is assumed to be the
-     * attribute containing the content. This means, that if no options need to be specified,
-     * we can just change the attribute name to match the pattern, instead of adding a separate
-     * annotation attribute. Note however, that this also means that orphaned annotations will
-     * not be treated as errors, as they will be assumed to contain localizable content.
+     * True to enable direct annotations of attributes, such that if the
+     * target attribute does not exist, the attribute matched by the attribute
+     * pattern is assumed to be the attribute containing the content. This
+     * means, that if no options need to be specified, we can just change
+     * the attribute name to match the pattern, instead of adding a separate
+     * annotation attribute. Note however, that this also means that orphaned
+     * annotations will not be treated as errors, as they will be assumed to
+     * contain localizable content. If enabled, warnings may be logged during
+     * export, if the content looks suspiciously like an annotation.
      */
     public allowDirectAnnotation: boolean;
 }
 
 /**
- * Represents an attribute pattern, which consist of a target attribute name, represented by a '*',
- * combined with a prefix and/or a postfix.
+ * Represents an attribute pattern, which consist of a target attribute name,
+ * represented by a '*', combined with a prefix and/or a postfix.
  */
 export class AttributePattern
 {

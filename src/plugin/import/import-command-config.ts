@@ -78,16 +78,14 @@ export class ImportCommandConfig
      * annotations, 'standard' preserves HTML compliant annotations,
      * 'normalize' preserves all annotations but normalizes them to either
      * 'yes' or 'no', and 'all' preserves all annotations without changes.
-     * Default is 'none'.
      */
     preserveAnnotations: AnnotationsOption = "none";
 
     /**
      * The action to take when encountering content that is marked as
      * localizable but not found in the import file, where 'error' causes
-     * an error to be thrown, 'log' logs a warnign to the console, and
+     * an error to be thrown, 'log' logs a warning to the console, and
      * 'ignore' silently ignores the content.
-     * Default is 'error'.
      */
     missingContentHandling: MissingContentOption = "error";
 }

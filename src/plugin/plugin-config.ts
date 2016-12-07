@@ -12,8 +12,8 @@ export const pluginName = "gulp-translate";
 export interface IPluginConfig
 {
     /**
-     * The name of the attribute identifying elements whose content
-     * should be translated.
+     * The name of the attribute identifying elements whose content should
+     * be translated.
      * Default is 'translate'.
      */
     attributeName?: string;
@@ -92,14 +92,12 @@ export class PluginConfig implements ITemplateParserConfig
     /**
      * The name of the attribute identifying elements whose content
      * should be translated.
-     * Default is 'translate'.
      */
     public attributeName: string = "translate";
 
     /**
      * The pattern used when identifying attributes whose content should be
      * translated, where '*' represents the name of the target attribute.
-     * Default is '*.translate'.
      */
     public attributePattern: string = "*.translate";
 
@@ -113,19 +111,16 @@ export class PluginConfig implements ITemplateParserConfig
      * annotations will not be treated as errors, as they will be assumed to
      * contain localizable content. If enabled, warnings may be logged during
      * export, if the content looks suspiciously like an annotation.
-     * Default is false.
      */
     public allowDirectAnnotation: boolean = false;
 
     /**
      * The template language to use, or undefined to use no template language.
-     * Default is undefined.
      */
     public templateLanguage?: "aurelia"|"angular"|ITemplateLanguage;
 
     /**
      * The length of the hash identifying content, in the range [1, 32].
-     * Default is 9.
      */
     public hashLength: number = 9;
 }

@@ -30,7 +30,7 @@ export interface IExportCommandConfig
      * The translate annotations to preserve, where 'none' preserves no
      * annotations, 'standard' preserves HTML compliant annotations,
      * 'normalize' preserves all annotations but normalizes them to either
-     * 'yes' or 'no', and 'all' preserves all annotations without any changes.
+     * 'yes' or 'no', and 'all' preserves all annotations without changes.
      * Default is 'none'.
      */
     preserveAnnotations?: AnnotationsOption;
@@ -106,22 +106,19 @@ export class ExportCommandConfig
     }
 
     /**
-     * The absolute path for the export file to which the contents should be saved,
-     * or undefined to process the file without exporting its contents.
-     * Default is undefined.
+     * The absolute path for the export file to which the contents should be
+     * saved, or undefined to process the file without exporting its contents.
      */
     public exportFilePath: string|undefined;
 
     /**
      * True to update to an existing export file, false to create a new file.
-     * Default is false.
      */
     public updateExportFile: boolean = false;
 
     /**
      * True to normalize the content to ensure it has the same whitespace,
      * etc. as it would after importing content, otherwise false.
-     * Default is false.
      */
     public normalizeContent: boolean = false;
 
@@ -129,8 +126,7 @@ export class ExportCommandConfig
      * The translate annotations to preserve, where 'none' preserves no
      * annotations, 'standard' preserves HTML compliant annotations,
      * 'normalize' preserves all annotations but normalizes them to either
-     * 'yes' or 'no', and 'all' preserves all annotations without any changes.
-     * Default is 'none'.
+     * 'yes' or 'no', and 'all' preserves all annotations without changes.
      */
     public preserveAnnotations: AnnotationsOption = "none";
 
@@ -143,14 +139,12 @@ export class ExportCommandConfig
      * '{{*}}', during template loading, by formatting the ids as actual
      * binding expressions, such as '${translations[*]}', or by otherwise
      * attaching behavior to the annotations.
-     * Default is false.
      */
     public replaceWithIds: boolean|string = false;
 
     /**
      * True to export content for which the 'id' option is specified,
      * otherwise false. This can be overridden by the 'export' option.
-     * Default false.
      */
     public exportForId: boolean = false;
 
@@ -158,7 +152,6 @@ export class ExportCommandConfig
      * True to log a warning to the console, if the content of a direct
      * annotation looks suspiciously like annotation options, indicating
      * that it might actually be an orphaned annotation.
-     * Default is true.
      */
     public logSuspectedOrphans: boolean = true;
 }
