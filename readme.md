@@ -1,5 +1,6 @@
 ﻿gulp-translate
 ===============
+
 Gulp plugin that extracts localizable content from HTML templates into a JSON file that can be sent to translators.
 Once translated, the content can then be injected back into the templates as part of a localized build process, or just served to the client.
 
@@ -217,10 +218,12 @@ but this time replacing the original content with the translated content provide
 Additionally, to support scenarios where content is needed in code, e.g. for error or validation messages, JSON files
 like the example below may also be processed, exactly like templates. If the app is using a module loader such as [SystemJS](https://github.com/systemjs/systemjs),
 those JSON files can then be imported directly into ES/TypeScript modules using the [json](https://github.com/systemjs/plugin-json) plugin, which allows the code
-to directly access the contents of the file as an object. To ensure the glob patterns in gulp tasks can reliably select the JSON
-files containing content, such files should be named consistently using a reserved name, e.g. `translate.json`.
-To avoid collisions between ids and hashes, it is recommended to use ids that contain at least one character that cannot
-appear in a hash - for example, we could use ids that begin with a `#`, or always contain at least one `-` or `.`.
+to directly access the contents of the file as an object. To ensure the glob patterns in gulp tasks can reliably select the JSON files containing content, such files
+should always either be placed in a folder with a reserved name, e.g. `strings`, or named using a reserved name, e.g. `translate.json`.
+To avoid collisions between ids and hashes, it is recommended to use ids that contain at least one character that cannot appear in a hash - for example, we could use
+ids that begin with a `#`, or always contain at least one `-` or `.`. Alternatively, you should consider enabling the `prefixIdsInContentFiles` option, which
+auto-prefixes the ids with the file path before exporting and importing. This makes the ids shorter, as they only have to be unique within the file, which in turn
+makes it easier to reference them in code.
 
 ```json
 {
@@ -249,7 +252,8 @@ Use the plugin:
 // Import the plugin:
 var translate = require("gulp-translate");
 
-// Define the plugin config in one place, to ensure all commands use the same config:
+// Define the plugin config in one place, to ensure all commands use
+// the same config:
 var pluginConfig = { };
 
 // Use one of the commands provided by the plugin in your gulp tasks:
@@ -292,6 +296,18 @@ interface IPluginConfig
      * Default is false.
      */
     allowDirectAnnotation?: boolean;
+
+    /**
+     * True to prefix the ids of content found in content files with the
+     * relative file path of the content file, without the extension.
+     * Enable this to keep the ids in content files short, thus making them
+     * easier to work with in code.
+     * Note that ids starting with "/" or "./" will not be prefixed.
+     * An example of a prefixed id would be "./foo/bar:id", where 'foo/bar'
+     * is the file path without the extension and 'id' is a id in the file.
+     * Default is false.
+     */
+    prefixIdsInContentFiles?: boolean;
 
     /**
      * The template language to use, or undefined to use no template language.

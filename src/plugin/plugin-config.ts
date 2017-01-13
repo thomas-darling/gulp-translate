@@ -40,6 +40,18 @@ export interface IPluginConfig
     allowDirectAnnotation?: boolean;
 
     /**
+     * True to prefix the ids of content found in content files with the
+     * relative file path of the content file, without the extension.
+     * Enable this to keep the ids in content files short, thus making them
+     * easier to work with in code.
+     * Note that ids starting with "/" or "./" will not be prefixed.
+     * An example of a prefixed id would be "./foo/bar:id", where 'foo/bar'
+     * is the file path without the extension and 'id' is a id in the file.
+     * Default is false.
+     */
+    prefixIdsInContentFiles?: boolean;
+
+    /**
      * The template language to use, or undefined to use no template language.
      * Default is undefined.
      */
@@ -74,6 +86,9 @@ export class PluginConfig implements ITemplateParserConfig
 
         if (config.allowDirectAnnotation != undefined)
             this.allowDirectAnnotation = config.allowDirectAnnotation;
+
+        if (config.prefixIdsInContentFiles != undefined)
+            this.prefixIdsInContentFiles = config.prefixIdsInContentFiles;
 
         if (config.templateLanguage != undefined)
             this.templateLanguage = config.templateLanguage;
@@ -113,6 +128,17 @@ export class PluginConfig implements ITemplateParserConfig
      * export, if the content looks suspiciously like an annotation.
      */
     public allowDirectAnnotation: boolean = false;
+
+    /**
+     * True to prefix the ids of content found in content files with the
+     * relative file path of the content file, without the extension.
+     * Enable this to keep the ids in content files short, thus making them
+     * easier to work with in code.
+     * Note that ids starting with "/" or "./" will not be prefixed.
+     * An example of a prefixed id would be "./foo/bar:id", where 'foo/bar'
+     * is the file path without the extension and 'id' is a id in the file.
+     */
+    public prefixIdsInContentFiles: boolean = false;
 
     /**
      * The template language to use, or undefined to use no template language.

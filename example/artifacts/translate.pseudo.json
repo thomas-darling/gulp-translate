@@ -1,4 +1,6 @@
 {
-  "content-id-1": "[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-1]",
-  "content-id-3": "[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-3]"
+  "content-id-1": "json content for content-id-1",
+  "content-id-3": "json content for content-id-3",
+  "./source/translate:content-id-1": "[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-1]",
+  "./source/translate:content-id-3": "[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-3]"
 }

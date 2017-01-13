@@ -18,7 +18,8 @@ var translate = require("../lib/index");
 var translateConfig =
 {
     templateLanguage: "aurelia",
-    allowDirectAnnotation: true
+    allowDirectAnnotation: true,
+    prefixIdsInContentFiles: true
     // See 'readme.md' for more options.
 };
 

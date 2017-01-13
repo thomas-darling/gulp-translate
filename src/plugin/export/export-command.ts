@@ -56,7 +56,7 @@ export class ExportCommand
         // Return the stream transform.
         return through.obj(function (file: util.File, encoding: string, callback: (err?: any, data?: any) => void)
         {
-            let relativeFilePath = `./${path.relative(process.cwd(), file.path).replace(/\\/g, "/")}`;
+            const relativeFilePath = `./${path.relative(process.cwd(), file.path).replace(/\\/g, "/")}`;
 
             try
             {
@@ -87,7 +87,16 @@ export class ExportCommand
                         {
                             for (let key of Object.keys(contentFile.contents))
                             {
-                                exportContentFile.set(relativeFilePath, key, contentFile.contents[key]);
+                                const content = contentFile.contents[key];
+
+                                // If enabled, prefix the content id with the file path.
+                                if (_this._config.prefixIdsInContentFiles && !/^\.?\//.test(key))
+                                {
+                                    const prefix = relativeFilePath.substring(0, relativeFilePath.length - path.extname(relativeFilePath).length);
+                                    key = `${prefix}:${key}`;
+                                }
+
+                                exportContentFile.set(relativeFilePath, key, content);
                             }
                         }
                     }

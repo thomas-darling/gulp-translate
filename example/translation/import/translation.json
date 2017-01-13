@@ -35,7 +35,7 @@
     "63bdb3316": "element with unique hint",
     "ca822f83f": "attribute with unique content 2",
     "d0baad994": "attribute with unique hint",
-    "content-id-1": "json content for content-id-1",
-    "content-id-3": "json content for content-id-3"
+    "./source/translate:content-id-1": "json content for content-id-1",
+    "./source/translate:content-id-3": "json content for content-id-3"
   }
 }

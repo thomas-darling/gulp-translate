@@ -226,13 +226,13 @@
       "./source/folder/template-2.html"
     ]
   },
-  "content-id-1": {
+  "./source/translate:content-id-1": {
     "content": "json content for content-id-1",
     "sources": [
       "./source/translate.json"
     ]
   },
-  "content-id-3": {
+  "./source/translate:content-id-3": {
     "content": "json content for content-id-3",
     "sources": [
       "./source/translate.json"
