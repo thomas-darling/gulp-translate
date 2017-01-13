@@ -54,7 +54,7 @@ export abstract class AttributeOptions
 
         function skipWhitespace(attrValue: string): void
         {
-            while (/\s/.test(attrValue[i]))
+            while (i < attrValue.length && /\s/.test(attrValue[i]))
             {
                 i++;
             }
@@ -64,7 +64,7 @@ export abstract class AttributeOptions
         {
             let start = i;
 
-            while (/[a-z-]/.test(attrValue[i]))
+            while (i < attrValue.length && /[a-z-]/.test(attrValue[i]))
             {
                 i++;
             }
