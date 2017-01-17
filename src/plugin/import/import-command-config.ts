@@ -2,8 +2,8 @@ import * as chalk from "chalk";
 import {AnnotationsOption} from "../../core/template-parser/template-parser";
 
 /**
- * Represents the action to take when encountering content that is marked as localizable
- * but not found in the import file.
+ * Represents the action to take when encountering content that is marked as
+ * localizable but not found in the import file.
  */
 export type MissingContentOption = "error"|"warn"|"ignore";
 
@@ -37,6 +37,16 @@ export interface IImportCommandConfig
      * Default is 'error'.
      */
     missingContentHandling?: MissingContentOption;
+
+    /**
+     * The base path to use when determining the relative path of files being
+     * processed. This affects the prefixes applied to ids in content files.
+     * Specify this if you need those paths to be based on a path other than
+     * the base path inferred from the globs, or specified as the 'base'
+     * option for the Gulp 'src' method.
+     * Default is undefined.
+     */
+    baseFilePath?: string;
 }
 
 /**
@@ -63,6 +73,9 @@ export class ImportCommandConfig
 
         if (config.missingContentHandling != undefined)
             this.missingContentHandling = config.missingContentHandling;
+
+        if (config.baseFilePath !== undefined)
+            this.baseFilePath = config.baseFilePath;
     }
 
     /**
@@ -71,7 +84,7 @@ export class ImportCommandConfig
      * multiple import files. If multiple files are specified, the first
      * match for each content id will be used.
      */
-    importFilePaths: string[];
+    public importFilePaths: string[];
 
     /**
      * The translate annotations to preserve, where 'none' preserves no
@@ -79,7 +92,7 @@ export class ImportCommandConfig
      * 'normalize' preserves all annotations but normalizes them to either
      * 'yes' or 'no', and 'all' preserves all annotations without changes.
      */
-    preserveAnnotations: AnnotationsOption = "none";
+    public preserveAnnotations: AnnotationsOption = "none";
 
     /**
      * The action to take when encountering content that is marked as
@@ -87,5 +100,14 @@ export class ImportCommandConfig
      * an error to be thrown, 'log' logs a warning to the console, and
      * 'ignore' silently ignores the content.
      */
-    missingContentHandling: MissingContentOption = "error";
+    public missingContentHandling: MissingContentOption = "error";
+
+    /**
+     * The base path to use when determining the relative path of files being
+     * processed. This affects the prefixes applied to ids in content files.
+     * Specify this if you need those paths to be based on a path other than
+     * the base path inferred from the globs, or specified as the 'base'
+     * option for the Gulp 'src' method.
+     */
+    public baseFilePath?: string;
 }

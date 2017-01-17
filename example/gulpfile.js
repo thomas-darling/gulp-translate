@@ -42,7 +42,7 @@ gulp.task("localize.export", function ()
     return gulp
 
         // Get the source files.
-        .src(["./source/**/*.html", "./source/**/translate.json"])
+        .src(["./source/**/*.html", "./source/**/content.json"])
 
         // Export localizable content from the template.
         .pipe(translate(translateConfig).export(
@@ -64,7 +64,7 @@ gulp.task("localize.import", function ()
     return gulp
 
         // Get the source files.
-        .src(["./source/**/*.html", "./source/**/translate.json"])
+        .src(["./source/**/*.html", "./source/**/content.json"])
 
         // Import localized content into the template.
         .pipe(translate(translateConfig).import(

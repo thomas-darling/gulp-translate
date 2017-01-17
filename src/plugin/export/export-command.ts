@@ -6,6 +6,7 @@ import * as through from "through2";
 import {ITemplateParser} from "../../core/template-parser/template-parser";
 import {ExportFile} from "../../core/persistence/export/export-file";
 import {ContentFile} from "../../core/persistence/content/content-file";
+import {getFilePathRelativeToCwd, getFilePathRelativeToBase, getPrefixedContentId} from "../../core/utilities";
 
 import {pluginName, PluginConfig} from "../plugin-config";
 import {ExportCommandConfig} from "./export-command-config";
@@ -56,7 +57,8 @@ export class ExportCommand
         // Return the stream transform.
         return through.obj(function (file: util.File, encoding: string, callback: (err?: any, data?: any) => void)
         {
-            const relativeFilePath = `./${path.relative(process.cwd(), file.path).replace(/\\/g, "/")}`;
+            const filePathRelativeToCwd = getFilePathRelativeToCwd(file);
+            const filePathRelativeToBase = getFilePathRelativeToBase(file, config.baseFilePath);
 
             try
             {
@@ -77,7 +79,7 @@ export class ExportCommand
                 if (file.isBuffer())
                 {
                     // If the file is not HTML, assume it is a content file.
-                    if (path.extname(relativeFilePath) !== ".html")
+                    if (path.extname(filePathRelativeToBase) !== ".html")
                     {
                         // Read and parse the non-localized content file.
                         const contentFile = ContentFile.parse((file.contents as Buffer).toString(), path.extname(file.path));
@@ -89,14 +91,15 @@ export class ExportCommand
                             {
                                 const content = contentFile.contents[key];
 
-                                // If enabled, prefix the content id with the file path.
-                                if (_this._config.prefixIdsInContentFiles && !/^\.?\//.test(key))
+                                let id = key;
+
+                                // If enabled, prefix the content id with the relative file path.
+                                if (_this._config.prefixIdsInContentFiles)
                                 {
-                                    const prefix = relativeFilePath.substring(0, relativeFilePath.length - path.extname(relativeFilePath).length);
-                                    key = `${prefix}:${key}`;
+                                    id = getPrefixedContentId(id, filePathRelativeToBase);
                                 }
 
-                                exportContentFile.set(relativeFilePath, key, content);
+                                exportContentFile.set(filePathRelativeToBase, id, content);
                             }
                         }
                     }
@@ -110,7 +113,7 @@ export class ExportCommand
                         {
                             for (let content of template.contents.filter(c => c.annotation.isSuspectedOrphan))
                             {
-                                console.log(`${chalk.bgYellow.black("WARN")} The direct annotation with content '${chalk.cyan(content.content)}' in file ${chalk.magenta(relativeFilePath)} could be an orphaned annotation.`);
+                                console.log(`${chalk.bgYellow.black("WARN")} The direct annotation with content '${chalk.cyan(content.content)}' in file ${chalk.magenta(filePathRelativeToCwd)} could be an orphaned annotation.`);
                             }
                         }
 
@@ -121,7 +124,7 @@ export class ExportCommand
                             {
                                 if (content.annotation.options.export != null ? content.annotation.options.export : config.exportForId || content.annotation.options.id == null)
                                 {
-                                    exportContentFile.set(relativeFilePath, content.id, content.content, content.annotation.options.hint, content.annotation.options.context);
+                                    exportContentFile.set(filePathRelativeToBase, content.id, content.content, content.annotation.options.hint, content.annotation.options.context);
                                 }
                             }
                         }
@@ -167,7 +170,7 @@ export class ExportCommand
             }
             catch (error)
             {
-                callback(new util.PluginError(pluginName, `Error while processing file ${chalk.magenta(relativeFilePath)}: ${error.message}`));
+                callback(new util.PluginError(pluginName, `Error while processing file ${chalk.magenta(filePathRelativeToCwd)}: ${error.message}`));
                 return;
             }
 

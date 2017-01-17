@@ -35,7 +35,7 @@
     "63bdb3316": "[e:l:e:m:e:n:t w:i:t:h u:n:i:q:u:e h:i:n:t]",
     "ca822f83f": "[a:t:t:r:i:b:u:t:e w:i:t:h u:n:i:q:u:e c:o:n:t:e:n:t 2]",
     "d0baad994": "[a:t:t:r:i:b:u:t:e w:i:t:h u:n:i:q:u:e h:i:n:t]",
-    "./source/translate:content-id-1": "[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-1]",
-    "./source/translate:content-id-3": "[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-3]"
+    "./content:content-id-1": "[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-1]",
+    "./content:content-id-3": "[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-3]"
   }
 }

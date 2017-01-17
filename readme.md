@@ -23,38 +23,38 @@ You may also want to look at the plugins:
 In a traditional localization workflow, localizable content is assigned unique ids and stored in a separate file. Templates that need the content can then import it by
 referencing its id. While this approach can work in some apps, it has significant drawbacks that often make it annoying, inefficient and error prone in larger apps.
 
-This plugin can absolutely support the traditional approach, but is primarily intended to enable a more modern workflow, designed with modern Translation Management
-Systems in mind, and taking advantage of their support for concepts such as _translations memory_, which allows previous translations to be easily reused.
-This is similar to the approach promoted by the [HTML 5 spec](https://www.w3.org/International/questions/qa-translate-flag.en) and major SPA frameworks such as
-[Angular 2](https://angular.io/docs/ts/latest/cookbook/i18n.html).
+This plugin can absolutely support the traditional approach - for that you should look at the plugin option `replaceWithIds`, the export option `exportForId` and the annotation options `id` and `export`.
+However, this plugin is primarily intended to enable a more modern and developer friendly workflow, designed with modern Translation Management Systems in mind, and taking advantage of their support for
+concepts such as _translations memory_, which allows previous translations to be easily reused. This is also the approach promoted by the [HTML 5 spec](https://www.w3.org/International/questions/qa-translate-flag.en)
+and by major SPA frameworks such as [Angular 2](https://angular.io/docs/ts/latest/cookbook/i18n.html).
 
-At the core of the workflow is the idea, that when authoring templates, we write the localizable content _directly in the templates_, and then _annotate_ the
-elements and attributes such that the build process will know what content to export for translation and import during localization. The id of each exported piece of content will,
-unless overridden, then be _computed_ as a hash based on the content itself, and optionally a _hint_. A side effect of this is, that identical content will have identical
-ids, meaning that any given piece of content will only be translated once, thus ensuring consistency and reducing translation work. We'll get back to why this is a better approach
-in the section "Why not just use ids?" at the end of this readme.
+At the core of the workflow is the idea, that when authoring templates, we write the localizable content _directly in the templates_, and then _annotate_ the elements and attributes
+such that the build process will know what content to export for translation and import during localization. The id of each exported piece of content will,
+unless explicitly specified, then be _computed_ as a hash based on the content itself, and optionally a _hint_. An important side effect of this is, that identical pieces of content will have
+identical ids, meaning that any given content will only be translated once, thus ensuring consistency and reducing translation work.
+We'll get back to why this is a better approach in the section "Why not just use ids?" at the end of this readme, along with a couple of helpful tips.
 
 ## Annotating elements and attributes
 
-The way we annotate elements and attributes is strongly _inspired_ by the `translate` attribute in the [HTML 5 spec](https://www.w3.org/International/questions/qa-translate-flag.en),
-but does not fully adhere to the spec for it. This is a choice we were forced to make, as the spec simply do not handle all the real-world use cases, especially those encountered when
+The way we annotate elements and attributes is _inspired_ by the `translate` attribute in the [HTML 5 spec](https://www.w3.org/International/questions/qa-translate-flag.en),
+but does not fully adhere to that spec. This is a choice we were forced to make, as the spec simply do not handle all the real-world use cases, especially those encountered when
 building SPA's. The following is the behavior of _our_ `translate` annotations:
 
-* There is no concept of a default set of translatable attributes as in the HTML 5 spec. Instead, any attribute that should be translated must be explicitly annotated.
+* There is no concept of a default set of _translatable attributes_ as in the HTML 5 spec. Instead, any attribute that should be translated must be explicitly annotated.
   This is required in order to support the many custom elements and attributes from which modern SPA's are built.
 
 * To control translation of the content of an element, a `translate` attribute must be added.
 
   * To enable translation, the attribute value must be either the empty string, `yes` or an options string.
 
-  * To exclude content from translation, e.g. if translation is enabled for a ancestor element, the attribute value must be `no`.
+  * To exclude content from translation, e.g. if translation is enabled for an element, but an element inside of that should not be translated, the attribute value must be `no`.
     Note that it is up to the translators and their systems to respect this annotation.
 
 * To control translation of the content of an attribute, an `{attribute}.translate` attribute must be added, where `{attribute}` is the name of the target attribute.
 
   * To enable translation, the attribute value must be either the empty string, `yes` or an options string.
 
-  * To exclude content from translation, e.g. if translation is enabled for a ancestor element, the attribute value must be `no`.
+  * To exclude content from translation, e.g. if translation is enabled for an element, but an element inside of that should not be translated, the attribute value must be `no`.
     Note that it is up to the translators and their systems to respect this annotation.
 
   * As a shorthand to enable translation, if no options are required, the target attribute may just be _renamed_ to `{attribute}.translate`, where the attribute value is the
@@ -64,10 +64,11 @@ building SPA's. The following is the behavior of _our_ `translate` annotations:
 * The valid options for the `translate` and `{attribute}.translate` attributes are:
 
   * `hint`: A string that is combined with the content before computing the hash, thus making the hash different from other instances of the same content.
-    Note that this should only be used when _absolutely_ necessary. While it may be visible to translators, it should not be used to just provide helpful context.
+    Note that this should only be used when _absolutely_ necessary. While it may be visible to translators, it should _not_ be used to just provide helpful context.
 
   * `context`: A string that provides helpful context to translators.
-    This does not affect the computed hash. As context could be specified for multiple instances of the same string, the actual context will be an array of context strings.
+    This does not affect the computed hash, and should only be used to help translators better understand the context.
+    As different contexts could be specified for different instances of the same content, the exported context will actually be an array of the unique contexts found found for that content.
 
   * `whitespace`: A value indicating how whitespace should be handled when exporting content.
     The options are `trim`, `pre`, `pre-line` and `normal`.
@@ -219,7 +220,7 @@ Additionally, to support scenarios where content is needed in code, e.g. for err
 like the example below may also be processed, exactly like templates. If the app is using a module loader such as [SystemJS](https://github.com/systemjs/systemjs),
 those JSON files can then be imported directly into ES/TypeScript modules using the [json](https://github.com/systemjs/plugin-json) plugin, which allows the code
 to directly access the contents of the file as an object. To ensure the glob patterns in gulp tasks can reliably select the JSON files containing content, such files
-should always either be placed in a folder with a reserved name, e.g. `strings`, or named using a reserved name, e.g. `translate.json`.
+should always either be placed in a folder with a reserved name, e.g. `strings` or `content`, or named using a reserved name, e.g. `strings.json` or `content.json`.
 To avoid collisions between ids and hashes, it is recommended to use ids that contain at least one character that cannot appear in a hash - for example, we could use
 ids that begin with a `#`, or always contain at least one `-` or `.`. Alternatively, you should consider enabling the `prefixIdsInContentFiles` option, which
 auto-prefixes the ids with the file path before exporting and importing. This makes the ids shorter, as they only have to be unique within the file, which in turn
@@ -338,7 +339,7 @@ gulp.task("translate.export", function ()
     return gulp
 
         // Get the source files.
-        .src(["sources/**/*.html", "source/**/translate.json"])
+        .src(["sources/**/*.html", "source/**/content.json"])
 
         // Export localizable content from the template.
         .pipe(translate().export(
@@ -395,7 +396,7 @@ interface IExportCommandConfig
      * client-side, e.g. by replacing ids formatted as placeholders, such as
      * '{{*}}', during template loading, by formatting the ids as actual
      * binding expressions, such as '${translations[*]}', or by otherwise
-     * attaching behavior to the annotations.
+     * attaching behavior to the annotation attributes.
      * Default is false.
      */
     replaceWithIds?: boolean|string;
@@ -413,7 +414,17 @@ interface IExportCommandConfig
      * that it might actually be an orphaned annotation.
      * Default is true.
      */
-    logSuspectedOrphans: boolean;
+    logSuspectedOrphans?: boolean;
+
+    /**
+     * The base path to use when determining the relative path of files being
+     * processed. This affects the source paths in export files and prefixes
+     * applied to ids in content files. Specify this if you need those paths
+     * to be based on a path other than the base path inferred from the globs,
+     * or specified as the 'base' option for the Gulp 'src' method.
+     * Default is undefined.
+     */
+    baseFilePath?: string;
 }
 ```
 
@@ -431,7 +442,7 @@ gulp.task("translate.import", function ()
     return gulp
 
         // Get the source files.
-        .src(["sources/**/*.html", "source/**/translate.json"])
+        .src(["sources/**/*.html", "source/**/content.json"])
 
         // Import translated content into the template.
         .pipe(translate(pluginConfig).import(
@@ -476,6 +487,16 @@ interface IImportCommandConfig
      * Default is 'error'.
      */
     missingContentHandling?: "error"|"warn"|"ignore";
+
+    /**
+     * The base path to use when determining the relative path of files being
+     * processed. This affects the prefixes applied to ids in content files.
+     * Specify this if you need those paths to be based on a path other than
+     * the base path inferred from the globs, or specified as the 'base'
+     * option for the Gulp 'src' method.
+     * Default is undefined.
+     */
+    baseFilePath?: string;
 }
 ```
 
@@ -541,41 +562,41 @@ While this approach does work, it has significant drawbacks that make it annoyin
 * When we need a new string, we have to somehow come up with a new unique string id, preferably consistent with the thousands of existing ids.
   We then have to add it to the strings file and reference it from the template, which is less than ideal for rapid prototyping, where templates and strings are subject to change.
 
-* When we change the layout of the application over time, string will inevitably move around, and their ids may become misleading as to where the string is actually used.
+* When we change the layout of the application over time, strings will inevitably move around, and their ids may become misleading as to where the string is actually used.
   We can't easily change those ids to match the new layout, as that would undermine the whole point of having a fixed id in the first place.
 
 * When we need the same string in multiple places, keeping the translations consistent becomes complicated.
   We could reference the same string from multiple places, but what should the id of that string then be?
 
 * When the same string is referenced from multiple places, and we decide to change the text in only one of them, we might accidentally change it everywhere.
-  We could of course search for the id in the code, but can the person making the change do that?
+  We could of course search for the id in the code, but can the person making the change, who may not be a developer, do that?
 
 * When a string is no longer needed, we must remember to remove that string from the strings file.
-  This is easily forgotten, and how do we know that the string is not still used in other views?
+  This is easily forgotten, and how do we even know that the string is not still used in other templates?
 
 * It decouples the strings from the templates in which they are used, which is a problem when refactoring e.g. binding expressions, markup or class names, which may be part of the string
   that should be translated. Updating those strings are easily forgotten, which introduces bugs, and even if we do remember, we don't get any tool support for the templating syntax when editing the strings file.
 
 * It complicates branching and testing, as string ids may be changed or removed on some branches but not on others.
-  This seriously complicates translation management and multilingual testing, as different branches need different versions of the translations.
+  This complicates translation management and multilingual testing, as different branches need different versions of the translations.
 
-The approach used with this plugin solves those problems, with only a few potential downsides:
+The approach used with this plugin eases this pain considerably, leaving only a few issues to be considered:
 
 * When a string is changed, it will appear to the translators as if the previous string was removed and a new string was added.
-  While this might introduce some slight translation overhead, e.g. when fixing spelling mistakes in the templates, such overhead really should be minimal, especially given that any reasonable
-  translation service will have what is known as _translation memory_, meaning that it remembers and suggests previous translations for similar text.
+  While this might introduce some slight translation overhead, e.g. when fixing spelling mistakes in the templates, such overhead really should be minimal, especially given that any modern
+  translation service will have what is known as _translation memory_, meaning that it remembers and suggests previous translations when it encounters similar text.
 
-* When the same string needs different translations, we have to either add a _hint_ to one of them, or to _scope_ the translation to a file or folder.
-  This might seem like a downside, but on the other hand, it also guarantees consistency in translation - and in general, maintaining consistency is the bigger problem.
-  While not recommended, we could also, when integrating with a translation system, combine the source paths with the hashes, thus ensuring a unique translation for each file.
+* When two occurences of the same string needs different translations, we have to either add a _hint_ to one of them, or to _scope_ the translation to a file or folder.
+  This might seem like a downside, but on the other hand, it also helps guarantee consistency in translation, and in reality, this will rarely be an issue.
+  While not generally recommended, we could also, when integrating with a translation system, combine the source paths with the hashes, thus ensuring a unique translation within each file.
 
-* When a large piece of content is reused in multiple places, we generally have to write all that content in each place.
-  Again, this might seem like a downside, but on the other hand, it could also be argued that such large pieces of content should probably live in a CMS system, and therefore don't
-  belong in the template in the first place. There's a difference between content needed to construct the interface of the app itself, and the actual _content_ being displayed to users.
-  This plugin is only intended to handle the process of localizing the app itself, not things like articles, descriptions, legal text, etc.
+* When a large piece of content is reused in multiple places, you might think that we have to repeat all of that content in each place.
+  Generally, this is true, but on the other hand, it could also be argued that such large pieces of content should probably live in a CMS system, and therefore don't belong in the templates in the first place.
+  There's a difference between content needed to construct the interface of the app itself, and the actual _content_ being displayed to users.
+  This plugin is primarily intended to handle the process of localizing the app itself, not things like articles, product descriptions, legal text, etc.
 
-  That being said, we actually _do_ have a good way of handling this - just specify the content in either a JSON content file, or in a template, annotated with a `translate` attribute
-  containing the options `id` and `export: true`. Then, reference it by specifying the same `id` in the translate annotation for the elements or attributes in which it should be injected.
-  If you have a CMS system, you could also set up a task to copy the relevant content from there into the import file, before running the import task.
+  That being said, we actually _do_ have a really good way of handling such content - just specify the content once in either a JSON content file, or in a template, annotated with a `translate` attribute
+  containing the options `id` and `export: true`. Then, reference it elsewhere by specifying the same `id` in the translate annotation for the elements or attributes in which it should be injected.
+  If you have a CMS system, you could even set up a task to copy the relevant content from there into the import file, before running the import task.
 
 Enjoy, and please report any issues in the issue tracker :-)

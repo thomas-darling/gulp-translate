@@ -8,6 +8,7 @@ import {ITemplateLanguage} from "../../core/template-language/template-language"
 import {TemplateParserConfig} from "../../core/template-parser/template-parser-config";
 import {ExportFile} from "../../core/persistence/export/export-file";
 import {ImportFile} from "../../core/persistence/import/import-file";
+import {getFilePathRelativeToCwd} from "../../core/utilities";
 
 import {IContentTranslator} from "../../core/content-translator/content-translator";
 import {NullContentTranslator} from "../../core/content-translator/implementations/null/null-content-translator";
@@ -49,7 +50,7 @@ export class TranslateCommand
         // Return the stream transform.
         return through.obj(function (file: util.File, encoding: string, callback: (err?: any, data?: any) => void)
         {
-            let relativeFilePath = `./${path.relative(process.cwd(), file.path).replace(/\\/g, "/")}`;
+            let filePathRelativeToCwd = getFilePathRelativeToCwd(file);
 
             try
             {
@@ -91,7 +92,7 @@ export class TranslateCommand
             }
             catch (error)
             {
-                callback(new util.PluginError(pluginName, `Error while processing file ${chalk.magenta(relativeFilePath)}: ${error.message}`));
+                callback(new util.PluginError(pluginName, `Error while processing file ${chalk.magenta(filePathRelativeToCwd)}: ${error.message}`));
                 return;
             }
 

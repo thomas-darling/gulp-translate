@@ -45,12 +45,12 @@ export class TranslateCommandConfig
      * The content translator to use, or undefined to use
      * no content translator.
      */
-    translator?: "pseudo"|IContentTranslator;
+    public translator?: "pseudo"|IContentTranslator;
 
     /**
      * The extension of the destination file name, used to
      * determine its format, or undefined to use the same
      * format as the source file.
      */
-    fileNameExtension?: string;
+    public fileNameExtension?: string;
 }

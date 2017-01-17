@@ -2,64 +2,64 @@
   "7710d37e0": {
     "content": "element with non-unique content",
     "sources": [
-      "./source/template-1.html",
-      "./source/folder/template-2.html"
+      "./template-1.html",
+      "./folder/template-2.html"
     ]
   },
   "d5d249008": {
     "content": "element with unique content 1",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "552835ef8": {
     "content": "element with non-unique hint",
     "hint": "element hint",
     "sources": [
-      "./source/template-1.html",
-      "./source/folder/template-2.html"
+      "./template-1.html",
+      "./folder/template-2.html"
     ]
   },
   "646909ba4": {
     "content": "element with unique hint",
     "hint": "element hint 1",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "bbc02c8e8": {
     "content": "attribute with direct annotation",
     "sources": [
-      "./source/template-1.html",
-      "./source/folder/template-2.html"
+      "./template-1.html",
+      "./folder/template-2.html"
     ]
   },
   "5e395a709": {
     "content": "attribute with non-unique content",
     "sources": [
-      "./source/template-1.html",
-      "./source/folder/template-2.html"
+      "./template-1.html",
+      "./folder/template-2.html"
     ]
   },
   "40af65034": {
     "content": "attribute with unique content 1",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "70e36712c": {
     "content": "attribute with non-unique hint",
     "hint": "attribute hint",
     "sources": [
-      "./source/template-1.html",
-      "./source/folder/template-2.html"
+      "./template-1.html",
+      "./folder/template-2.html"
     ]
   },
   "73bc73f94": {
     "content": "attribute with unique hint",
     "hint": "attribute hint 1",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "21fff5ace": {
@@ -69,173 +69,173 @@
       "context 2"
     ],
     "sources": [
-      "./source/template-1.html",
-      "./source/folder/template-2.html"
+      "./template-1.html",
+      "./folder/template-2.html"
     ]
   },
   "content-id-2": {
     "content": "element with id and export enabled",
     "sources": [
-      "./source/template-1.html",
-      "./source/folder/template-2.html"
+      "./template-1.html",
+      "./folder/template-2.html"
     ]
   },
   "ee9455a70": {
     "content": "element with special characters <span>\" © < ></span>",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "36914583e": {
     "content": "element with html-like content in binding expression <span>before ${</span></div> || {foo:{bar:{}}} || </span></div> || \"\\}\" || \\\\\\\"'`</span></div>\" || '\\\\\\'\"`</span></div>' || `\\\\\\`\"'</span></div>` || \"${nested}\" } after</span>",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "b31ccf052": {
     "content": "element with child content excluded from translation <span translate=\"no\">this should not be translated, <span translate=\"yes\">but this should</span></span>",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "1aa06a2d8": {
     "content": "this should be translated, <span translate=\"no\">but this should not</span>",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "10c31394c": {
     "content": "this should be translated",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "7a1fe44c6": {
     "content": "element with default whitespace handling",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "f219daffd": {
     "content": "\r\n        attribute  with  default\r\n        whitespace  handling\r\n        ",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "b15062118": {
     "content": "button should default to normal whitespace handling",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "0756a1ff7": {
     "content": "  textarea  should  default  to  pre  whitespace  handling  ",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "1ecfe9c0e": {
     "content": "\r\n            <option>  select  should  default  to  pre  whitespace  handling  </option>\r\n        ",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "27802301c": {
     "content": "  option  should  default  to  pre  whitespace  handling  ",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "4de2d32ff": {
     "content": "  pre  should  default  to  pre  whitespace  handling  ",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "97528a809": {
     "content": "element with normal whitespace handling",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "54c043b72": {
     "content": "attribute with trim whitespace handling",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "4638a47b3": {
     "content": " element with pre-trim whitespace handling ",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "e1a282602": {
     "content": " attribute with normal whitespace handling ",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "b9f25b538": {
     "content": "\r\n        element  with  pre\r\n        whitespace  handling\r\n    ",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "ec4f21836": {
     "content": "\r\n        attribute  with  pre\r\n        whitespace  handling\r\n        ",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "7e003d069": {
     "content": "\nelement with pre-line\nwhitespace handling\n",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "e4ea9d03e": {
     "content": "\nattribute with pre-line\nwhitespace handling\n",
     "sources": [
-      "./source/template-1.html"
+      "./template-1.html"
     ]
   },
   "e854c45ee": {
     "content": "element with unique content 2",
     "sources": [
-      "./source/folder/template-2.html"
+      "./folder/template-2.html"
     ]
   },
   "63bdb3316": {
     "content": "element with unique hint",
     "hint": "element hint 2",
     "sources": [
-      "./source/folder/template-2.html"
+      "./folder/template-2.html"
     ]
   },
   "ca822f83f": {
     "content": "attribute with unique content 2",
     "sources": [
-      "./source/folder/template-2.html"
+      "./folder/template-2.html"
     ]
   },
   "d0baad994": {
     "content": "attribute with unique hint",
     "hint": "attribute hint 2",
     "sources": [
-      "./source/folder/template-2.html"
+      "./folder/template-2.html"
     ]
   },
-  "./source/translate:content-id-1": {
+  "./content:content-id-1": {
     "content": "json content for content-id-1",
     "sources": [
-      "./source/translate.json"
+      "./content.json"
     ]
   },
-  "./source/translate:content-id-3": {
+  "./content:content-id-3": {
     "content": "json content for content-id-3",
     "sources": [
-      "./source/translate.json"
+      "./content.json"
     ]
   }
 }

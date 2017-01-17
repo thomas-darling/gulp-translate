@@ -61,7 +61,17 @@ export interface IExportCommandConfig
      * that it might actually be an orphaned annotation.
      * Default is true.
      */
-    logSuspectedOrphans: boolean;
+    logSuspectedOrphans?: boolean;
+
+    /**
+     * The base path to use when determining the relative path of files being
+     * processed. This affects the source paths in export files and prefixes
+     * applied to ids in content files. Specify this if you need those paths
+     * to be based on a path other than the base path inferred from the globs,
+     * or specified as the 'base' option for the Gulp 'src' method.
+     * Default is undefined.
+     */
+    baseFilePath?: string;
 }
 
 /**
@@ -103,13 +113,16 @@ export class ExportCommandConfig
 
         if (config.logSuspectedOrphans !== undefined)
             this.logSuspectedOrphans = config.logSuspectedOrphans;
+
+        if (config.baseFilePath !== undefined)
+            this.baseFilePath = config.baseFilePath;
     }
 
     /**
      * The absolute path for the export file to which the contents should be
      * saved, or undefined to process the file without exporting its contents.
      */
-    public exportFilePath: string|undefined;
+    public exportFilePath?: string;
 
     /**
      * True to update to an existing export file, false to create a new file.
@@ -154,4 +167,13 @@ export class ExportCommandConfig
      * that it might actually be an orphaned annotation.
      */
     public logSuspectedOrphans: boolean = true;
+
+    /**
+     * The base path to use when determining the relative path of files being
+     * processed. This affects the source paths in export files and prefixes
+     * applied to ids in content files. Specify this if you need those paths
+     * to be based on a path other than the base path inferred from the globs,
+     * or specified as the 'base' option for the Gulp 'src' method.
+     */
+    public baseFilePath?: string;
 }
