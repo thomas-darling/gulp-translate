@@ -73,7 +73,7 @@
       "./folder/template-2.html"
     ]
   },
-  "content-id-2": {
+  "content-id-1": {
     "content": "element with id and export enabled",
     "sources": [
       "./template-1.html",
@@ -226,8 +226,8 @@
       "./folder/template-2.html"
     ]
   },
-  "./content:content-id-1": {
-    "content": "json content for content-id-1",
+  "./content:content-id-2": {
+    "content": "json content for content-id-2",
     "sources": [
       "./content.json"
     ]

@@ -8,6 +8,19 @@ import {AnnotationsOption} from "../../core/template-parser/template-parser";
 export type MissingContentOption = "error"|"warn"|"ignore";
 
 /**
+ * Represents the function to call when encountering content that is marked
+ * as localizable but not found in the import file. This may return the
+ * content, if found, or undefined if not found. Alternatively it may return
+ * a promise for the content, which may be rejected if not found.
+ * Note that if rejected with an instance of Error, it will be re-thrown.
+ * @param id The id for which content should be returned.
+ * @param filePath The file path, relative to the base path, for the file.
+ * @returns The content, a promise for the content, or undefined.
+ */
+export type MissingContentHandler =
+    (id: string, filePath: string) => string|Promise<string>|undefined;
+
+/**
  * Represents the command configuration.
  */
 export interface IImportCommandConfig
@@ -30,10 +43,20 @@ export interface IImportCommandConfig
     preserveAnnotations?: AnnotationsOption;
 
     /**
+     * The function to call when encountering content that is marked as
+     * localizable but not found in the import file. This allows content
+     * to be imported from other sources, such as e.g. a CMS system.
+     * If the missing content is still not found, normal missing content
+     * handling will be applied.
+     * Default is undefined.
+     */
+    missingContentHandler?: MissingContentHandler;
+
+    /**
      * The action to take when encountering content that is marked as
-     * localizable but not found in the import file, where 'error' causes
-     * an error to be thrown, 'log' logs a warnign to the console, and
-     * 'ignore' silently ignores the content.
+     * localizable but not found in the import file or by the missing
+     * content handler, where 'error' causes an error to be thrown, 'log'
+     * logs a warning to the console, and 'ignore' ignores the content.
      * Default is 'error'.
      */
     missingContentHandling?: MissingContentOption;
@@ -71,6 +94,9 @@ export class ImportCommandConfig
         if (config.preserveAnnotations != undefined)
             this.preserveAnnotations = config.preserveAnnotations;
 
+        if (config.missingContentHandler != undefined)
+            this.missingContentHandler = config.missingContentHandler;
+
         if (config.missingContentHandling != undefined)
             this.missingContentHandling = config.missingContentHandling;
 
@@ -95,10 +121,19 @@ export class ImportCommandConfig
     public preserveAnnotations: AnnotationsOption = "none";
 
     /**
+     * The function to call when encountering content that is marked as
+     * localizable but not found in the import file. This allows content
+     * to be imported from other sources, such as e.g. a CMS system.
+     * If the missing content is still not found, normal missing content
+     * handling will be applied.
+     */
+    public missingContentHandler?: MissingContentHandler;
+
+    /**
      * The action to take when encountering content that is marked as
-     * localizable but not found in the import file, where 'error' causes
-     * an error to be thrown, 'log' logs a warning to the console, and
-     * 'ignore' silently ignores the content.
+     * localizable but not found in the import file or by the missing
+     * content handler, where 'error' causes an error to be thrown, 'log'
+     * logs a warning to the console, and 'ignore' ignores the content.
      */
     public missingContentHandling: MissingContentOption = "error";
 

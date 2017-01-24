@@ -2,9 +2,9 @@ import {WhitespaceOption} from "../content-whitespace/content-whitespace";
 
 /**
  * Represents how annotations should be preserved, where 'none' preserves no
- * annotations, 'standard' preserves HTML compliant annotations, 'normalize' preserves
- * all annotations but normalizes them to either 'yes' or 'no', and 'all' preserves
- * all annotations without changes.
+ * annotations, 'standard' preserves HTML compliant annotations, 'normalize'
+ * preserves all annotations but normalizes them to either 'yes' or 'no', and
+ * 'all' preserves all annotations without changes.
  */
 export type AnnotationsOption = "none"|"standard"|"normalize"|"all";
 

@@ -25,9 +25,11 @@
 
         <div translate="context: context 2">element with context</div>
 
-        <div translate="id: ./content:content-id-1">element with id and export disabled by default</div>
-        <div translate="id: content-id-2; export: true">element with id and export enabled</div>
+        <div translate="id: content-id-1; export: true">element with id and export enabled</div>
+        <div translate="id: ./content:content-id-2">element with id and export disabled by default</div>
         <div translate="id: ./content:content-id-3; export: false">element with id and export disabled</div>
+
+        <div translate="id: content-id-4">element with id not found in import file</div>
 
     </div>
 

@@ -10,7 +10,7 @@
     "70e36712c": "attribute with non-unique hint",
     "73bc73f94": "attribute with unique hint",
     "21fff5ace": "element with context",
-    "content-id-2": "element with id and export enabled",
+    "content-id-1": "element with id and export enabled",
     "ee9455a70": "element with special characters <span>\" © < ></span>",
     "36914583e": "element with html-like content in binding expression <span>before ${</span></div> || {foo:{bar:{}}} || </span></div> || \"\\}\" || \\\\\\\"'`</span></div>\" || '\\\\\\'\"`</span></div>' || `\\\\\\`\"'</span></div>` || \"${nested}\" } after</span>",
     "b31ccf052": "element with child content excluded from translation <span translate=\"no\">this should not be translated, <span translate=\"yes\">but this should</span></span>",
@@ -35,7 +35,7 @@
     "63bdb3316": "element with unique hint",
     "ca822f83f": "attribute with unique content 2",
     "d0baad994": "attribute with unique hint",
-    "./content:content-id-1": "json content for content-id-1",
+    "./content:content-id-2": "json content for content-id-2",
     "./content:content-id-3": "json content for content-id-3"
   }
 }

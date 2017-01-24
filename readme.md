@@ -480,10 +480,20 @@ interface IImportCommandConfig
     preserveAnnotations?: "none"|"standard"|"normalize"|"all";
 
     /**
+     * The function to call when encountering content that is marked as
+     * localizable but not found in the import file. This allows content
+     * to be imported from other sources, such as e.g. a CMS system.
+     * If the missing content is still not found, normal missing content
+     * handling will be applied.
+     * Default is undefined.
+     */
+    missingContentHandler?: MissingContentHandler;
+
+    /**
      * The action to take when encountering content that is marked as
-     * localizable but not found in the import file, where 'error' causes
-     * an error to be thrown, 'log' logs a warning to the console, and
-     * 'ignore' silently ignores the content.
+     * localizable but not found in the import file or by the missing
+     * content handler, where 'error' causes an error to be thrown, 'log'
+     * logs a warning to the console, and 'ignore' ignores the content.
      * Default is 'error'.
      */
     missingContentHandling?: "error"|"warn"|"ignore";
@@ -498,6 +508,19 @@ interface IImportCommandConfig
      */
     baseFilePath?: string;
 }
+
+/**
+ * Represents the function to call when encountering content that is marked
+ * as localizable but not found in the import file. This may return the
+ * content, if found, or undefined if not found. Alternatively it may return
+ * a promise for the content, which may be rejected if not found.
+ * Note that if rejected with an instance of Error, it will be re-thrown.
+ * @param id The id for which content should be returned.
+ * @param filePath The file path, relative to the base path, for the file.
+ * @returns The content, a promise for the content, or undefined.
+ */
+type MissingContentHandler =
+    (id: string, filePath: string) => string|Promise<string>|undefined;
 ```
 
 ## The `translate` command
@@ -597,6 +620,7 @@ The approach used with this plugin eases this pain considerably, leaving only a 
 
   That being said, we actually _do_ have a really good way of handling such content - just specify the content once in either a JSON content file, or in a template, annotated with a `translate` attribute
   containing the options `id` and `export: true`. Then, reference it elsewhere by specifying the same `id` in the translate annotation for the elements or attributes in which it should be injected.
-  If you have a CMS system, you could even set up a task to copy the relevant content from there into the import file, before running the import task.
+  If you have a CMS system, you could even set up a task to copy the relevant content from there into the import file, before running the import task, or you can use the `missingContentHandler` import option
+  to specify a custom function that locates the content.
 
 Enjoy, and please report any issues in the issue tracker :-)

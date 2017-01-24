@@ -70,7 +70,8 @@ gulp.task("localize.import", function ()
         .pipe(translate(translateConfig).import(
         {
             preserveAnnotations: "none",
-            importFilePath: "./translation/import/translation.pseudo.json"
+            importFilePath: "./translation/import/translation.pseudo.json",
+            missingContentHandler: function (id, filePath) { return "external content for " + id }
             // See 'readme.md' for more options.
         }))
 

@@ -43,7 +43,7 @@ export class ImportCommand
         const _this = this;
 
         // Return the stream transform.
-        return through.obj(function (file: util.File, encoding: string, callback: (err?: any, data?: any) => void)
+        return through.obj(async function (file: util.File, encoding: string, callback: (err?: any, data?: any) => void)
         {
             const filePathRelativeToCwd = getFilePathRelativeToCwd(file);
             const filePathRelativeToBase = getFilePathRelativeToBase(file, config.baseFilePath);
@@ -83,7 +83,7 @@ export class ImportCommand
                             }
 
                             // Find the first matching content instance.
-                            let localizedContent = _this.getImportContent(config, importContentFiles, filePathRelativeToBase, filePathRelativeToCwd, id);
+                            let localizedContent = await _this.getImportContent(config, importContentFiles, filePathRelativeToBase, filePathRelativeToCwd, id);
 
                             // Replace the content, if found.
                             if (localizedContent != null)
@@ -115,7 +115,7 @@ export class ImportCommand
                         for (let content of template.contents)
                         {
                             // Find the first matching content instance.
-                            let localizedContent = _this.getImportContent(config, importContentFiles, filePathRelativeToBase, filePathRelativeToCwd, content.id);
+                            let localizedContent = await _this.getImportContent(config, importContentFiles, filePathRelativeToBase, filePathRelativeToCwd, content.id);
 
                             // Replace the content, if found.
                             if (localizedContent != null)
@@ -192,7 +192,7 @@ export class ImportCommand
      * @param id The id for which content should be returned.
      * @returns The matching content, or undefined if no content is found and missing content is allowed.
      */
-    private getImportContent(config: ImportCommandConfig, importContentFiles: ImportFile[], filePathRelativeToBase: string, filePathRelativeToCwd: string, id: string): string|undefined
+    private async getImportContent(config: ImportCommandConfig, importContentFiles: ImportFile[], filePathRelativeToBase: string, filePathRelativeToCwd: string, id: string): Promise<string>
     {
         // Find the first matching content instance.
 
@@ -208,16 +208,44 @@ export class ImportCommand
             }
         }
 
-        // Handle missing content.
+        // If not found in the import file, call the missing content handler, if specified.
+
+        if (localizedContent == null && config.missingContentHandler != null)
+        {
+            let missingContentHandlerResult = config.missingContentHandler(id, filePathRelativeToBase);
+
+            if (missingContentHandlerResult instanceof Promise)
+            {
+                try
+                {
+                    localizedContent = await missingContentHandlerResult
+                }
+                catch (reason)
+                {
+                    // If the reason for the rejection is an error, we assume something actually went wrong.
+                    if (reason instanceof Error)
+                    {
+                        throw reason;
+                    }
+                }
+            }
+            else
+            {
+                localizedContent = missingContentHandlerResult;
+            }
+        }
+
+        // If still not found, handle the content as missing.
+
         if (localizedContent == null)
         {
             if (config.missingContentHandling === "warn")
             {
-                console.log(`${chalk.bgYellow.black("WARN")} The content for id '${chalk.cyan(id)}' in file '${chalk.magenta(filePathRelativeToCwd)}' was not found in the import file.`);
+                console.log(`${chalk.bgYellow.black("WARN")} The content for id '${chalk.cyan(id)}' in file '${chalk.magenta(filePathRelativeToCwd)}' was not found in the import file or by the missing content handler.`);
             }
             else if (config.missingContentHandling === "error")
             {
-                throw new Error(`The content for id '${chalk.cyan(id)}' in file '${chalk.magenta(filePathRelativeToCwd)}' was not found in the import file.`);
+                throw new Error(`The content for id '${chalk.cyan(id)}' in file '${chalk.magenta(filePathRelativeToCwd)}' was not found in the import file or by the missing content handler.`);
             }
         }
 
