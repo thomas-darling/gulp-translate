@@ -482,7 +482,8 @@ interface IImportCommandConfig
      * localizable but not found in the import file. This allows content
      * to be imported from other sources, such as e.g. a CMS system.
      * If the missing content is still not found, normal missing content
-     * handling will be applied.
+     * handling will be applied, unless the content is resolved to null,
+     * in which case it will be ignored.
      * Default is undefined.
      */
     missingContentHandler?: MissingContentHandler;
@@ -515,7 +516,11 @@ interface IImportCommandConfig
  * Note that if rejected with an instance of Error, it will be re-thrown.
  * @param id The id for which content should be returned.
  * @param filePath The file path, relative to the base path, for the file.
- * @returns The content, a promise for the content, or undefined.
+ * @returns The content, a promise for the content, or undefined. Note that
+ * if the content is resolved to null, it will be ignored, and the missing
+ * content handling will not be applied. This is useful for partial imports,
+ * where you want to selectively suppress warnings or errors for content that
+ * is known to be missing.
  */
 type MissingContentHandler =
     (id: string, filePath: string) => string|Promise<string>|undefined;

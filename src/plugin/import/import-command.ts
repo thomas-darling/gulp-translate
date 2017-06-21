@@ -184,15 +184,15 @@ export class ImportCommand
     }
 
     /**
-     * Gets the first matching content in the import files.
+     * Gets the first matching content in the import files, or null if the content should be ignored.
      * @param config The command config.
      * @param importContentFiles The import file instances in which to look for the content.
      * @param filePathRelativeToBase The file path, relative to the base path, for the file being processed.
      * @param filePathRelativeToCwd The file path, relative to the current working directory, for the file being processed.
      * @param id The id for which content should be returned.
-     * @returns The matching content, or undefined if no content is found and missing content is allowed.
+     * @returns The matching content, or null if no content is found and missing content is allowed.
      */
-    private async getImportContent(config: ImportCommandConfig, importContentFiles: ImportFile[], filePathRelativeToBase: string, filePathRelativeToCwd: string, id: string): Promise<string>
+    private async getImportContent(config: ImportCommandConfig, importContentFiles: ImportFile[], filePathRelativeToBase: string, filePathRelativeToCwd: string, id: string): Promise<string|null>
     {
         // Find the first matching content instance.
 
@@ -202,7 +202,7 @@ export class ImportCommand
         {
             localizedContent = importContentFile.get(filePathRelativeToBase, id);
 
-            if (localizedContent != null)
+            if (localizedContent !== undefined)
             {
                 break;
             }
@@ -210,7 +210,7 @@ export class ImportCommand
 
         // If not found in the import file, call the missing content handler, if specified.
 
-        if (localizedContent == null && config.missingContentHandler != null)
+        if (localizedContent === undefined && config.missingContentHandler != null)
         {
             let missingContentHandlerResult = config.missingContentHandler(id, filePathRelativeToBase);
 
@@ -237,7 +237,7 @@ export class ImportCommand
 
         // If still not found, handle the content as missing.
 
-        if (localizedContent == null)
+        if (localizedContent === undefined)
         {
             if (config.missingContentHandling === "warn")
             {
@@ -247,6 +247,8 @@ export class ImportCommand
             {
                 throw new Error(`The content for id '${chalk.cyan(id)}' in file '${chalk.magenta(filePathRelativeToCwd)}' was not found in the import file or by the missing content handler.`);
             }
+
+            localizedContent = null;
         }
 
         return localizedContent;
