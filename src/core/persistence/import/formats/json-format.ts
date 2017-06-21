@@ -26,26 +26,36 @@ export class JsonImportFileFormat implements IImportFileFormat
         const importFile = new ImportFile();
         const data = JSON.parse(text);
 
-        for (let path of Object.keys(data))
+        for (let key of Object.keys(data))
         {
-            if (!/^\.\//.test(path))
+            // Does this key represent a content ID?
+            if (typeof data[key] === "string")
             {
-                throw new Error(`Invalid scope path '${chalk.magenta(path)}'. Expected a string that begins with '${chalk.magenta("./")}'.`);
+                importFile.set("./", key, data[key]);
             }
 
-            const contents = data[path];
-
-            for (let id of Object.keys(contents))
+            // Otherwise it must represent a scope path.
+            else
             {
-                const content = contents[id];
-
-                if (typeof content !== "string")
+                if (!/^\.\//.test(key))
                 {
-                    throw new Error(`Invalid content for id '${chalk.cyan(id)}'. Expected a string.`);
+                    throw new Error(`Invalid scope path '${chalk.magenta(key)}'. Expected a string that begins with '${chalk.magenta("./")}'.`);
+                }
+
+                const contents = data[key];
+
+                for (let id of Object.keys(contents))
+                {
+                    const content = contents[id];
+
+                    if (typeof content !== "string")
+                    {
+                        throw new Error(`Invalid content for id '${chalk.cyan(id)}'. Expected a string.`);
+                    }
+
+                    importFile.set(key, id, content);
                 }
             }
-
-            importFile.contents = data;
         }
 
         return importFile;

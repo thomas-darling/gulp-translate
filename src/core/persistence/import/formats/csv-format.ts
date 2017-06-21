@@ -54,7 +54,7 @@ export class CsvImportFileFormat implements IImportFileFormat
                 throw new Error(`Invalid data on row ${i + 1}.`);
             }
 
-            importFile.set(row.path, row.id, row.content);
+            importFile.set(row.path || "./", row.id, row.content);
         }
 
         return importFile;

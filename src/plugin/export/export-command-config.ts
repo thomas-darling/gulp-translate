@@ -43,7 +43,7 @@ export interface IExportCommandConfig
      * client-side, e.g. by replacing ids formatted as placeholders, such as
      * '{{*}}', during template loading, by formatting the ids as actual
      * binding expressions, such as '${translations[*]}', or by otherwise
-     * attaching behavior to the annotations.
+     * attaching behaviour to the annotations.
      * Default is false.
      */
     replaceWithIds?: boolean|string;
@@ -151,7 +151,7 @@ export class ExportCommandConfig
      * client-side, e.g. by replacing ids formatted as placeholders, such as
      * '{{*}}', during template loading, by formatting the ids as actual
      * binding expressions, such as '${translations[*]}', or by otherwise
-     * attaching behavior to the annotations.
+     * attaching behaviour to the annotations.
      */
     public replaceWithIds: boolean|string = false;
 

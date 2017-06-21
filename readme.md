@@ -38,7 +38,7 @@ We'll get back to why this is a better approach in the section "Why not just use
 
 The way we annotate elements and attributes is _inspired_ by the `translate` attribute in the [HTML 5 spec](https://www.w3.org/International/questions/qa-translate-flag.en),
 but does not fully adhere to that spec. This is a choice we were forced to make, as the spec simply do not handle all the real-world use cases, especially those encountered when
-building SPA's. The following is the behavior of _our_ `translate` annotations:
+building SPA's. The following is the behaviour of _our_ `translate` annotations:
 
 * There is no concept of a default set of _translatable attributes_ as in the HTML 5 spec. Instead, any attribute that should be translated must be explicitly annotated.
   This is required in order to support the many custom elements and attributes from which modern SPA's are built.
@@ -186,14 +186,12 @@ Note how translations can, if needed, be overridden within specific file or fold
 
 ```json
 {
-  "./": {
-    "7a26db32d": "Hello World",
-    "app.hello": "Hello World",
-    "a39a2f38f": "Hello Different World",
-    "b72648455": "Binding expressions work too: ${\"</div>\"}",
-    "a0f1b132b": "  Whitespace  can  be  preserved  ",
-    "4c2be212d": "Should be translated <div translate=\"no\"> Should not be translated <div translate=\"yes\"> Should be translated </div> </div>",
-  },
+  "7a26db32d": "Hello World",
+  "app.hello": "Hello World",
+  "a39a2f38f": "Hello Different World",
+  "b72648455": "Binding expressions work too: ${\"</div>\"}",
+  "a0f1b132b": "  Whitespace  can  be  preserved  ",
+  "4c2be212d": "Should be translated <div translate=\"no\"> Should not be translated <div translate=\"yes\"> Should be translated </div> </div>",
   "./foo": {
     "7a26db32d": "Hello World of Foo"
   }
@@ -222,14 +220,14 @@ those JSON files can then be imported directly into ES/TypeScript modules using 
 to directly access the contents of the file as an object. To ensure the glob patterns in gulp tasks can reliably select the JSON files containing content, such files
 should always either be placed in a folder with a reserved name, e.g. `strings` or `content`, or named using a reserved name, e.g. `strings.json` or `content.json`.
 To avoid collisions between ids and hashes, it is recommended to use ids that contain at least one character that cannot appear in a hash - for example, we could use
-ids that begin with a `#`, or always contain at least one `-` or `.`. Alternatively, you should consider enabling the `prefixIdsInContentFiles` option, which
+ids that begin with a `#`, or always contain at least one `-` or `.`. Alternatively, you should strongly consider enabling the `prefixIdsInContentFiles` option, which
 auto-prefixes the ids with the file path before exporting and importing. This makes the ids shorter, as they only have to be unique within the file, which in turn
 makes it easier to reference them in code.
 
 ```json
 {
-  "app.foo": "Hello Foo",
-  "app.bar": "Hello Bar"
+  "foo": "Hello Foo",
+  "bar": "Hello Bar"
 }
 ```
 
@@ -396,7 +394,7 @@ interface IExportCommandConfig
      * client-side, e.g. by replacing ids formatted as placeholders, such as
      * '{{*}}', during template loading, by formatting the ids as actual
      * binding expressions, such as '${translations[*]}', or by otherwise
-     * attaching behavior to the annotation attributes.
+     * attaching behaviour to the annotation attributes.
      * Default is false.
      */
     replaceWithIds?: boolean|string;
