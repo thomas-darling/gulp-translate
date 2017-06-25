@@ -48,7 +48,7 @@ export class ExportCommand
             }
             catch (error)
             {
-                throw new util.PluginError(pluginName, `Error while loading file ${chalk.magenta(config.exportFilePath)}: ${error.message}`);
+                throw new util.PluginError(pluginName, `Error while loading file ${chalk.magenta(config.exportFilePath)}:\n${error.message}`);
             }
         }
 
@@ -170,7 +170,7 @@ export class ExportCommand
             }
             catch (error)
             {
-                callback(new util.PluginError(pluginName, `Error while processing file ${chalk.magenta(filePathRelativeToCwd)}: ${error.message}`));
+                callback(new util.PluginError(pluginName, `Error while processing file ${chalk.magenta(filePathRelativeToCwd)}:\n${error.message}`));
                 return;
             }
 

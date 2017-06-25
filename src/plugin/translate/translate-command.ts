@@ -92,7 +92,7 @@ export class TranslateCommand
             }
             catch (error)
             {
-                callback(new util.PluginError(pluginName, `Error while processing file ${chalk.magenta(filePathRelativeToCwd)}: ${error.message}`));
+                callback(new util.PluginError(pluginName, `Error while processing file ${chalk.magenta(filePathRelativeToCwd)}:\n${error.message}`));
                 return;
             }
 

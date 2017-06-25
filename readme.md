@@ -1,6 +1,10 @@
 ﻿gulp-translate
 ===============
 
+[![Version](https://img.shields.io/npm/v/gulp-translate.svg)](https://www.npmjs.org/package/gulp-translate)
+[![Downloads](https://img.shields.io/npm/dm/gulp-translate.svg)](https://www.npmjs.com/package/gulp-translate)
+[![Try on RunKit](https://badge.runkitcdn.com/gulp-translate.svg)](https://runkit.com/npm/gulp-translate)
+
 Gulp plugin that extracts localizable content from HTML templates into a JSON file that can be sent to translators.
 Once translated, the content can then be injected back into the templates as part of a localized build process, or just served to the client.
 
@@ -13,10 +17,14 @@ use of case-sensitive attribute names for directives such as `ngFor`. This is no
 
 You may also want to look at the plugins:
 
-* [gulp-locale-filter](https://www.npmjs.com/package/gulp-locale-filter) for filtering files based on locale or language codes in the file path.
+* [gulp-tree-filter](https://www.npmjs.com/package/gulp-tree-filter) for filtering files based using include and exclude globs defined in config files located within the folder tree.
+Use this to e.g. prevent localizable content from being extracted from unfinished features.
 
-* [gulp-replace](https://www.npmjs.com/package/gulp-replace) for replacing text content in files, for example by replacing a placeholder like `{{locale}}` in templates
-  and CSS files with the actual target locale code.
+* [gulp-locale-filter](https://www.npmjs.com/package/gulp-locale-filter) for filtering files based on locale or language codes in the file path.
+Use this to e.g. include only the locale config files that are relevant for the target locale when creating a localized build.
+
+* [gulp-replace](https://www.npmjs.com/package/gulp-replace) for replacing text content in files.
+Use this to e.g. replace placeholder such as `{{locale}}` in templates and CSS files with the actual target locale code when creating a localized build.
 
 ## Introduction
 

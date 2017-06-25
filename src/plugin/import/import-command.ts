@@ -145,7 +145,7 @@ export class ImportCommand
             }
             catch (error)
             {
-                callback(new util.PluginError(pluginName, `Error while processing file ${chalk.magenta(filePathRelativeToCwd)}: ${error.message}`));
+                callback(new util.PluginError(pluginName, `Error while processing file ${chalk.magenta(filePathRelativeToCwd)}:\n${error.message}`));
                 return;
             }
 
@@ -176,7 +176,7 @@ export class ImportCommand
             }
             catch (error)
             {
-                throw new util.PluginError(pluginName, `Error while loading file ${chalk.magenta(importFilePath)}: ${error.message}`);
+                throw new util.PluginError(pluginName, `Error while loading file ${chalk.magenta(importFilePath)}:\n${error.message}`);
             }
         });
 
