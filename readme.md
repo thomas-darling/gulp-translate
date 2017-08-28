@@ -17,7 +17,7 @@ use of case-sensitive attribute names for directives such as `ngFor`. This is no
 
 You may also want to look at the plugins:
 
-* [gulp-tree-filter](https://www.npmjs.com/package/gulp-tree-filter) for filtering files based using include and exclude globs defined in config files located within the folder tree.
+* [gulp-tree-filter](https://www.npmjs.com/package/gulp-tree-filter) for filtering files based on include and exclude globs defined in config files located within the folder tree.
 Use this to e.g. prevent localizable content from being extracted from unfinished features.
 
 * [gulp-locale-filter](https://www.npmjs.com/package/gulp-locale-filter) for filtering files based on locale or language codes in the file path.
@@ -33,7 +33,7 @@ referencing its id. While this approach can work in some apps, it has significan
 
 This plugin can absolutely support the traditional approach - for that you should look at the plugin option `replaceWithIds`, the export option `exportForId` and the annotation options `id` and `export`.
 However, this plugin is primarily intended to enable a more modern and developer friendly workflow, designed with modern Translation Management Systems in mind, and taking advantage of their support for
-concepts such as _translations memory_, which allows previous translations to be easily reused. This is also the approach promoted by the [HTML 5 spec](https://www.w3.org/International/questions/qa-translate-flag.en)
+concepts such as _translation memory_, which allows previous translations to be easily reused. This is also the approach promoted by the [HTML 5 spec](https://www.w3.org/International/questions/qa-translate-flag.en)
 and by major SPA frameworks such as [Angular 2](https://angular.io/docs/ts/latest/cookbook/i18n.html).
 
 At the core of the workflow is the idea, that when authoring templates, we write the localizable content _directly in the templates_, and then _annotate_ the elements and attributes
@@ -76,7 +76,7 @@ building SPA's. The following is the behaviour of _our_ `translate` annotations:
 
   * `context`: A string that provides helpful context to translators.
     This does not affect the computed hash, and should only be used to help translators better understand the context.
-    As different contexts could be specified for different instances of the same content, the exported context will actually be an array of the unique contexts found found for that content.
+    As different contexts could be specified for different instances of the same content, the exported context will actually be an array of the unique contexts found for that content.
 
   * `whitespace`: A value indicating how whitespace should be handled when exporting content.
     The options are `trim`, `pre`, `pre-line` and `normal`.
@@ -310,7 +310,7 @@ interface IPluginConfig
      * Enable this to keep the ids in content files short, thus making them
      * easier to work with in code.
      * Note that ids starting with "/" or "./" will not be prefixed.
-     * An example of a prefixed id would be "./foo/bar:id", where 'foo/bar'
+     * An example of a prefixed id would be "./foo/bar:id", where './foo/bar'
      * is the file path without the extension and 'id' is a id in the file.
      * Default is false.
      */

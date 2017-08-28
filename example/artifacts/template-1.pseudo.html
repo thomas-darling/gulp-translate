@@ -37,8 +37,8 @@
 
     <div>
 
-        <div>[e:l:e:m:e:n:t w:i:t:h s:p:e:c:i:a:l c:h:a:r:a:c:t:e:r:s ]<span>[" © < >]</span></div>
-        <div>[e:l:e:m:e:n:t w:i:t:h h:t:m:l-l:i:k:e c:o:n:t:e:n:t i:n b:i:n:d:i:n:g e:x:p:r:e:s:s:i:o:n ]<span>[b:e:f:o:r:e ${</span></div> || {foo:{bar:{}}} || </span></div> || "\}" || \\\"'`</span></div>" || '\\\'"`</span></div>' || `\\\`"'</span></div>` || "${nested}" } a:f:t:e:r]</span></div>
+        <div>[e:l:e:m:e:n:t w:i:t:h s:p:e:c:i:a:l c:h:a:r:a:c:t:e:r:s ]<span>[" © < > $]</span></div>
+        <div>[e:l:e:m:e:n:t w:i:t:h h:t:m:l-l:i:k:e c:o:n:t:e:n:t i:n b:i:n:d:i:n:g e:x:p:r:e:s:s:i:o:n ]<span>[b:e:f:o:r:e ${ a <= b || a<b || </span></div> || {foo:{bar:{}}} || </span></div> || "\}" || \\\"'`</span></div>" || '\\\'"`</span></div>' || `\\\`"'</span></div>` || "${nested}" } a:f:t:e:r]</span></div>
         <div>[e:l:e:m:e:n:t w:i:t:h c:h:i:l:d c:o:n:t:e:n:t e:x:c:l:u:d:e:d f:r:o:m t:r:a:n:s:l:a:t:i:o:n ]<span>this should not be translated, <span>[b:u:t t:h:i:s s:h:o:u:l:d]</span></span></div>
         <div>
             should not be exported
@@ -46,6 +46,11 @@
             <div foo="[t:h:i:s s:h:o:u:l:d b:e t:r:a:n:s:l:a:t:e:d]"></div>
             <div foo="[t:h:i:s s:h:o:u:l:d b:e t:r:a:n:s:l:a:t:e:d]"></div>
             <div foo="[t:h:i:s s:h:o:u:l:d b:e t:r:a:n:s:l:a:t:e:d]"></div>
+        </div>
+        <div>
+            note that a '$' in the text must be HTML encodede if immediately followed by a '{',
+            as it would otherwise be mistaken as an binding expression and mess up the parsing.
+            <div><div>[&#36;{ n:o:t a:n e:x:p:r:e:s:s:i:o:n]</div> <span>[s:t:i:l:l n:o:t a:n e:x:p:r:e:s:s:i:o:n }]</span></div>
         </div>
 
     </div>

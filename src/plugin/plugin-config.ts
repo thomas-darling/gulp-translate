@@ -45,7 +45,7 @@ export interface IPluginConfig
      * Enable this to keep the ids in content files short, thus making them
      * easier to work with in code.
      * Note that ids starting with "/" or "./" will not be prefixed.
-     * An example of a prefixed id would be "./foo/bar:id", where 'foo/bar'
+     * An example of a prefixed id would be "./foo/bar:id", where './foo/bar'
      * is the file path without the extension and 'id' is a id in the file.
      * Default is false.
      */
@@ -135,7 +135,7 @@ export class PluginConfig implements ITemplateParserConfig
      * Enable this to keep the ids in content files short, thus making them
      * easier to work with in code.
      * Note that ids starting with "/" or "./" will not be prefixed.
-     * An example of a prefixed id would be "./foo/bar:id", where 'foo/bar'
+     * An example of a prefixed id would be "./foo/bar:id", where './foo/bar'
      * is the file path without the extension and 'id' is a id in the file.
      */
     public prefixIdsInContentFiles: boolean = false;

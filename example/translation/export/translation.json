@@ -80,14 +80,14 @@
       "./folder/template-2.html"
     ]
   },
-  "ee9455a70": {
-    "content": "element with special characters <span>\" © < ></span>",
+  "fffca82ee": {
+    "content": "element with special characters <span>\" © < > $</span>",
     "sources": [
       "./template-1.html"
     ]
   },
-  "36914583e": {
-    "content": "element with html-like content in binding expression <span>before ${</span></div> || {foo:{bar:{}}} || </span></div> || \"\\}\" || \\\\\\\"'`</span></div>\" || '\\\\\\'\"`</span></div>' || `\\\\\\`\"'</span></div>` || \"${nested}\" } after</span>",
+  "9e33fd68a": {
+    "content": "element with html-like content in binding expression <span>before ${ a <= b || a<b || </span></div> || {foo:{bar:{}}} || </span></div> || \"\\}\" || \\\\\\\"'`</span></div>\" || '\\\\\\'\"`</span></div>' || `\\\\\\`\"'</span></div>` || \"${nested}\" } after</span>",
     "sources": [
       "./template-1.html"
     ]
@@ -106,6 +106,12 @@
   },
   "10c31394c": {
     "content": "this should be translated",
+    "sources": [
+      "./template-1.html"
+    ]
+  },
+  "b4cb0ed82": {
+    "content": "<div>&#36;{ not an expression</div> <span>still not an expression }</span>",
     "sources": [
       "./template-1.html"
     ]

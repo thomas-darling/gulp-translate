@@ -5,9 +5,6 @@ import {ITemplateLanguage} from "../../template-language";
  */
 export class AngularTemplateLanguage implements ITemplateLanguage
 {
-    private _expressions: string[];
-    private _htmlWithoutExpressions: string;
-
     /**
      * Gets the standard, parser-safe HTML for the template.
      * All binding expressions will be replaced with placeholders of the form '{{index}}',

@@ -39,11 +39,11 @@
 
         <div translate>
             element with special characters
-            <span>" © < ></span>
+            <span>" © < > $</span>
         </div>
         <div translate>
             element with html-like content in binding expression
-            <span>before ${</span></div> || {foo:{bar:{}}} || </span></div> || "\}" || \\\"'`</span></div>" || '\\\'"`</span></div>' || `\\\`"'</span></div>` || "${nested}" } after</span>
+            <span>before ${ a <= b || a<b || </span></div> || {foo:{bar:{}}} || </span></div> || "\}" || \\\"'`</span></div>" || '\\\'"`</span></div>' || `\\\`"'</span></div>` || "${nested}" } after</span>
         </div>
         <div translate="yes">
             element with child content excluded from translation
@@ -55,6 +55,14 @@
             <div foo.translate="this should be translated"></div>
             <div foo="this should be translated" foo.translate></div>
             <div foo="this should be translated" foo.translate="yes"></div>
+        </div>
+        <div>
+            note that a '$' in the text must be HTML encodede if immediately followed by a '{',
+            as it would otherwise be mistaken as an binding expression and mess up the parsing.
+            <div translate>
+                <div>&#36;{ not an expression</div>
+                <span>still not an expression }</span>
+            </div>
         </div>
 
     </div>
