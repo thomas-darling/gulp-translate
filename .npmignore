@@ -1,6 +1,7 @@
 ## Ignore source files
 
 /src/
+*.map
 
 ## Ignore example files
 
