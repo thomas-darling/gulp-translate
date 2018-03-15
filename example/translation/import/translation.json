@@ -11,6 +11,7 @@
     "73bc73f94": "attribute with unique hint",
     "21fff5ace": "element with context",
     "content-id-1": "element with id and export enabled",
+    "2b74baf25": "element with Angular templating syntax",
     "fffca82ee": "element with special characters <span>\" © < > $</span>",
     "9e33fd68a": "element with html-like content in binding expression <span>before ${ a <= b || a<b || </span></div> || {foo:{bar:{}}} || </span></div> || \"\\}\" || \\\\\\\"'`</span></div>\" || '\\\\\\'\"`</span></div>' || `\\\\\\`\"'</span></div>` || \"${nested}\" } after</span>",
     "b31ccf052": "element with child content excluded from translation <span translate=\"no\">this should not be translated, <span translate=\"yes\">but this should</span></span>",

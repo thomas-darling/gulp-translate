@@ -1,4 +1,4 @@
-<template>
+<template attribute-on-template>
 
     <!-- export, import and options -->
 
@@ -32,6 +32,12 @@
         <div translate="id: content-id-4">element with id not found in import file</div>
 
     </div>
+
+    <!-- case sensitivity, non-standard attribute names -->
+
+    <CustomElement translate #reference *ngFor="let item of items" (attr)="1" [attr]="2" [(attr)]="3">
+        element with Angular templating syntax
+    </CustomElement>
 
     <!-- encoding, expressions, exclusion, inclusion -->
 

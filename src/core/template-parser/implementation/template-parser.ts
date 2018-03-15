@@ -48,7 +48,7 @@ export class CheerioTemplateParser implements ITemplateParser
         const standardHtml = this.templateLanguage.toStandardHtml(template, expressions);
 
         // Parse the template as HTML and get the root node.
-        const $ = cheerio.load(standardHtml, { decodeEntities: false });
+        const $ = cheerio.load(standardHtml, { decodeEntities: false, lowerCaseTags: false, lowerCaseAttributeNames: false });
         const root = $.root().get(0);
 
         // Parse the node tree, starting with the root node.

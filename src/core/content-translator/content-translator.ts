@@ -49,7 +49,7 @@ export abstract class ContentTranslator implements IContentTranslator
         const standardHtml = this.templateLanguage.toStandardHtml(templateHtml, expressions);
 
         // Parse the template as HTML and get the root node.
-        const $ = cheerio.load(standardHtml, { decodeEntities: false });
+        const $ = cheerio.load(standardHtml, { decodeEntities: false, lowerCaseTags: false, lowerCaseAttributeNames: false });
         const root = $.root().get(0);
 
         // Parse the root node.

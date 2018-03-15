@@ -11,6 +11,7 @@
     "73bc73f94": "[a:t:t:r:i:b:u:t:e w:i:t:h u:n:i:q:u:e h:i:n:t]",
     "21fff5ace": "[e:l:e:m:e:n:t w:i:t:h c:o:n:t:e:x:t]",
     "content-id-1": "[e:l:e:m:e:n:t w:i:t:h i:d a:n:d e:x:p:o:r:t e:n:a:b:l:e:d]",
+    "2b74baf25": "[e:l:e:m:e:n:t w:i:t:h A:n:g:u:l:a:r t:e:m:p:l:a:t:i:n:g s:y:n:t:a:x]",
     "fffca82ee": "[e:l:e:m:e:n:t w:i:t:h s:p:e:c:i:a:l c:h:a:r:a:c:t:e:r:s ]<span>[\" © < > $]</span>",
     "9e33fd68a": "[e:l:e:m:e:n:t w:i:t:h h:t:m:l-l:i:k:e c:o:n:t:e:n:t i:n b:i:n:d:i:n:g e:x:p:r:e:s:s:i:o:n ]<span>[b:e:f:o:r:e ${ a <= b || a<b || </span></div> || {foo:{bar:{}}} || </span></div> || \"\\}\" || \\\\\\\"'`</span></div>\" || '\\\\\\'\"`</span></div>' || `\\\\\\`\"'</span></div>` || \"${nested}\" } a:f:t:e:r]</span>",
     "b31ccf052": "[e:l:e:m:e:n:t w:i:t:h c:h:i:l:d c:o:n:t:e:n:t e:x:c:l:u:d:e:d f:r:o:m t:r:a:n:s:l:a:t:i:o:n ]<span translate=\"no\">this should not be translated, <span translate=\"yes\">[b:u:t t:h:i:s s:h:o:u:l:d]</span></span>",

@@ -80,6 +80,12 @@
       "./folder/template-2.html"
     ]
   },
+  "2b74baf25": {
+    "content": "element with Angular templating syntax",
+    "sources": [
+      "./template-1.html"
+    ]
+  },
   "fffca82ee": {
     "content": "element with special characters <span>\" © < > $</span>",
     "sources": [

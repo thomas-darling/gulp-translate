@@ -12,9 +12,6 @@ The plugin supports both element and attribute content, binding expressions, whi
 Aurelia and Angular templates are supported out of the box, meaning that any HTML-like content in binding expressions will not mess up the HTML parsing,
 and other template languages can be easily added. The plugin is highly configurable and versatile - see the examples in this readme and in the repository.
 
-Note that Angular 2 templates are currently not well supported, as its developers stupidly decided not adhere to the HTML specification, by _requiring_ the
-use of case-sensitive attribute names for directives such as `ngFor`. This is not supported by the standards-compliant HTML parser used by this plugin.
-
 You may also want to look at the plugins:
 
 * [gulp-tree-filter](https://www.npmjs.com/package/gulp-tree-filter) for filtering files based on include and exclude globs defined in config files located within the folder tree.
