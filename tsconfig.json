@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["es2015", "dom"],
+    "lib": [
+      "es2015",
+      "dom"
+    ],
     "module": "commonjs",
     "sourceMap": true,
     "declaration": true,
     "noEmitOnError": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
     "removeComments": false,
     "preserveConstEnums": true,
     "noImplicitReturns": true,
@@ -17,9 +21,9 @@
     "outDir": "lib"
   },
   "exclude": [
-      ".vscode",
-      "example",
-      "lib",
-      "node_modules"
+    ".vscode",
+    "example",
+    "lib",
+    "node_modules"
   ]
 }

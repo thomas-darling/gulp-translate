@@ -1,5 +1,5 @@
 import * as crypto from "crypto";
-import {IContentHash} from "../content-hash";
+import { IContentHash } from "../content-hash";
 
 /**
  * Represents a content hash implementation, which generates a unique SHA-1 hash based on localizable content.

@@ -1,4 +1,4 @@
-import {ITemplateLanguage} from "../../template-language";
+import { ITemplateLanguage } from "../../template-language";
 
 /**
  * Represents an ITemplateLanguage implementation that supports the Aurelia templating language.
@@ -18,7 +18,7 @@ export class AureliaTemplateLanguage implements ITemplateLanguage
         let sequenceStartIndex = 0;
         let expectOpenBrace = false;
         let braceDepth = 0;
-        let quoteChar: string|null = null;
+        let quoteChar: string | null = null;
         let escape = false;
 
         for (let i = 0; i < template.length; i++)
@@ -81,7 +81,8 @@ export class AureliaTemplateLanguage implements ITemplateLanguage
 
                     if (braceDepth === 0)
                     {
-                        expressions.push(template.substring(sequenceStartIndex, i + 1))
+                        expressions.push(template.substring(sequenceStartIndex, i + 1));
+                        /* tslint:disable-next-line: prefer-template no-invalid-template-strings */
                         result += "${" + (expressions.length - 1) + "}";
                         sequenceStartIndex = i + 1;
                     }

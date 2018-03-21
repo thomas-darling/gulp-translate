@@ -1,4 +1,4 @@
-import {IContentTranslator} from "../../content-translator";
+import { IContentTranslator } from "../../content-translator";
 
 /**
  * Represents a translator implementation, which returns the localizable content unchanged.

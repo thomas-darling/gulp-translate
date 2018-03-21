@@ -1,6 +1,8 @@
+/* tslint:disable: no-require-imports no-var-requires no-submodule-imports */
 const csvStringify = require("csv-stringify/lib/sync");
 const csvParse = require("csv-parse/lib/sync");
-import {IContentFileFormat, ContentFile} from "../content-file";
+/* tslint:enable */
+import { IContentFileFormat, ContentFile } from "../content-file";
 
 /**
  * Represents the CSV file format in which a ContentFile instance may be persisted.
@@ -14,16 +16,13 @@ export class CsvContentFileFormat implements IContentFileFormat
      */
     public stringify(contentFile: ContentFile): string
     {
-        let data: any[] = [];
+        const data: any[] = [];
 
-        for (let id of Object.keys(contentFile.contents))
+        for (const id of Object.keys(contentFile.contents))
         {
             const content = contentFile.contents[id];
 
-            data.push({
-                id: id,
-                content: content
-            });
+            data.push({ id, content });
         }
 
         return csvStringify(data, {quotedString: true, columns: ["id", "content"]});

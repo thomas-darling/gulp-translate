@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
-import {TemplateParserConfig} from "../template-parser/template-parser-config";
-import {ITemplateLanguage} from "../template-language/template-language";
-import {IContentTranslator} from "./content-translator";
+import { TemplateParserConfig } from "../template-parser/template-parser-config";
+import { ITemplateLanguage } from "../template-language/template-language";
+import { IContentTranslator } from "./content-translator";
 
 /**
  * Represents a translator implementation, which translates localizable content.
@@ -53,7 +53,7 @@ export abstract class ContentTranslator implements IContentTranslator
         const root = $.root().get(0);
 
         // Parse the root node.
-        this.parseNode($, root, true);
+        this.parseNode(root, true);
 
         // Inject the previously extracted binding expressions back into the template.
         return this.templateLanguage.toTemplateHtml($.html(), expressions);
@@ -72,7 +72,7 @@ export abstract class ContentTranslator implements IContentTranslator
      * @param element The element representing the root of the tree.
      * @param translate True if the element should be translated, otherwise false.
      */
-    private parseNode($: CheerioStatic, element: CheerioElement, translate: boolean): void
+    private parseNode(element: CheerioElement, translate: boolean): void
     {
         let translateChildren = translate;
 
@@ -100,15 +100,15 @@ export abstract class ContentTranslator implements IContentTranslator
         }
 
         // Parse the element attributes.
-        for (let attrName of Object.keys(element.attribs))
+        for (const attrName of Object.keys(element.attribs))
         {
-            this.parseAttribute($, element, attrName, translate);
+            this.parseAttribute(element, attrName);
         }
 
         // Parse child elements of the element.
-        for (let childElement of element.children)
+        for (const childElement of element.children)
         {
-            this.parseNode($, childElement, translateChildren);
+            this.parseNode(childElement, translateChildren);
         }
     }
 
@@ -117,12 +117,11 @@ export abstract class ContentTranslator implements IContentTranslator
      * @param $ The CheerioStatic instance.
      * @param element The element representing the root of the tree.
      * @param attrName The name of the attribute.
-     * @param translate True if the element should be translated, otherwise false.
      */
-    private parseAttribute($: CheerioStatic, element: CheerioElement, attrName: string, translate: boolean): void
+    private parseAttribute(element: CheerioElement, attrName: string): void
     {
         // Try to get the name of the target attribute.
-        let targetAttrName = this.templateParserConfig.attributePattern.getTargetName(attrName);
+        const targetAttrName = this.templateParserConfig.attributePattern.getTargetName(attrName);
 
         // Ignore the node if it does not match the attribute pattern.
         if (targetAttrName == null)

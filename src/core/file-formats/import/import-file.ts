@@ -1,9 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as mkdirp from "mkdirp";
-import * as chalk from "chalk";
-import {JsonImportFileFormat} from "./formats/json-format";
-import {CsvImportFileFormat} from "./formats/csv-format";
+import chalk from "chalk";
+import { JsonImportFileFormat } from "./formats/json-format";
+import { CsvImportFileFormat } from "./formats/csv-format";
 
 /**
  * Represents a file format in which an ImportFile instance may be persisted.
@@ -22,7 +22,7 @@ export interface IImportFileFormat
      * @param text The string to parse.
      * @returns The new instance of the ImportFile type.
      */
-    parse(text: string): ImportFile
+    parse(text: string): ImportFile;
 }
 
 /**
@@ -31,6 +31,52 @@ export interface IImportFileFormat
  */
 export class ImportFile
 {
+    /**
+     * Parses the specified text, creating a new instance of the ImportFile type.
+     * @param text The string to parse.
+     * @param fileNameExt The file name extension for the format to parse.
+     * @returns The new instance of the ImportFile type.
+     */
+    public static parse(text: string, fileNameExt: string): ImportFile
+    {
+        const format = ImportFile.getFormat(fileNameExt);
+
+        return format.parse(text);
+    }
+
+    /**
+     * Loads the specified file, creating a new instance of the ImportFile type.
+     * @param filePath The absolute path for the file to load.
+     * @param encoding The file encoding to use, or undefined to use UTF8.
+     * @returns The new instance of the ImportFile type.
+     */
+    public static load(filePath: string, encoding = "utf8"): ImportFile
+    {
+        const text = fs.readFileSync(filePath, { encoding });
+
+        return this.parse(text, path.extname(filePath));
+    }
+
+    /**
+     * Creates a new instance of the appropiate IExportFileFormat type, based on the specified file path.
+     * @param fileNameExt The file name extension for which a format should be created.
+     * @returns The new instance of the IExportFileFormat type.
+     */
+    private static getFormat(fileNameExt: string): IImportFileFormat
+    {
+        switch (fileNameExt)
+        {
+            case ".json":
+                return new JsonImportFileFormat();
+
+            case ".csv":
+                return new CsvImportFileFormat();
+
+            default:
+                throw new Error(`The file format '${chalk.magenta(fileNameExt)}' is not supported.`);
+        }
+    }
+
     /**
      * The contents of the file.
      */
@@ -54,7 +100,7 @@ export class ImportFile
      * @param id The id identifying the content.
      * @returns The content matching the specified path and id, or undefined if no content is found.
      */
-    public get(scopePath: string, id: string): string|undefined
+    public get(scopePath: string, id: string): string | undefined
     {
         // Get the set of paths in the file that contain the specified path.
         // The path length is used as betterness criteria.
@@ -64,7 +110,7 @@ export class ImportFile
 
         let content: string;
 
-        for (let basePath of basePaths)
+        for (const basePath of basePaths)
         {
             content = this.contents[basePath][id];
 
@@ -89,19 +135,6 @@ export class ImportFile
     }
 
     /**
-     * Parses the specified text, creating a new instance of the ImportFile type.
-     * @param text The string to parse.
-     * @param fileNameExt The file name extension for the format to parse.
-     * @returns The new instance of the ImportFile type.
-     */
-    public static parse(text: string, fileNameExt: string): ImportFile
-    {
-        const format = ImportFile.getFormat(fileNameExt);
-
-        return format.parse(text);
-    }
-
-    /**
      * Saves the contents to the specified file.
      * @param filePath The absolute path for the file to which the contents should be saved.
      * @param encoding The file encoding to use, or undefined to use UTF8.
@@ -114,38 +147,5 @@ export class ImportFile
         {
             fs.writeFileSync(filePath, text, { encoding });
         });
-    }
-
-    /**
-     * Loads the specified file, creating a new instance of the ImportFile type.
-     * @param filePath The absolute path for the file to load.
-     * @param encoding The file encoding to use, or undefined to use UTF8.
-     * @returns The new instance of the ImportFile type.
-     */
-    public static load(filePath: string, encoding = "utf8"): ImportFile
-    {
-        const text = fs.readFileSync(filePath, { encoding });
-
-        return this.parse(text, path.extname(filePath));
-    }
-
-    /**
-     * Creates a new instance of the appropiate IExportFileFormat type, based on the specified file path.
-     * @param filePath The absolute path for the file to load.
-     * @returns The new instance of the IExportFileFormat type.
-     */
-    private static getFormat(fileNameExt): IImportFileFormat
-    {
-        switch (fileNameExt)
-        {
-            case ".json":
-                return new JsonImportFileFormat();
-
-            case ".csv":
-                return new CsvImportFileFormat();
-
-            default:
-                throw new Error(`The file format '${chalk.magenta(fileNameExt)}' is not supported.`);
-        }
     }
 }

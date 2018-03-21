@@ -1,10 +1,11 @@
-import * as chalk from "chalk";
-import {ITemplateLanguage} from "../core/template-language/template-language";
-import {ITemplateParser} from "../core/template-parser/template-parser";
-import {ITemplateParserConfig} from "../core/template-parser/template-parser-config";
+import chalk from "chalk";
 
-// Define the name of the plugin.
-export const pluginName = "gulp-translate";
+import { ITemplateLanguage } from "../core/template-language/template-language";
+import { ITemplateParserConfig } from "../core/template-parser/template-parser-config";
+
+import { NullTemplateLanguage } from "../core/template-language/implementations/null/null-template-language";
+import { AureliaTemplateLanguage } from "../core/template-language/implementations/aurelia/aurelia-template-language";
+import { AngularTemplateLanguage } from "../core/template-language/implementations/angular/angular-template-language";
 
 /**
  * Represents the plugin configuration.
@@ -19,10 +20,10 @@ export interface IPluginConfig
     attributeName?: string;
 
      /**
-     * The pattern used when identifying attributes whose content should be
-     * translated, where '*' represents the name of the target attribute.
-     * Default is '*.translate'.
-     */
+      * The pattern used when identifying attributes whose content should be
+      * translated, where '*' represents the name of the target attribute.
+      * Default is '*.translate'.
+      */
     attributePattern?: string;
 
     /**
@@ -55,7 +56,7 @@ export interface IPluginConfig
      * The template language to use, or undefined to use no template language.
      * Default is undefined.
      */
-    templateLanguage?: "aurelia"|"angular"|ITemplateLanguage;
+    templateLanguage?: "aurelia" | "angular" | ITemplateLanguage;
 
     /**
      * The length of the hash identifying content, in the range [1, 32].
@@ -76,22 +77,34 @@ export class PluginConfig implements ITemplateParserConfig
     public constructor(config?: IPluginConfig)
     {
         if (config == undefined)
+        {
             return;
+        }
 
         if (config.attributeName != undefined)
+        {
             this.attributeName = config.attributeName;
+        }
 
         if (config.attributePattern != undefined)
+        {
             this.attributePattern = config.attributePattern;
+        }
 
         if (config.allowDirectAnnotation != undefined)
+        {
             this.allowDirectAnnotation = config.allowDirectAnnotation;
+        }
 
         if (config.prefixIdsInContentFiles != undefined)
+        {
             this.prefixIdsInContentFiles = config.prefixIdsInContentFiles;
+        }
 
         if (config.templateLanguage != undefined)
-            this.templateLanguage = config.templateLanguage;
+        {
+            this.templateLanguage = this.getTemplateLanguage(config.templateLanguage);
+        }
 
         if (config.hashLength != undefined)
         {
@@ -143,10 +156,33 @@ export class PluginConfig implements ITemplateParserConfig
     /**
      * The template language to use, or undefined to use no template language.
      */
-    public templateLanguage?: "aurelia"|"angular"|ITemplateLanguage;
+    public templateLanguage: ITemplateLanguage;
 
     /**
      * The length of the hash identifying content, in the range [1, 32].
      */
     public hashLength: number = 9;
+
+    /**
+     * Gets a named template language implementation, or the specified instance.
+     */
+    private getTemplateLanguage(nameOrInstance: undefined | string | ITemplateLanguage): ITemplateLanguage
+    {
+        if (nameOrInstance == null)
+        {
+            return new NullTemplateLanguage();
+        }
+
+        if (typeof nameOrInstance === "string")
+        {
+            switch (nameOrInstance)
+            {
+                case "aurelia": return new AureliaTemplateLanguage();
+                case "angular": return new AngularTemplateLanguage();
+                default: throw new Error(`The template language '${chalk.cyan(nameOrInstance)}' is not supported.`);
+            }
+        }
+
+        return nameOrInstance as ITemplateLanguage;
+    }
 }

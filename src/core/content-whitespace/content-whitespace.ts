@@ -6,7 +6,8 @@
  * and it behaves like 'normal', except it completely removes any whitespace before and after the content.
  * For attribute content, the default is 'pre', as whitespace would generally only be present, if it was intentionally added.
  */
-export type WhitespaceOption = "trim"|"normal"|"pre"|"pre-line";
+export type WhitespaceOption = "trim" | "normal" | "pre" | "pre-line";
+export const whitespaceOptions = ["trim", "normal", "pre", "pre-line"];
 
 /*
  * Represents a strategy for normalizing whitespace in the content exported from templates.

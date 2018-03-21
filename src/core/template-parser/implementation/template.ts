@@ -1,10 +1,9 @@
-import * as cheerio from "cheerio";
-import * as chalk from "chalk";
-import {IContentHash} from "../../content-hash/content-hash";
-import {ITemplateLanguage} from "../../template-language/template-language";
-import {WhitespaceOption, IContentWhitespace} from "../../content-whitespace/content-whitespace";
-import {ITemplate, IAnnotationOptions, IAnnotation, IContent, AnnotationsOption} from "../template-parser";
-import {AttributeOptions} from "./attribute-options";
+import chalk from "chalk";
+import { IContentHash } from "../../content-hash/content-hash";
+import { ITemplateLanguage } from "../../template-language/template-language";
+import { IContentWhitespace, WhitespaceOption, whitespaceOptions } from "../../content-whitespace/content-whitespace";
+import { ITemplate, IAnnotationOptions, IAnnotation, IContent, AnnotationsOption } from "../template-parser";
+import { AttributeOptions } from "./attribute-options";
 
 // Contains the ids of all exported content instances, mapped to the hash of the content.
 // This allows us to verify that we never associate different content instances with the same id.
@@ -20,10 +19,9 @@ export abstract class Content implements IContent
     protected readonly templateLanguage: ITemplateLanguage;
     protected readonly templateWhitespace: IContentWhitespace;
 
-    public constructor(annotation: Annotation, expressions: string[],
-        contentHash: IContentHash, templateLanguage: ITemplateLanguage, templateWhitespace: IContentWhitespace)
+    public constructor(expressions: string[], contentHash: IContentHash,
+        templateLanguage: ITemplateLanguage, templateWhitespace: IContentWhitespace)
     {
-        this.annotation = annotation;
         this.expressions = expressions;
         this.contentHash = contentHash;
         this.templateLanguage = templateLanguage;
@@ -58,7 +56,7 @@ export class ElementContent extends Content
     public constructor(annotation: ElementAnnotation, expressions: string[],
         contentHash: IContentHash, templateLanguage: ITemplateLanguage, templateWhitespace: IContentWhitespace)
     {
-        super(annotation, expressions, contentHash, templateLanguage, templateWhitespace);
+        super(expressions, contentHash, templateLanguage, templateWhitespace);
 
         this.annotation = annotation;
     }
@@ -68,7 +66,14 @@ export class ElementContent extends Content
     public get content(): string
     {
         const standardHtml = this.annotation.element.html();
+
+        if (standardHtml == null)
+        {
+            throw new Error("Element has no content.");
+        }
+
         const normalizedHtml = this.templateWhitespace.normalize(standardHtml, this.whitespace);
+
         return this.templateLanguage.toTemplateHtml(normalizedHtml, this.expressions);
     }
 
@@ -92,7 +97,7 @@ export class AttributeContent extends Content
     public constructor(annotation: AttributeAnnotation, expressions: string[],
         contentHash: IContentHash, templateLanguage: ITemplateLanguage, templateWhitespace: IContentWhitespace)
     {
-        super(annotation, expressions, contentHash, templateLanguage, templateWhitespace);
+        super(expressions, contentHash, templateLanguage, templateWhitespace);
 
         this.annotation = annotation;
     }
@@ -103,6 +108,7 @@ export class AttributeContent extends Content
     {
         const standardHtml = this.annotation.element.attr(this.annotation.contentAttrName);
         const normalizedHtml = this.templateWhitespace.normalize(standardHtml, this.whitespace);
+
         return this.templateLanguage.toTemplateHtml(normalizedHtml, this.expressions);
     }
 
@@ -125,7 +131,7 @@ export abstract class Annotation implements IAnnotation
 {
     protected isNested: boolean;
 
-    public constructor(element: Cheerio, annotationAttrName, isNested: boolean, isDirectAnnotation: boolean)
+    public constructor(element: Cheerio, annotationAttrName: string, isNested: boolean, isDirectAnnotation: boolean)
     {
         this.element = element;
         this.annotationAttrName = annotationAttrName;
@@ -157,6 +163,7 @@ export abstract class Annotation implements IAnnotation
             {
                 try
                 {
+                    /* tslint:disable-next-line: no-unused-expression */
                     new AnnotationOptions(annotationAttrValue);
                     this.isSuspectedOrphan = true;
                 }
@@ -222,8 +229,6 @@ export class ElementAnnotation extends Annotation
 
                 this.element.removeAttr(this.annotationAttrName);
                 this.element.attr(this.annotationAttrName, this.translate ? "yes" : "no");
-
-                break;
         }
     }
 }
@@ -285,8 +290,6 @@ export class AttributeAnnotation extends Annotation
                     this.element.attr(this.contentAttrName, content);
                     this.element.attr(this.annotationAttrName, this.translate ? "yes" : "no");
                 }
-
-                break;
         }
     }
 }
@@ -305,7 +308,7 @@ export class AnnotationOptions extends AttributeOptions implements IAnnotationOp
             return;
         }
 
-        let options = this.parse(attrValue)
+        const options = this.parse(attrValue);
 
         if (options.hint)
         {
@@ -319,7 +322,12 @@ export class AnnotationOptions extends AttributeOptions implements IAnnotationOp
 
         if (options.whitespace)
         {
-            this.whitespace = options.whitespace;
+            if (whitespaceOptions.indexOf(options.whitespace) < 0)
+            {
+                throw new Error(`The '${chalk.cyan("whitespace")}' option must be ${whitespaceOptions.map(o => `'${chalk.cyan(o)}'`).join(", ")} or ${chalk.cyan("undefined")}.`);
+            }
+
+            this.whitespace = options.whitespace as WhitespaceOption;
         }
 
         if (options.id)
@@ -330,7 +338,9 @@ export class AnnotationOptions extends AttributeOptions implements IAnnotationOp
         if (options.export)
         {
             if (options.export !== "true" && options.export !== "false")
+            {
                 throw new Error(`The '${chalk.cyan("export")}' option must be '${chalk.cyan("true")}', '${chalk.cyan("false")}' or ${chalk.cyan("undefined")}.`);
+            }
 
             this.export = options.export === "true";
         }
@@ -377,7 +387,7 @@ export class Template implements ITemplate
 
     public clean(preserveAnnotations: AnnotationsOption): void
     {
-        for (let annotation of this.annotations)
+        for (const annotation of this.annotations)
         {
             annotation.clean(preserveAnnotations);
         }

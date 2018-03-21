@@ -1,5 +1,5 @@
-import * as chalk from "chalk";
-import {IExportFileFormat, ExportFile, Content} from "../export-file";
+import chalk from "chalk";
+import { IExportFileFormat, ExportFile, Content } from "../export-file";
 
 /**
  * Represents the JSON file format in which an ExportFile instance may be persisted.
@@ -14,9 +14,7 @@ export class JsonExportFileFormat implements IExportFileFormat
     public stringify(exportFile: ExportFile): string
     {
         return JSON.stringify(exportFile.contents, (key, value) =>
-        {
-            return (key === "context" || key === "sources") && value.length === 0 ? undefined : value
-        }, 2);
+            (key === "context" || key === "sources") && value.length === 0 ? undefined : value, 2);
     }
 
     /**
@@ -29,7 +27,7 @@ export class JsonExportFileFormat implements IExportFileFormat
         const exportFile = new ExportFile();
         const data = JSON.parse(text);
 
-        for (let id of Object.keys(data))
+        for (const id of Object.keys(data))
         {
             const content = data[id];
 
@@ -50,9 +48,9 @@ export class JsonExportFileFormat implements IExportFileFormat
                     throw new Error(`Invalid context for id '${chalk.cyan(id)}'. Expected an array.`);
                 }
 
-                for (let context of content.context)
+                for (const context of content.context)
                 {
-                    if (typeof context != "string")
+                    if (typeof context !== "string")
                     {
                         throw new Error(`Invalid context '${chalk.cyan(context)}' for id '${chalk.cyan(id)}'. Expected a string.`);
                     }
@@ -66,9 +64,9 @@ export class JsonExportFileFormat implements IExportFileFormat
                     throw new Error(`Invalid sources for id '${chalk.cyan(id)}'. Expected an array.`);
                 }
 
-                for (let source of content.sources)
+                for (const source of content.sources)
                 {
-                    if (typeof source != "string")
+                    if (typeof source !== "string")
                     {
                         throw new Error(`Invalid source '${source}' for id '${chalk.cyan(id)}'. Expected a string.`);
                     }

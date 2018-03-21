@@ -1,11 +1,11 @@
-import * as chalk from "chalk";
-import {AnnotationsOption} from "../../core/template-parser/template-parser";
+import chalk from "chalk";
+import { AnnotationsOption } from "../../core/template-parser/template-parser";
 
 /**
  * Represents the action to take when encountering content that is marked as
  * localizable but not found in the import file.
  */
-export type MissingContentOption = "error"|"warn"|"ignore";
+export type MissingContentOption = "error" | "warn" | "ignore";
 
 /**
  * Represents the function to call when encountering content that is marked
@@ -22,12 +22,12 @@ export type MissingContentOption = "error"|"warn"|"ignore";
  * is known to be missing.
  */
 export type MissingContentHandler =
-    (id: string, filePath: string) => string|null|Promise<string|null>|undefined;
+    (id: string, filePath: string) => string | null | Promise<string | null> | undefined;
 
 /**
- * Represents the command configuration.
+ * Represents the task configuration.
  */
-export interface IImportCommandConfig
+export interface IImportTaskConfig
 {
     /**
      * The absolute path for the import file from which the contents should
@@ -35,7 +35,7 @@ export interface IImportCommandConfig
      * multiple import files. If multiple files are specified, the first
      * match for each content id will be used.
      */
-    importFilePath: string|string[];
+    importFilePath: string | string[];
 
     /**
      * The translate annotations to preserve, where 'none' preserves no
@@ -78,35 +78,49 @@ export interface IImportCommandConfig
 }
 
 /**
- * Represents the command configuration.
+ * Represents the task configuration.
  */
-export class ImportCommandConfig
+export class ImportTaskConfig
 {
     /**
-     * Creates a new instance of the ImportCommandConfig type.
+     * Creates a new instance of the ImportTaskConfig type.
      * @param config The config object from which the instance should be created.
      */
-    public constructor(config: IImportCommandConfig)
+    public constructor(config: IImportTaskConfig)
     {
         if (config == undefined)
+        {
             throw new Error(`The '${chalk.cyan("config")}' argument is required.`);
+        }
 
         if (config.importFilePath != undefined)
+        {
             this.importFilePaths = typeof config.importFilePath === "string" ? [config.importFilePath] : config.importFilePath;
+        }
         else
+        {
             throw new Error(`The '${chalk.cyan("importFilePath")}' option is required.`);
+        }
 
         if (config.preserveAnnotations != undefined)
+        {
             this.preserveAnnotations = config.preserveAnnotations;
+        }
 
         if (config.missingContentHandler != undefined)
+        {
             this.missingContentHandler = config.missingContentHandler;
+        }
 
         if (config.missingContentHandling != undefined)
+        {
             this.missingContentHandling = config.missingContentHandling;
+        }
 
         if (config.baseFilePath !== undefined)
+        {
             this.baseFilePath = config.baseFilePath;
+        }
     }
 
     /**

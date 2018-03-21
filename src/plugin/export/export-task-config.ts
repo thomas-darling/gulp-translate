@@ -1,10 +1,10 @@
-import * as chalk from "chalk";
-import {AnnotationsOption} from "../../core/template-parser/template-parser";
+import chalk from "chalk";
+import { AnnotationsOption } from "../../core/template-parser/template-parser";
 
 /**
- * Represents the command configuration.
+ * Represents the task configuration.
  */
-export interface IExportCommandConfig
+export interface IExportTaskConfig
 {
     /**
      * The absolute path for the export file to which the contents should be
@@ -46,7 +46,7 @@ export interface IExportCommandConfig
      * attaching behaviour to the annotations.
      * Default is false.
      */
-    replaceWithIds?: boolean|string;
+    replaceWithIds?: boolean | string;
 
     /**
      * True to export content for which the 'id' option is specified,
@@ -75,47 +75,64 @@ export interface IExportCommandConfig
 }
 
 /**
- * Represents the command configuration.
+ * Represents the task configuration.
  */
-export class ExportCommandConfig
+export class ExportTaskConfig
 {
     /**
-     * Creates a new instance of the ExportCommandConfig type.
+     * Creates a new instance of the ExportTaskConfig type.
      * @param config The config object from which the instance should be created.
      */
-    public constructor(config: IExportCommandConfig)
+    public constructor(config: IExportTaskConfig)
     {
         if (config === undefined)
+        {
             return;
+        }
 
         if (config.exportFilePath !== undefined)
+        {
             this.exportFilePath = config.exportFilePath;
+        }
 
         if (config.updateExportFile !== undefined)
+        {
             this.updateExportFile = config.updateExportFile;
+        }
 
         if (config.normalizeContent !== undefined)
+        {
             this.normalizeContent = config.normalizeContent;
+        }
 
         if (config.preserveAnnotations !== undefined)
+        {
             this.preserveAnnotations = config.preserveAnnotations;
+        }
 
         if (config.replaceWithIds !== undefined)
         {
-            if (typeof config.replaceWithIds === "string" && !/^([^*]*[*][^*]*)$/.test(config.replaceWithIds))
+            if (typeof config.replaceWithIds === "string" && !/^([^*]*[*][^*]*)$/.test(config.replaceWithIds)) {
                 throw new Error(`The '${chalk.cyan("replaceWithIds")}' option must be ${chalk.cyan("undefined")}, a ${chalk.cyan("boolean")}, or a string containing exactly one '${chalk.cyan("*")}'.`);
+            }
 
             this.replaceWithIds = config.replaceWithIds;
         }
 
         if (config.exportForId !== undefined)
+        {
             this.exportForId = config.exportForId;
+        }
 
         if (config.logSuspectedOrphans !== undefined)
+        {
             this.logSuspectedOrphans = config.logSuspectedOrphans;
+        }
 
         if (config.baseFilePath !== undefined)
+        {
             this.baseFilePath = config.baseFilePath;
+        }
     }
 
     /**
@@ -153,7 +170,7 @@ export class ExportCommandConfig
      * binding expressions, such as '${translations[*]}', or by otherwise
      * attaching behaviour to the annotations.
      */
-    public replaceWithIds: boolean|string = false;
+    public replaceWithIds: boolean | string = false;
 
     /**
      * True to export content for which the 'id' option is specified,

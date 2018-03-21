@@ -1,16 +1,16 @@
-import {IContentTranslator} from "../../core/content-translator/content-translator";
+import { IContentTranslator } from "../../core/content-translator/content-translator";
 
 /**
- * Represents the command configuration.
+ * Represents the task configuration.
  */
-export interface ITranslateCommandConfig
+export interface ITranslateTaskConfig
 {
     /**
      * The content translator to use, or undefined to use
      * no content translator.
      * Default is undefined.
      */
-    translator?: "pseudo"|IContentTranslator;
+    translator?: "pseudo" | IContentTranslator;
 
     /**
      * The extension of the destination file name, used to
@@ -21,31 +21,37 @@ export interface ITranslateCommandConfig
 }
 
 /**
- * Represents the command configuration.
+ * Represents the task configuration.
  */
-export class TranslateCommandConfig
+export class TranslateTaskConfig
 {
     /**
-     * Creates a new instance of the TranslateCommandConfig type.
+     * Creates a new instance of the TranslateTaskConfig type.
      * @param config The config object from which the instance should be created.
      */
-    public constructor(config: ITranslateCommandConfig)
+    public constructor(config: ITranslateTaskConfig)
     {
         if (config == undefined)
+        {
             return;
+        }
 
         if (config.translator != undefined)
+        {
             this.translator = config.translator;
+        }
 
         if (config.fileNameExtension != undefined)
+        {
             this.fileNameExtension = config.fileNameExtension;
+        }
     }
 
     /**
      * The content translator to use, or undefined to use
      * no content translator.
      */
-    public translator?: "pseudo"|IContentTranslator;
+    public translator?: "pseudo" | IContentTranslator;
 
     /**
      * The extension of the destination file name, used to

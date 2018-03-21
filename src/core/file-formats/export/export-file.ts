@@ -1,9 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as mkdirp from "mkdirp";
-import * as chalk from "chalk";
-import {JsonExportFileFormat} from "./formats/json-format";
-import {CsvExportFileFormat} from "./formats/csv-format";
+import chalk from "chalk";
+import { JsonExportFileFormat } from "./formats/json-format";
+import { CsvExportFileFormat } from "./formats/csv-format";
 
 /**
  * Represents a localizable content instance parsed from one or more templates.
@@ -64,7 +64,7 @@ export interface IExportFileFormat
      * @param text The string to parse.
      * @returns The new instance of the ExportFile type.
      */
-    parse(text: string): ExportFile
+    parse(text: string): ExportFile;
 }
 
 /**
@@ -73,6 +73,52 @@ export interface IExportFileFormat
  */
 export class ExportFile
 {
+    /**
+     * Parses the specified text, creating a new instance of the ExportFile type.
+     * @param text The string to parse.
+     * @param fileNameExt The file name extension for the format to parse.
+     * @returns The new instance of the ExportFile type.
+     */
+    public static parse(text: string, fileNameExt: string): ExportFile
+    {
+        const format = ExportFile.getFormat(fileNameExt);
+
+        return format.parse(text);
+    }
+
+    /**
+     * Loads the specified file, creating a new instance of the ExportFile type.
+     * @param filePath The absolute path for the file to load.
+     * @param encoding The file encoding to use, or undefined to use UTF8.
+     * @returns The new instance of the ExportFile type.
+     */
+    public static load(filePath: string, encoding = "utf8"): ExportFile
+    {
+        const text = fs.readFileSync(filePath, { encoding });
+
+        return this.parse(text, path.extname(filePath));
+    }
+
+    /**
+     * Creates a new instance of the appropiate IExportFileFormat type, based on the specified file path.
+     * @param fileNameExt The file name extension for which a format should be created.
+     * @returns The new instance of the IExportFileFormat type.
+     */
+    private static getFormat(fileNameExt: string): IExportFileFormat
+    {
+        switch (fileNameExt)
+        {
+            case ".json":
+                return new JsonExportFileFormat();
+
+            case ".csv":
+                return new CsvExportFileFormat();
+
+            default:
+                throw new Error(`The file format '${chalk.magenta(fileNameExt)}' is not supported.`);
+        }
+    }
+
     public contents: { [id: string]: Content } = {};
 
     /**
@@ -108,7 +154,7 @@ export class ExportFile
      * @param id The id identifying the content.
      * @returns The content instance matching the specified id, or undefined if no instance is found.
      */
-    public get(id: string): Content|undefined
+    public get(id: string): Content | undefined
     {
         return this.contents[id];
     }
@@ -125,19 +171,6 @@ export class ExportFile
     }
 
     /**
-     * Parses the specified text, creating a new instance of the ExportFile type.
-     * @param text The string to parse.
-     * @param fileNameExt The file name extension for the format to parse.
-     * @returns The new instance of the ExportFile type.
-     */
-    public static parse(text: string, fileNameExt: string): ExportFile
-    {
-        const format = ExportFile.getFormat(fileNameExt);
-
-        return format.parse(text);
-    }
-
-    /**
      * Saves the contents to the specified file.
      * @param filePath The absolute path for the file to which the contents should be saved.
      * @param encoding The file encoding to use, or undefined to use UTF8.
@@ -150,38 +183,5 @@ export class ExportFile
         {
             fs.writeFileSync(filePath, text, { encoding });
         });
-    }
-
-    /**
-     * Loads the specified file, creating a new instance of the ExportFile type.
-     * @param filePath The absolute path for the file to load.
-     * @param encoding The file encoding to use, or undefined to use UTF8.
-     * @returns The new instance of the ExportFile type.
-     */
-    public static load(filePath: string, encoding = "utf8"): ExportFile
-    {
-        const text = fs.readFileSync(filePath, { encoding });
-
-        return this.parse(text, path.extname(filePath));
-    }
-
-    /**
-     * Creates a new instance of the appropiate IExportFileFormat type, based on the specified file path.
-     * @param filePath The absolute path for the file to load.
-     * @returns The new instance of the IExportFileFormat type.
-     */
-    private static getFormat(fileNameExt): IExportFileFormat
-    {
-        switch (fileNameExt)
-        {
-            case ".json":
-                return new JsonExportFileFormat();
-
-            case ".csv":
-                return new CsvExportFileFormat();
-
-            default:
-                throw new Error(`The file format '${chalk.magenta(fileNameExt)}' is not supported.`);
-        }
     }
 }

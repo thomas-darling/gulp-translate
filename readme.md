@@ -317,7 +317,7 @@ interface IPluginConfig
      * The template language to use, or undefined to use no template language.
      * Default is undefined.
      */
-    templateLanguage?: "aurelia"|"angular"|ITemplateLanguage;
+    templateLanguage?: "aurelia" | "angular" | ITemplateLanguage;
 
     /**
      * The length of the hash identifying content, in the range [1, 32].
@@ -360,7 +360,7 @@ gulp.task("translate.export", function ()
 The following is the interface for the config object, that may optionally be passed to the `export` function.
 
 ```typescript
-interface IExportCommandConfig
+interface IExportTaskConfig
 {
     /**
      * The absolute path for the export file to which the contents should be
@@ -389,7 +389,7 @@ interface IExportCommandConfig
      * 'yes' or 'no', and 'all' preserves all annotations without changes.
      * Default is 'none'.
      */
-    preserveAnnotations?: "none"|"standard"|"normalize"|"all";
+    preserveAnnotations?: "none" | "standard" | "normalize" | "all";
 
     /**
      * True to replace the content with its id, otherwise false. The value
@@ -402,7 +402,7 @@ interface IExportCommandConfig
      * attaching behaviour to the annotation attributes.
      * Default is false.
      */
-    replaceWithIds?: boolean|string;
+    replaceWithIds?: boolean | string;
 
     /**
      * True to export content for which the 'id' option is specified,
@@ -463,7 +463,7 @@ gulp.task("translate.import", function ()
 The following is the interface for the config object, that must be passed to the `import` function.
 
 ```typescript
-interface IImportCommandConfig
+interface IImportTaskConfig
 {
     /**
      * The absolute path for the import file from which the contents should
@@ -471,7 +471,7 @@ interface IImportCommandConfig
      * multiple import files. If multiple files are specified, the first
      * match for each content id will be used.
      */
-    importFilePath: string|string[];
+    importFilePath: string | string[];
 
     /**
      * The translate annotations to preserve, where 'none' preserves no
@@ -480,7 +480,7 @@ interface IImportCommandConfig
      * 'yes' or 'no', and 'all' preserves all annotations without changes.
      * Default is 'none'.
      */
-    preserveAnnotations?: "none"|"standard"|"normalize"|"all";
+    preserveAnnotations?: "none" | "standard" | "normalize" | "all";
 
     /**
      * The function to call when encountering content that is marked as
@@ -500,7 +500,7 @@ interface IImportCommandConfig
      * logs a warning to the console, and 'ignore' ignores the content.
      * Default is 'error'.
      */
-    missingContentHandling?: "error"|"warn"|"ignore";
+    missingContentHandling?: "error" | "warn" | "ignore";
 
     /**
      * The base path to use when determining the relative path of files being
@@ -528,7 +528,7 @@ interface IImportCommandConfig
  * is known to be missing.
  */
 type MissingContentHandler =
-    (id: string, filePath: string) => string|Promise<string>|undefined;
+    (id: string, filePath: string) => string | Promise<string> | undefined;
 ```
 
 ## The `translate` command
@@ -567,14 +567,14 @@ gulp.task("translate.pseudo", function ()
 The following is the interface for the config object, that may optionally be passed to the `translate` function.
 
 ```typescript
-interface ITranslateCommandConfig
+interface ITranslateTaskConfig
 {
     /**
      * The content translator to use, or undefined to use
      * no content translator.
      * Default is undefined.
      */
-    translator?: "pseudo"|IContentTranslator;
+    translator?: "pseudo" | IContentTranslator;
 
     /**
      * The extension of the destination file name, used to

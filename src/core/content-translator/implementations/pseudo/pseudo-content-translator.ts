@@ -1,7 +1,6 @@
-import * as cheerio from "cheerio";
-import {TemplateParserConfig} from "../../../template-parser/template-parser-config";
-import {ITemplateLanguage} from "../../../template-language/template-language";
-import {ContentTranslator} from "../../content-translator";
+import { TemplateParserConfig } from "../../../template-parser/template-parser-config";
+import { ITemplateLanguage } from "../../../template-language/template-language";
+import { ContentTranslator } from "../../content-translator";
 
 /**
  * Represents a translator implementation, which translates localizable content into pseudo-translated content.
@@ -27,8 +26,8 @@ export class PseudoContentTranslator extends ContentTranslator
      */
     protected translateText(text: string): string
     {
-        var result = "";
-        var isWhitespace = /^\s*$/.test(text);
+        let result = "";
+        const isWhitespace = /^\s*$/.test(text);
 
         if (isWhitespace)
         {
@@ -41,17 +40,17 @@ export class PseudoContentTranslator extends ContentTranslator
 
             // Insert periods between word characters.
 
-            var waitingForCharacterEnd = false;
+            let waitingForCharacterEnd = false;
 
-            for (var i = 0; i < text.length; i++)
+            for (let i = 0; i < text.length; i++)
             {
-                var character = text[i];
+                const character = text[i];
 
                 switch (character)
                 {
                     case "&": waitingForCharacterEnd = true; break;
                     case " ": waitingForCharacterEnd = false; break;
-                    case ";": waitingForCharacterEnd = false; break;
+                    case ";": waitingForCharacterEnd = false;
                 }
 
                 if (waitingForCharacterEnd)

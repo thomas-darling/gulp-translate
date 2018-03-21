@@ -31,6 +31,7 @@
     "url": "https://github.com/thomas-darling/gulp-translate.git"
   },
   "dependencies": {
+    "chalk": "^2.3.2",
     "cheerio": "^0.22.0",
     "csv-parse": "^1.2.0",
     "csv-stringify": "^1.0.4",
@@ -39,19 +40,18 @@
     "through2": "^2.0.3"
   },
   "devDependencies": {
-    "@types/chalk": "^0.4.31",
-    "@types/cheerio": "^0.22.1",
-    "@types/gulp-util": "^3.0.31",
-    "@types/mkdirp": "^0.3.29",
+    "@types/cheerio": "^0.22.7",
+    "@types/gulp-util": "^3.0.34",
+    "@types/mkdirp": "^0.5.2",
     "@types/node": "8.0.1",
     "@types/through2": "^2.0.33",
     "@types/vinyl": "^2.0.0",
     "del": "^3.0.0",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-rename": "^1.2.2",
-    "typescript": "^2.3.4"
+    "typescript": "^2.7.2"
   },
-  "scripts":{
+  "scripts": {
     "prepublish": "tsc"
   },
   "types": "lib/index.d.ts",

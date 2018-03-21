@@ -1,4 +1,4 @@
-import * as chalk from "chalk";
+import chalk from "chalk";
 
 /**
  * Represents a base class for attribute options, which provides methods for parsing and stringifying the options.
@@ -22,7 +22,7 @@ export abstract class AttributeOptions
      */
     protected parse(attrValue: string): any
     {
-        let options = {};
+        const options: { [name: string]: string } = {};
         let i = 0;
 
         while (i < attrValue.length)
@@ -38,7 +38,7 @@ export abstract class AttributeOptions
 
             skipWhitespace(attrValue);
 
-            const value = parseValue(attrValue)
+            const value = parseValue(attrValue);
 
             skipWhitespace(attrValue);
 
@@ -52,6 +52,8 @@ export abstract class AttributeOptions
 
         return options;
 
+        /* tslint:disable: no-shadowed-variable */
+
         function skipWhitespace(attrValue: string): void
         {
             while (i < attrValue.length && /\s/.test(attrValue[i]))
@@ -62,7 +64,7 @@ export abstract class AttributeOptions
 
         function parseName(attrValue: string): string
         {
-            let start = i;
+            const start = i;
 
             while (i < attrValue.length && /[a-z-]/.test(attrValue[i]))
             {
@@ -74,7 +76,7 @@ export abstract class AttributeOptions
                 throw new Error(`Expected property name at position ${chalk.magenta(start.toString())} in attribute value '${chalk.cyan(attrValue)}'.`);
             }
 
-            let result = attrValue.slice(start, i);
+            const result = attrValue.slice(start, i);
 
             skipWhitespace(attrValue);
 
@@ -90,11 +92,11 @@ export abstract class AttributeOptions
 
         function parseValue(attrValue: string): string
         {
-            let start = i;
+            const start = i;
             let char = attrValue[start];
             let trimStart = 0;
             let trimEnd = 0;
-            let quote: string|null = null;
+            let quote: string | null = null;
             let escape = false;
             let done = false;
 
@@ -105,7 +107,7 @@ export abstract class AttributeOptions
                 char = attrValue[++i];
             }
 
-            while(char != null)
+            while (char != null)
             {
                 if (escape)
                 {
@@ -168,7 +170,7 @@ export abstract class AttributeOptions
                 throw new Error(`Expected '${chalk.cyan(quote)}' at position ${chalk.magenta(i.toString())} in attribute value '${chalk.cyan(attrValue)}'.`);
             }
 
-            let result = attrValue.slice(start - trimStart, i - trimEnd);
+            const result = attrValue.slice(start - trimStart, i - trimEnd);
 
             if (char === ";")
             {
@@ -177,5 +179,7 @@ export abstract class AttributeOptions
 
             return result;
         }
+
+        /* tslint:enable */
     }
 }

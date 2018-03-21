@@ -1,4 +1,4 @@
-import {WhitespaceOption} from "../content-whitespace/content-whitespace";
+import { WhitespaceOption } from "../content-whitespace/content-whitespace";
 
 /**
  * Represents how annotations should be preserved, where 'none' preserves no
@@ -6,7 +6,7 @@ import {WhitespaceOption} from "../content-whitespace/content-whitespace";
  * preserves all annotations but normalizes them to either 'yes' or 'no', and
  * 'all' preserves all annotations without changes.
  */
-export type AnnotationsOption = "none"|"standard"|"normalize"|"all";
+export type AnnotationsOption = "none" | "standard" | "normalize" | "all";
 
 /**
  * Represents the result of parsing a template instance.

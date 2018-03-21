@@ -1,4 +1,4 @@
-import {ITemplateLanguage} from "../../template-language";
+import { ITemplateLanguage } from "../../template-language";
 
 /**
  * Represents an ITemplateLanguage implementation that does not support any templating language.

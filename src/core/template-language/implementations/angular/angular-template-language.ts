@@ -1,4 +1,4 @@
-import {ITemplateLanguage} from "../../template-language";
+import { ITemplateLanguage } from "../../template-language";
 
 /**
  * Represents an ITemplateLanguage implementation that supports the Angular templating language.
@@ -19,7 +19,7 @@ export class AngularTemplateLanguage implements ITemplateLanguage
         let expectOpenBrace = false;
         let expectCloseBrace = false;
         let braceDepth = 0;
-        let quoteChar: string|null = null;
+        let quoteChar: string | null = null;
         let escape = false;
 
         for (let i = 0; i < template.length; i++)
@@ -81,8 +81,8 @@ export class AngularTemplateLanguage implements ITemplateLanguage
                     {
                         expectCloseBrace = false;
 
-                        expressions.push(template.substring(sequenceStartIndex, i + 1))
-                        result += "{{" + (expressions.length - 1) + "}}";
+                        expressions.push(template.substring(sequenceStartIndex, i + 1));
+                        result += `{{${expressions.length - 1}}`;
                         sequenceStartIndex = i + 1;
                     }
                     else

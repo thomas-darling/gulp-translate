@@ -1,5 +1,5 @@
-import * as chalk from "chalk";
-import {IContentFileFormat, ContentFile} from "../content-file";
+import chalk from "chalk";
+import { IContentFileFormat, ContentFile } from "../content-file";
 
 /**
  * Represents the JSON file format in which a ContentFile instance may be persisted.
@@ -26,7 +26,7 @@ export class JsonContentFileFormat implements IContentFileFormat
         const contentFile = new ContentFile();
         const data = JSON.parse(text);
 
-        for (let id of Object.keys(data))
+        for (const id of Object.keys(data))
         {
             const content = data[id];
 

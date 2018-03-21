@@ -238,6 +238,12 @@
       "./folder/template-2.html"
     ]
   },
+  "2ea27fcea": {
+    "content": "second template in file, with translate annotation on the template itself",
+    "sources": [
+      "./folder/template-2.html"
+    ]
+  },
   "./content:content-id-2": {
     "content": "json content for content-id-2",
     "sources": [

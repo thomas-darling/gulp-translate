@@ -1,4 +1,4 @@
-import * as chalk from "chalk";
+import chalk from "chalk";
 
 /*
  * Represents the parser configuration.
@@ -101,7 +101,7 @@ export class AttributePattern
      * @param matchAttrName The name of the attribute matched by the pattern.
      * @returns The attribute name without the prefix and postfix specified in the pattern, or null if the name does not match the pattern.
      */
-    public getTargetName(matchAttrName: string): string|null
+    public getTargetName(matchAttrName: string): string | null
     {
         if (matchAttrName.length > this._pattern[0].length + this._pattern[1].length)
         {

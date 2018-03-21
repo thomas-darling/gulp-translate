@@ -1,5 +1,5 @@
-import * as chalk from "chalk";
-import {IImportFileFormat, ImportFile} from "../import-file";
+import chalk from "chalk";
+import { IImportFileFormat, ImportFile } from "../import-file";
 
 /**
  * Represents the JSON file format in which an ImportFile instance may be persisted.
@@ -26,7 +26,7 @@ export class JsonImportFileFormat implements IImportFileFormat
         const importFile = new ImportFile();
         const data = JSON.parse(text);
 
-        for (let key of Object.keys(data))
+        for (const key of Object.keys(data))
         {
             // Does this key represent a content ID?
             if (typeof data[key] === "string")
@@ -44,7 +44,7 @@ export class JsonImportFileFormat implements IImportFileFormat
 
                 const contents = data[key];
 
-                for (let id of Object.keys(contents))
+                for (const id of Object.keys(contents))
                 {
                     const content = contents[id];
 

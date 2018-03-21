@@ -13,6 +13,15 @@
     // When enabled, will trim trailing whitespace when you save a file.
     "files.trimTrailingWhitespace": true,
 
+    // Automatically add a newline at the end of files when saving.
+    "files.insertFinalNewline": true,
+
     // Use the TypeScript version specified in package.json.
-    "typescript.tsdk": "./node_modules/typescript/lib"
+    "typescript.tsdk": "./node_modules/typescript/lib",
+
+    // Defines whether an open brace is put onto a new line for functions or not
+    "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
+
+    // Defines whether an open brace is put onto a new line for control blocks or not
+    "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true
 }

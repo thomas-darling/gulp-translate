@@ -1,5 +1,5 @@
-import * as chalk from "chalk";
-import {IContentWhitespace, WhitespaceOption} from "../content-whitespace";
+import chalk from "chalk";
+import { IContentWhitespace, WhitespaceOption } from "../content-whitespace";
 
 /*
  * Represents a strategy for normalizing whitespace in the content exported from templates.

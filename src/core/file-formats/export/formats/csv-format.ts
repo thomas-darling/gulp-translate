@@ -1,6 +1,8 @@
+/* tslint:disable: no-require-imports no-var-requires no-submodule-imports */
 const csvStringify = require("csv-stringify/lib/sync");
 const csvParse = require("csv-parse/lib/sync");
-import {IExportFileFormat, ExportFile, Content} from "../export-file";
+/* tslint:enable */
+import { IExportFileFormat, ExportFile, Content } from "../export-file";
 
 /**
  * Represents the CSV file format in which a ExportFile instance may be persisted.
@@ -14,14 +16,14 @@ export class CsvExportFileFormat implements IExportFileFormat
      */
     public stringify(exportFile: ExportFile): string
     {
-        let data: any[] = [];
+        const data: any[] = [];
 
-        for (let id of Object.keys(exportFile.contents))
+        for (const id of Object.keys(exportFile.contents))
         {
             const content = exportFile.contents[id];
 
             data.push({
-                id: id,
+                id,
                 content: content.content,
                 hint: content.hint,
                 context: content.context ? content.context.map(c => `"${c}"`).join(",") : undefined,

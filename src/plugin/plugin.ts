@@ -1,30 +1,19 @@
-import * as util from "gulp-util";
-import * as path from "path";
-import * as through from "through2";
-import * as chalk from "chalk";
+import { ContentHash } from "../core/content-hash/implementation/content-hash";
+import { ContentWhitespace } from "../core/content-whitespace/implementation/content-whitespace";
+import { ITemplateParser } from "../core/template-parser/template-parser";
+import { TemplateParserConfig } from "../core/template-parser/template-parser-config";
+import { CheerioTemplateParser } from "../core/template-parser/implementation/template-parser";
 
-import {ContentHash} from "../core/content-hash/implementation/content-hash";
-import {ContentWhitespace} from "../core/content-whitespace/implementation/content-whitespace";
+import { IPluginConfig, PluginConfig } from "./plugin-config";
 
-import {ITemplateLanguage} from "../core/template-language/template-language";
-import {NullTemplateLanguage} from "../core/template-language/implementations/null/null-template-language";
-import {AureliaTemplateLanguage} from "../core/template-language/implementations/aurelia/aurelia-template-language";
-import {AngularTemplateLanguage} from "../core/template-language/implementations/angular/angular-template-language";
+import { ExportTask } from "./export/export-task";
+import { IExportTaskConfig, ExportTaskConfig } from "./export/export-task-config";
 
-import {ITemplateParser} from "../core/template-parser/template-parser";
-import {TemplateParserConfig} from "../core/template-parser/template-parser-config";
-import {CheerioTemplateParser} from "../core/template-parser/implementation/template-parser";
+import { ImportTask } from "./import/import-task";
+import { IImportTaskConfig, ImportTaskConfig } from "./import/import-task-config";
 
-import {IPluginConfig, PluginConfig} from "./plugin-config";
-
-import {ExportCommand} from "./export/export-command";
-import {IExportCommandConfig, ExportCommandConfig} from "./export/export-command-config";
-
-import {ImportCommand} from "./import/import-command";
-import {IImportCommandConfig, ImportCommandConfig} from "./import/import-command-config";
-
-import {TranslateCommand} from "./translate/translate-command";
-import {ITranslateCommandConfig, TranslateCommandConfig} from "./translate/translate-command-config";
+import { TranslateTask } from "./translate/translate-task";
+import { ITranslateTaskConfig, TranslateTaskConfig } from "./translate/translate-task-config";
 
 /**
  * Represents the plugin.
@@ -32,7 +21,6 @@ import {ITranslateCommandConfig, TranslateCommandConfig} from "./translate/trans
 export class Plugin
 {
     private _config: PluginConfig;
-    private _templateLanguage: ITemplateLanguage;
     private _templateParserConfig: TemplateParserConfig;
     private _templateParser: ITemplateParser;
 
@@ -43,64 +31,48 @@ export class Plugin
     public constructor(config?: IPluginConfig)
     {
         this._config = new PluginConfig(config);
-        this._templateLanguage = this.getTemplateLanguage(this._config.templateLanguage);
         this._templateParserConfig = new TemplateParserConfig(this._config);
         const templateWhitespace = new ContentWhitespace();
         const contentHash = new ContentHash(this._config.hashLength);
-        this._templateParser = new CheerioTemplateParser(this._templateParserConfig, this._templateLanguage, templateWhitespace, contentHash);
+        this._templateParser = new CheerioTemplateParser(this._templateParserConfig, this._config.templateLanguage, templateWhitespace, contentHash);
     }
 
     /**
      * Exports the localized content from the HTML file being processed, into a localizable JSON file.
-     * @param config The command configuration to use, or undefined to use the default.
+     * @param config The task configuration to use, or undefined to use the default.
+     * @returns A task for processing files.
      */
-    public export(config: IExportCommandConfig): NodeJS.ReadWriteStream
+    public export(config: IExportTaskConfig): ExportTask
     {
-        const exportCommand = new ExportCommand(this._config, this._templateParser);
-        return exportCommand.create(new ExportCommandConfig(config));
+        const exportConfig = new ExportTaskConfig(config);
+        const exportTask = new ExportTask(this._config, exportConfig, this._templateParser);
+
+        return exportTask;
     }
 
     /**
      * Imports the localized content from a localized JSON file, into the HTML file being processed.
-     * @param config The command configuration to use.
+     * @param config The task configuration to use.
+     * @returns A task for processing files.
      */
-    public import(config: IImportCommandConfig): NodeJS.ReadWriteStream
+    public import(config: IImportTaskConfig): ImportTask
     {
-        const importCommand = new ImportCommand(this._config, this._templateParser);
-        return importCommand.create(new ImportCommandConfig(config));
+        const importConfig = new ImportTaskConfig(config);
+        const importTask = new ImportTask(this._config, importConfig, this._templateParser);
+
+        return importTask;
     }
 
     /**
      * Simulates translation by creating an import file based on the content of the export file, optionally applying pseudo-localization to the content.
-     * Note that this command is a simple function, and not a stream transform.
-     * @param config The command configuration to use, or undefined to use the default.
+     * @param config The task configuration to use, or undefined to use the default.
+     * @returns A task for processing files.
      */
-    public translate(config: ITranslateCommandConfig): NodeJS.ReadWriteStream
+    public translate(config: ITranslateTaskConfig): TranslateTask
     {
-        const translateCommand = new TranslateCommand(this._config, this._templateParserConfig, this._templateLanguage);
-        return translateCommand.create(new TranslateCommandConfig(config));
-    }
+        const translateConfig = new TranslateTaskConfig(config);
+        const translateTask = new TranslateTask(this._config, translateConfig, this._templateParserConfig);
 
-    /**
-     * Gets a named template language implementation, or the specified instance.
-     */
-    private getTemplateLanguage(nameOrInstance: undefined|string|ITemplateLanguage): ITemplateLanguage
-    {
-        if (nameOrInstance == null)
-        {
-            return new NullTemplateLanguage();
-        }
-
-        if (typeof nameOrInstance === "string")
-        {
-            switch (nameOrInstance)
-            {
-                case "aurelia": return new AureliaTemplateLanguage();
-                case "angular": return new AngularTemplateLanguage();
-                default: throw new Error(`The template language '${chalk.cyan(nameOrInstance)}' is not supported.`);
-            }
-        }
-
-        return nameOrInstance as ITemplateLanguage;
+        return translateTask;
     }
 }
