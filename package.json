@@ -1,6 +1,6 @@
 {
   "name": "gulp-translate",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Gulp plugin that localizes HTML templates and JSON files by extracting and injecting localizable content.",
   "keywords": [
     "gulp",
@@ -52,7 +52,7 @@
     "typescript": "^2.7.2"
   },
   "scripts": {
-    "prepublish": "tsc"
+    "prepare": "tsc"
   },
   "types": "lib/index.d.ts",
   "main": "lib/index.js"
