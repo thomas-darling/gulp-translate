@@ -33,15 +33,18 @@
 
     </div>
 
-    <!-- case sensitivity, non-standard attribute names -->
+    <!-- case sensitivity, non-standard attribute names, quote in attribute -->
 
     <CustomElement #reference="" *ngFor="let item of items" (attr)="1" [attr]="2" [(attr)]="3">[e:l:e:m:e:n:t w:i:t:h A:n:g:u:l:a:r t:e:m:p:l:a:t:i:n:g s:y:n:t:a:x]</CustomElement>
+
+    <div foo="[c:o:n:t:e:n:t w:i:t:h q:u:o:t:e c:h:a:r:a:c:t:e:r:s &apos; &quot;]"></div>
 
     <!-- encoding, expressions, exclusion, inclusion -->
 
     <div>
 
         <div>[e:l:e:m:e:n:t w:i:t:h s:p:e:c:i:a:l c:h:a:r:a:c:t:e:r:s ]<span>[" © < > $]</span></div>
+        <div>[e:l:e:m:e:n:t w:i:t:h h:t:m:l e:n:t:i:t:i:e:s ]<span>[&quot; &copy; &lt; &gt; &dollar;]</span></div>
         <div>[e:l:e:m:e:n:t w:i:t:h h:t:m:l-l:i:k:e c:o:n:t:e:n:t i:n b:i:n:d:i:n:g e:x:p:r:e:s:s:i:o:n ]<span>[b:e:f:o:r:e ${ a <= b || a<b || </span></div> || {foo:{bar:{}}} || </span></div> || "\}" || \\\"'`</span></div>" || '\\\'"`</span></div>' || `\\\`"'</span></div>` || "${nested}" } a:f:t:e:r]</span></div>
         <div>[e:l:e:m:e:n:t w:i:t:h c:h:i:l:d c:o:n:t:e:n:t e:x:c:l:u:d:e:d f:r:o:m t:r:a:n:s:l:a:t:i:o:n ]<span>this should not be translated, <span>[b:u:t t:h:i:s s:h:o:u:l:d]</span></span></div>
         <div>
@@ -104,3 +107,5 @@ w:h:i:t:e:s:p:a:c:e h:a:n:d:l:i:n:g
 ]</p>
 
 </template>
+
+<template>[s:e:c:o:n:d t:e:m:p:l:a:t:e i:n f:i:l:e, w:i:t:h t:r:a:n:s:l:a:t:e a:n:n:o:t:a:t:i:o:n o:n t:h:e t:e:m:p:l:a:t:e i:t:s:e:l:f]</template>

@@ -50,11 +50,11 @@ export class CheerioTemplateParser implements ITemplateParser
         // Parse the template as HTML to get the CheerioStatic instance.
         const $ = cheerio.load(standardHtml, { decodeEntities: false, lowerCaseTags: false, lowerCaseAttributeNames: false });
 
-        // Parse each of the node trees under the auto-inserted root node.
-        $.root().children().each((i, element) =>
-        {
-            this.parseNode($, element, expressions, contents, annotations, false, null);
-        });
+        // Get the auto-created root node.
+        const root = $.root().get(0);
+
+        // Parse the node tree, starting from the root node.
+        this.parseNode($, root, expressions, contents, annotations, false, null);
 
         // Return a template instance.
         return new Template($, expressions, contents, annotations, this.templateLanguage);
@@ -67,14 +67,14 @@ export class CheerioTemplateParser implements ITemplateParser
      * @param expressions The array containing the original expressions for the placeholders in the template.
      * @param contents The array to which exported content instances should be added.
      * @param annotations The array to which extracted annotation instances should be added.
-     * @param extract True if the element or one of its ancestor elements should be translated, otherwise false.
+     * @param extract True if the element or one of its ancestor elements should be exported, otherwise false.
      * @param translate True if the element should be translated, otherwise false.
      */
     private parseNode($: CheerioStatic, element: CheerioElement, expressions: string[],
         contents: IContent[], annotations: IAnnotation[], extract: boolean, translate: boolean | null): void
     {
         // Ignore the node if it does not represent an HTML element.
-        if (element.type !== "tag")
+        if (element.type !== "root" && element.type !== "tag")
         {
             return;
         }
@@ -167,7 +167,7 @@ export class CheerioTemplateParser implements ITemplateParser
      * @param contents The array to which exported content instances should be added.
      * @param annotations The array to which extracted annotation instances should be added.
      * @param expressions The array containing the original expressions for the placeholders in the template.
-     * @param extract True if the element or one of its ancestor elements should be translated, otherwise false.
+     * @param extract True if the element or one of its ancestor elements should be exported, otherwise false.
      * @param translate True if the element should be translated, otherwise false.
      */
     private parseAttribute($: CheerioStatic, element: CheerioElement, attrName: string,

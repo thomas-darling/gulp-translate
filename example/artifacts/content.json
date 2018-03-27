@@ -1,4 +1,5 @@
 {
   "content-id-2": "json content for content-id-2",
-  "content-id-3": "json content for content-id-3"
+  "content-id-3": "json content for content-id-3",
+  "content-with-quotes": "content with quote characters ' \""
 }

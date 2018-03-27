@@ -13,6 +13,7 @@
     "content-id-1": "element with id and export enabled",
     "2b74baf25": "element with Angular templating syntax",
     "fffca82ee": "element with special characters <span>\" © < > $</span>",
+    "c2502cc1b": "element with html entities <span>&quot; &copy; &lt; &gt; &dollar;</span>",
     "9e33fd68a": "element with html-like content in binding expression <span>before ${ a <= b || a<b || </span></div> || {foo:{bar:{}}} || </span></div> || \"\\}\" || \\\\\\\"'`</span></div>\" || '\\\\\\'\"`</span></div>' || `\\\\\\`\"'</span></div>` || \"${nested}\" } after</span>",
     "b31ccf052": "element with child content excluded from translation <span translate=\"no\">this should not be translated, <span translate=\"yes\">but this should</span></span>",
     "1aa06a2d8": "this should be translated, <span translate=\"no\">but this should not</span>",
@@ -33,12 +34,13 @@
     "ec4f21836": "\r\n        attribute  with  pre\r\n        whitespace  handling\r\n        ",
     "7e003d069": "\nelement with pre-line\nwhitespace handling\n",
     "e4ea9d03e": "\nattribute with pre-line\nwhitespace handling\n",
+    "2ea27fcea": "second template in file, with translate annotation on the template itself",
     "e854c45ee": "element with unique content 2",
     "63bdb3316": "element with unique hint",
     "ca822f83f": "attribute with unique content 2",
     "d0baad994": "attribute with unique hint",
-    "2ea27fcea": "second template in file, with translate annotation on the template itself",
     "./content:content-id-2": "json content for content-id-2",
-    "./content:content-id-3": "json content for content-id-3"
+    "./content:content-id-3": "json content for content-id-3",
+    "./content:content-with-quotes": "content with quote characters ' \""
   }
 }

@@ -114,7 +114,14 @@ export class AttributeContent extends Content
 
     public set content(templateHtml: string)
     {
-        const standardHtml = this.templateLanguage.toStandardHtml(templateHtml, this.expressions);
+        let standardHtml = this.templateLanguage.toStandardHtml(templateHtml, this.expressions);
+
+        // TODO: Ideally, we should only encode the quotes if they are the same as the surrounding quotes.
+        // Ensure quotes are encoded, as they might otherwise break the HTML by ending the attribute value prematurely.
+        standardHtml = standardHtml
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&apos;");
+
         this.annotation.element.attr(this.annotation.contentAttrName, standardHtml);
     }
 

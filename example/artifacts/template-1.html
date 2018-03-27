@@ -33,11 +33,13 @@
 
     </div>
 
-    <!-- case sensitivity, non-standard attribute names -->
+    <!-- case sensitivity, non-standard attribute names, quote in attribute -->
 
     <CustomElement #reference="" *ngFor="let item of items" (attr)="1" [attr]="2" [(attr)]="3">
         element with Angular templating syntax
     </CustomElement>
+
+    <div foo=""></div>
 
     <!-- encoding, expressions, exclusion, inclusion -->
 
@@ -46,6 +48,10 @@
         <div>
             element with special characters
             <span>" © < > $</span>
+        </div>
+        <div>
+            element with html entities
+            <span>&quot; &copy; &lt; &gt; &dollar;</span>
         </div>
         <div>
             element with html-like content in binding expression
@@ -132,4 +138,8 @@
         whitespace  handling
     </p>
 
+</template>
+
+<template>
+    second template in file, with translate annotation on the template itself
 </template>

@@ -1,4 +1,5 @@
 {
   "content-id-2": "[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-2]",
-  "content-id-3": "[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-3]"
+  "content-id-3": "[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-3]",
+  "content-with-quotes": "[c:o:n:t:e:n:t w:i:t:h q:u:o:t:e c:h:a:r:a:c:t:e:r:s ' \"]"
 }

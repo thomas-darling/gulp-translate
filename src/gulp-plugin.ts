@@ -14,7 +14,7 @@ import { ITranslateTaskConfig } from "./plugin/translate/translate-task-config";
 const packageJson: any = require("../package.json");
 
 /**
- * Represents the plugin.
+ * Represents a Gulp plugin, implemented as a wrapper around the translate plugin.
  */
 export class GulpPlugin
 {

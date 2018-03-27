@@ -4,7 +4,7 @@ import { File } from "./plugin/file";
 
 /**
  * Represents a file being processed by the plugin, implemented
- * as a wrapper around the Vinyl files used by the Gulp.
+ * as a wrapper around the Vinyl files used by Gulp.
  */
 export class GulpFile extends File
 {

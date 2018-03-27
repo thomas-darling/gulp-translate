@@ -48,11 +48,13 @@ export abstract class ContentTranslator implements IContentTranslator
         const expressions: string[] = [];
         const standardHtml = this.templateLanguage.toStandardHtml(templateHtml, expressions);
 
-        // Parse the template as HTML and get the root node.
+        // Parse the template as HTML to get the CheerioStatic instance.
         const $ = cheerio.load(standardHtml, { decodeEntities: false, lowerCaseTags: false, lowerCaseAttributeNames: false });
+
+        // Get the auto-created root node.
         const root = $.root().get(0);
 
-        // Parse the root node.
+        // Parse the node tree, starting from the root node.
         this.parseNode(root, true);
 
         // Inject the previously extracted binding expressions back into the template.
@@ -74,8 +76,6 @@ export abstract class ContentTranslator implements IContentTranslator
      */
     private parseNode(element: CheerioElement, translate: boolean): void
     {
-        let translateChildren = translate;
-
         // Ignore the node if it does not represent an HTML element.
         if (element.type === "text")
         {
@@ -91,6 +91,8 @@ export abstract class ContentTranslator implements IContentTranslator
         {
             return;
         }
+
+        let translateChildren = translate;
 
         // Try to find the translate attribute on the element.
         if (this.templateParserConfig.attributeName in element.attribs)

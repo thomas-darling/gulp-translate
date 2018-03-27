@@ -13,6 +13,7 @@
     "content-id-1": "[e:l:e:m:e:n:t w:i:t:h i:d a:n:d e:x:p:o:r:t e:n:a:b:l:e:d]",
     "2b74baf25": "[e:l:e:m:e:n:t w:i:t:h A:n:g:u:l:a:r t:e:m:p:l:a:t:i:n:g s:y:n:t:a:x]",
     "fffca82ee": "[e:l:e:m:e:n:t w:i:t:h s:p:e:c:i:a:l c:h:a:r:a:c:t:e:r:s ]<span>[\" © < > $]</span>",
+    "c2502cc1b": "[e:l:e:m:e:n:t w:i:t:h h:t:m:l e:n:t:i:t:i:e:s ]<span>[&quot; &copy; &lt; &gt; &dollar;]</span>",
     "9e33fd68a": "[e:l:e:m:e:n:t w:i:t:h h:t:m:l-l:i:k:e c:o:n:t:e:n:t i:n b:i:n:d:i:n:g e:x:p:r:e:s:s:i:o:n ]<span>[b:e:f:o:r:e ${ a <= b || a<b || </span></div> || {foo:{bar:{}}} || </span></div> || \"\\}\" || \\\\\\\"'`</span></div>\" || '\\\\\\'\"`</span></div>' || `\\\\\\`\"'</span></div>` || \"${nested}\" } a:f:t:e:r]</span>",
     "b31ccf052": "[e:l:e:m:e:n:t w:i:t:h c:h:i:l:d c:o:n:t:e:n:t e:x:c:l:u:d:e:d f:r:o:m t:r:a:n:s:l:a:t:i:o:n ]<span translate=\"no\">this should not be translated, <span translate=\"yes\">[b:u:t t:h:i:s s:h:o:u:l:d]</span></span>",
     "1aa06a2d8": "[t:h:i:s s:h:o:u:l:d b:e t:r:a:n:s:l:a:t:e:d, ]<span translate=\"no\">but this should not</span>",
@@ -33,12 +34,13 @@
     "ec4f21836": "[\r\n        a:t:t:r:i:b:u:t:e  w:i:t:h  p:r:e\r\n        w:h:i:t:e:s:p:a:c:e  h:a:n:d:l:i:n:g\r\n        ]",
     "7e003d069": "[\ne:l:e:m:e:n:t w:i:t:h p:r:e-l:i:n:e\nw:h:i:t:e:s:p:a:c:e h:a:n:d:l:i:n:g\n]",
     "e4ea9d03e": "[\na:t:t:r:i:b:u:t:e w:i:t:h p:r:e-l:i:n:e\nw:h:i:t:e:s:p:a:c:e h:a:n:d:l:i:n:g\n]",
+    "2ea27fcea": "[s:e:c:o:n:d t:e:m:p:l:a:t:e i:n f:i:l:e, w:i:t:h t:r:a:n:s:l:a:t:e a:n:n:o:t:a:t:i:o:n o:n t:h:e t:e:m:p:l:a:t:e i:t:s:e:l:f]",
     "e854c45ee": "[e:l:e:m:e:n:t w:i:t:h u:n:i:q:u:e c:o:n:t:e:n:t 2]",
     "63bdb3316": "[e:l:e:m:e:n:t w:i:t:h u:n:i:q:u:e h:i:n:t]",
     "ca822f83f": "[a:t:t:r:i:b:u:t:e w:i:t:h u:n:i:q:u:e c:o:n:t:e:n:t 2]",
     "d0baad994": "[a:t:t:r:i:b:u:t:e w:i:t:h u:n:i:q:u:e h:i:n:t]",
-    "2ea27fcea": "[s:e:c:o:n:d t:e:m:p:l:a:t:e i:n f:i:l:e, w:i:t:h t:r:a:n:s:l:a:t:e a:n:n:o:t:a:t:i:o:n o:n t:h:e t:e:m:p:l:a:t:e i:t:s:e:l:f]",
     "./content:content-id-2": "[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-2]",
-    "./content:content-id-3": "[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-3]"
+    "./content:content-id-3": "[j:s:o:n c:o:n:t:e:n:t f:o:r c:o:n:t:e:n:t-i:d-3]",
+    "./content:content-with-quotes": "[c:o:n:t:e:n:t w:i:t:h q:u:o:t:e c:h:a:r:a:c:t:e:r:s ' \"]"
   }
 }

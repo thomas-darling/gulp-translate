@@ -92,6 +92,12 @@
       "./template-1.html"
     ]
   },
+  "c2502cc1b": {
+    "content": "element with html entities <span>&quot; &copy; &lt; &gt; &dollar;</span>",
+    "sources": [
+      "./template-1.html"
+    ]
+  },
   "9e33fd68a": {
     "content": "element with html-like content in binding expression <span>before ${ a <= b || a<b || </span></div> || {foo:{bar:{}}} || </span></div> || \"\\}\" || \\\\\\\"'`</span></div>\" || '\\\\\\'\"`</span></div>' || `\\\\\\`\"'</span></div>` || \"${nested}\" } after</span>",
     "sources": [
@@ -212,6 +218,12 @@
       "./template-1.html"
     ]
   },
+  "2ea27fcea": {
+    "content": "second template in file, with translate annotation on the template itself",
+    "sources": [
+      "./template-1.html"
+    ]
+  },
   "e854c45ee": {
     "content": "element with unique content 2",
     "sources": [
@@ -238,12 +250,6 @@
       "./folder/template-2.html"
     ]
   },
-  "2ea27fcea": {
-    "content": "second template in file, with translate annotation on the template itself",
-    "sources": [
-      "./folder/template-2.html"
-    ]
-  },
   "./content:content-id-2": {
     "content": "json content for content-id-2",
     "sources": [
@@ -252,6 +258,12 @@
   },
   "./content:content-id-3": {
     "content": "json content for content-id-3",
+    "sources": [
+      "./content.json"
+    ]
+  },
+  "./content:content-with-quotes": {
+    "content": "content with quote characters ' \"",
     "sources": [
       "./content.json"
     ]
