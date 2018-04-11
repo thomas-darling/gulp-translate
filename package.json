@@ -1,6 +1,6 @@
 {
   "name": "gulp-translate",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Gulp plugin that localizes HTML templates and JSON files by extracting and injecting localizable content.",
   "keywords": [
     "gulp",
