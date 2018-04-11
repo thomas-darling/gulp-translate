@@ -101,10 +101,7 @@ export class PluginConfig implements ITemplateParserConfig
             this.prefixIdsInContentFiles = config.prefixIdsInContentFiles;
         }
 
-        if (config.templateLanguage != undefined)
-        {
-            this.templateLanguage = this.getTemplateLanguage(config.templateLanguage);
-        }
+        this.templateLanguage = this.getTemplateLanguage(config.templateLanguage);
 
         if (config.hashLength != undefined)
         {
