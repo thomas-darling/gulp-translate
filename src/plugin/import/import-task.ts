@@ -6,7 +6,8 @@ import { ImportFile } from "../../core/file-formats/import/import-file";
 import { ContentFile } from "../../core/file-formats/content/content-file";
 import { getPrefixedContentId } from "../../core/utilities";
 
-import { File } from "../file";
+import { IFile } from "../file";
+import { getRelativePath } from "../utilities";
 import { PluginConfig } from "../plugin-config";
 import { IPluginTask } from "../plugin-task";
 
@@ -43,10 +44,10 @@ export class ImportTask implements IPluginTask
      * @param file The file to process.
      * @returns A promise that will be resolved with the processed file.
      */
-    public async process(file: File): Promise<File>
+    public async process(file: IFile): Promise<IFile>
     {
-        const filePathRelativeToCwd = file.getRelativePath();
-        const filePathRelativeToBase = file.getRelativePath(this._taskConfig.baseFilePath || file.globBasePath);
+        const filePathRelativeToCwd = getRelativePath(file.path);
+        const filePathRelativeToBase = getRelativePath(file.path, this._taskConfig.baseFilePath || file.base);
 
         try
         {
@@ -54,7 +55,7 @@ export class ImportTask implements IPluginTask
             if (path.extname(filePathRelativeToBase) !== ".html")
             {
                 // Read and parse the non-localized content file.
-                const contentFile = ContentFile.parse(file.contents, path.extname(file.absolutePath));
+                const contentFile = ContentFile.parse(file.contents, path.extname(file.path));
 
                 for (const key of Object.keys(contentFile.contents))
                 {
@@ -88,7 +89,7 @@ export class ImportTask implements IPluginTask
                 }
 
                 // Replace the file contents.
-                file.contents = contentFile.stringify(path.extname(file.absolutePath));
+                file.contents = contentFile.stringify(path.extname(file.path));
             }
             else
             {

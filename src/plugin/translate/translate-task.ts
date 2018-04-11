@@ -9,7 +9,8 @@ import { IContentTranslator } from "../../core/content-translator/content-transl
 import { NullContentTranslator } from "../../core/content-translator/implementations/null/null-content-translator";
 import { PseudoContentTranslator } from "../../core/content-translator/implementations/pseudo/pseudo-content-translator";
 
-import { File } from "../file";
+import { IFile } from "../file";
+import { getRelativePath } from "../utilities";
 import { PluginConfig } from "../plugin-config";
 import { IPluginTask } from "../plugin-task";
 
@@ -42,14 +43,14 @@ export class TranslateTask implements IPluginTask
      * @param file The file to process.
      * @returns A promise that will be resolved with the processed file.
      */
-    public async process(file: File): Promise<File>
+    public async process(file: IFile): Promise<IFile>
     {
-        const filePathRelativeToCwd = file.getRelativePath();
+        const filePathRelativeToCwd = getRelativePath(file.path);
 
         try
         {
             // Read and parse the non-localized export file.
-            const exportFile = ExportFile.parse(file.contents, path.extname(file.absolutePath));
+            const exportFile = ExportFile.parse(file.contents, path.extname(file.path));
 
             // Create the new import file instance.
             const importFile = new ImportFile();
@@ -65,7 +66,7 @@ export class TranslateTask implements IPluginTask
             }
 
             // Write the localized input file to the destination.
-            file.contents = importFile.stringify(this._taskConfig.fileNameExtension || path.extname(file.absolutePath));
+            file.contents = importFile.stringify(this._taskConfig.fileNameExtension || path.extname(file.path));
 
             // Return the processed file.
             return file;
