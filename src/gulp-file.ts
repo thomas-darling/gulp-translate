@@ -1,4 +1,4 @@
-import * as util from "gulp-util";
+import * as Vinyl from "vinyl";
 
 import { IFile } from "./plugin/file";
 
@@ -10,27 +10,27 @@ export class GulpFile implements IFile
 {
     /**
      * Creates a new instance of the GulpFile type.
-     * @param file The Vinyl instance to wrap.
+     * @param vinyl The Vinyl instance to wrap.
      */
-    public constructor(file: util.File)
+    public constructor(vinyl: Vinyl)
     {
-        if (file.isNull())
+        if (vinyl.isNull())
         {
             throw new Error("File contents is null.");
         }
 
-        if (!file.isBuffer())
+        if (!vinyl.isBuffer())
         {
             throw new Error("File contents is not a buffer.");
         }
 
-        this.vinyl = file;
+        this.vinyl = vinyl;
     }
 
     /**
      * Gets the wrapped Vinyl instance.
      */
-    public readonly vinyl: util.File;
+    public readonly vinyl: Vinyl;
 
     /**
      * Gets the contents of the file.

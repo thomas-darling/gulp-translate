@@ -1,5 +1,6 @@
-import * as util from "gulp-util";
 import * as through from "through2";
+import * as Vinyl from "vinyl";
+import * as PluginError from "plugin-error";
 
 import { Plugin } from "./plugin/plugin";
 import { IPluginConfig } from "./plugin/plugin-config";
@@ -65,20 +66,20 @@ export class GulpPlugin
     private createTransform(task: IPluginTask): NodeJS.ReadWriteStream
     {
         // Return the stream transform.
-        return through.obj((file: util.File, encoding: string, callback: (err?: any, data?: any) => void) =>
+        return through.obj((vinyl: Vinyl, encoding: string, callback: (err?: any, data?: any) => void) =>
         {
             try
             {
                 // Don't drop null-files from the stream.
-                if (file.isNull())
+                if (vinyl.isNull())
                 {
-                    callback(null, file);
+                    callback(null, vinyl);
 
                     return;
                 }
 
                 // Process the buffer contents.
-                if (!file.isBuffer())
+                if (!vinyl.isBuffer())
                 {
                     throw new Error("This plugin command only supports buffers.");
                 }
@@ -86,7 +87,7 @@ export class GulpPlugin
                 if (task.process instanceof Function)
                 {
                     // Process the file.
-                    task.process(new GulpFile(file))
+                    task.process(new GulpFile(vinyl))
 
                         // Notify stream engine that we are done with this file and push it back into the stream.
                         .then((gulpFile: GulpFile) => callback(null, gulpFile.vinyl));
@@ -94,12 +95,12 @@ export class GulpPlugin
                 else
                 {
                     // Notify stream engine that we are all done.
-                    callback(null, file);
+                    callback(null, vinyl);
                 }
             }
             catch (error)
             {
-                callback(new util.PluginError(packageJson.name, error.message));
+                callback(new PluginError(packageJson.name, error.message));
 
                 return;
             }

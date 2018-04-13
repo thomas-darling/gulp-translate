@@ -9,7 +9,6 @@
  */
 
 var gulp = require("gulp");
-var util = require("gulp-util");
 var del = require("del");
 var rename = require("gulp-rename");
 var translate = require("../lib/index");
