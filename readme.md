@@ -469,9 +469,11 @@ interface IImportTaskConfig
      * The absolute path for the import file from which the contents should
      * be loaded, or an array of paths, if import should be attempted from
      * multiple import files. If multiple files are specified, the first
-     * match for each content id will be used.
+     * match for each content id will be used. If undefined, it is up to the
+     * missing content handler to locate the content.
+     * Default is undefined.
      */
-    importFilePath: string | string[];
+    importFilePath?: string | string[];
 
     /**
      * The translate annotations to preserve, where 'none' preserves no

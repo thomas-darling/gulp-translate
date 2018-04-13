@@ -143,9 +143,7 @@ export class ImportTask implements IPluginTask
      */
     private getContentFiles(config: ImportTaskConfig): ImportFile[]
     {
-        let importContentFiles: ImportFile[];
-
-        importContentFiles = config.importFilePaths.map(importFilePath =>
+        const importContentFiles = config.importFilePaths.map(importFilePath =>
         {
             try
             {

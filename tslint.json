@@ -10,6 +10,10 @@
       true,
       "ban-single-arg-parens"
     ],
+    "comment-format": [
+      true,
+      "check-space"
+    ],
     "cyclomatic-complexity": false,
     "linebreak-style": [
       true,
@@ -43,10 +47,12 @@
     "newline-per-chained-call": false,
     "no-any": false,
     "no-console": false,
+    "no-default-export": false,
     "no-inferrable-types": false,
     "no-magic-numbers": false,
     "no-non-null-assertion": false,
     "no-null-keyword": false,
+    "no-object-literal-type-assertion": false,
     "object-literal-sort-keys": false,
     "one-line": false,
     "only-arrow-functions": [
@@ -54,6 +60,7 @@
       "allow-declarations"
     ],
     "ordered-imports": false,
+    "prefer-conditional-expression": false,
     "prefer-function-over-method": false,
     "prefer-switch": false,
     "switch-default": false,
