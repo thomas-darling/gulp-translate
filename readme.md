@@ -589,14 +589,14 @@ interface ITranslateTaskConfig
 
 ## The problems with fixed ids
 
-In many solutions, all strings that need to be translated are stored in a separate file, and the templates then reference those strings by id, often using client-side data binding.
+In many solutions, all strings that need to be translated are stored in a separate string-file, and the templates then reference those strings by id, often using client-side data binding.
 While this approach does work, it has significant drawbacks that make it annoying, inefficient and error prone in larger apps.
 
 * Using data binding to render every single string can have a significant impact on performance, and if the application is split into multiple bundles to reduce download size,
-  it may not be obvious which string file a given string should be added to, especially if that string is referenced from multiple places.
+  it may not be obvious in which string-file a given string should be added, especially if that string is referenced from multiple places.
 
 * When we need a new string, we have to somehow come up with a new unique string id, preferably consistent with the naming of the thousands of existing ids.
-  We then have to add it to the strings file and reference it from the template, which is less than ideal for rapid prototyping, where templates and strings are subject to change.
+  We then have to add it to the string-file and reference it from the template, which is less than ideal for rapid prototyping, where templates and strings are subject to change.
 
 * When we change the layout of the application over time, strings will inevitably move around, and their ids may become misleading as to where the string is actually used.
   We can't easily change those ids to match the new layout, as that would undermine the whole point of having a fixed id in the first place.
@@ -607,18 +607,18 @@ While this approach does work, it has significant drawbacks that make it annoyin
 * When the same string is referenced from multiple places, and we decide to change the text in one of them, we might accidentally change it everywhere.
   We could search for the id in the code, but that is easily forgotten, and now we have to come up with a new id for the string we are changing.
 
-* When a string is no longer needed, we have to remember to remove that string from the strings file.
+* When a string is no longer needed, we have to remember to remove that string from the string-file.
   This is easily forgotten, leading to unused strings piling up - and how do we even know that the strings are not still in use?
 
 * Storing strings separately decouples them from the templates in which they are used, which is a problem when refactoring e.g. binding expressions, markup or class names, which may be part of the string
   that should be translated. Updating the strings is easily forgotten, which introduces bugs that may not be easily found.
 
-* Storing strings separately complicates branching and testing, as string ids may be changed or removed on some branches but not on others.
+* Using fixed ids complicate branching and testing, as strings or string ids may be changed or removed on some branches but not on others.
   This complicates translation management and multilingual testing, as different branches need different versions of the translations.
 
 ### A better workflow
 
-The workflow supported by this plugin eases this pain considerably, leaving only a few issues to be considered:
+The workflow supported by this plugin eases this pain considerably, leaving only a few things to consider:
 
 * When a string is changed, it will appear to the translators as if the previous string was removed and a new string was added.
   While this might introduce some slight translation overhead, e.g. when fixing a spelling mistake in a template, such overhead really should be minimal, especially given that any modern
@@ -638,7 +638,7 @@ The workflow supported by this plugin eases this pain considerably, leaving only
 
   If you prefer to have the content in a Content Management System instead, you can either set up a task to copy the relevant content from there into your import files, or you can use the `missingContentHandler` import option to specify a custom function that fetches the content directly during import.
 
-## Things to consider
+## Additional considerations
 
 While this plugin handles the export and import of your localizable content, it does not solve all your localization problems. You still need to decide how to handle things such as:
 
@@ -661,19 +661,17 @@ Note that while using the ICU Message Format is probably a good idea, the Angula
 
 If you are using the [Aurelia](http://aurelia.io) framework, or another framework with good templating and data binding capabilities, a good approach is to simply embrace the binding and templating syntax of your framework of choice. For example, you can easily build a small set of custom value converters for Aurelia, which would allow you to write localizable content like this:
 
-<style>.faded { opacity: .7; margin-right: .7em; }</style>
-
 * `The ticket price is ${price | currency}`<br>
-  <span class="faded">Example:</span>The ticket price is $1,000
+  Example: The ticket price is $1,000
 
 * `The nearest airport is ${price | distance}`<br>
-  <span class="faded">Example:</span>The nearest airport is 1.5 km away
+  Example: The nearest airport is 1.5 km away
 
 * `There are ${count | number} ${count | plural: "airport" : "airports"} nearby`<br>
-  <span class="faded">Example:</span>There are 2 airports nearby
+  Example: There are 2 airports nearby
 
 * `The best days to fly are ${days | list: 'and'}`<br>
-  <span class="faded">Example:</span>The best days to fly are Monday, Tuesday and Wednesday
+  Example: The best days to fly are Monday, Tuesday and Wednesday
 
 Those are just a few examples to illustrate the concept of using value converters for localization, and while this is not a standard, it works and scales extremely well, and is extensible enough that it will handle just about any localization problem - how far you take it is up to you.
 
