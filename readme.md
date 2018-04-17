@@ -12,7 +12,9 @@ The plugin supports both element and attribute content, binding expressions, whi
 Aurelia and Angular templates are supported out of the box, meaning that any HTML-like content in binding expressions will not mess up the HTML parsing,
 and other template languages can be easily added. The plugin is highly configurable and versatile - see the examples in this readme and in the repository.
 
-You may also want to look at the plugins:
+You may also want to look at:
+
+* [translation-loader](https://www.npmjs.com/package/translation-loader) for using this workflow and tooling in a Webpack build process, without a dependency on Gulp.
 
 * [gulp-tree-filter](https://www.npmjs.com/package/gulp-tree-filter) for filtering files based on include and exclude globs defined in config files located within the folder tree.
 Use this to e.g. prevent localizable content from being extracted from unfinished features.
@@ -30,14 +32,12 @@ referencing its id. While this approach can work in some apps, it has significan
 
 This plugin can absolutely support the traditional approach - for that you should look at the plugin option `replaceWithIds`, the export option `exportForId` and the annotation options `id` and `export`.
 However, this plugin is primarily intended to enable a more modern and developer friendly workflow, designed with modern Translation Management Systems in mind, and taking advantage of their support for
-concepts such as _translation memory_, which allows previous translations to be easily reused. This is also the approach promoted by the [HTML 5 spec](https://www.w3.org/International/questions/qa-translate-flag.en)
-and by major SPA frameworks such as [Angular 2](https://angular.io/docs/ts/latest/cookbook/i18n.html).
+concepts such as _Translation Memory_, which allows previous translations to be easily reused. This is also the approach promoted by the [HTML 5 spec](https://www.w3.org/International/questions/qa-translate-flag.en)
+and by major SPA frameworks such as [Angular](https://angular.io/guide/i18n).
 
 At the core of the workflow is the idea, that when authoring templates, we write the localizable content _directly in the templates_, and then _annotate_ the elements and attributes
-such that the build process will know what content to export for translation and import during localization. The id of each exported piece of content will,
-unless explicitly specified, then be _computed_ as a hash based on the content itself, and optionally a _hint_. An important side effect of this is, that identical pieces of content will have
-identical ids, meaning that any given content will only be translated once, thus ensuring consistency and reducing translation work.
-We'll get back to why this is a better approach in the section "Why not just use ids?" at the end of this readme, along with a couple of helpful tips.
+such that the build process will know what content to export for translation and import during localization. The id of each exported piece of content will, unless explicitly specified, then be a
+_hash computed based on the content itself_, and optionally a _hint_ that provides additional context and uniqueness. An important side effect of this is, that identical pieces of content will have identical ids, meaning that any given content will only be translated once, thus ensuring consistency and reducing translation work. We'll get back to why this is a better approach in the section "The problem with fixed ids" at the end of this readme, along with a couple of helpful tips.
 
 ## Annotating elements and attributes
 
@@ -587,12 +587,15 @@ interface ITranslateTaskConfig
 }
 ```
 
-## Why not just use ids?
+## The problems with fixed ids
 
 In many solutions, all strings that need to be translated are stored in a separate file, and the templates then reference those strings by id, often using client-side data binding.
 While this approach does work, it has significant drawbacks that make it annoying, inefficient and error prone in larger apps.
 
-* When we need a new string, we have to somehow come up with a new unique string id, preferably consistent with the thousands of existing ids.
+* Using data binding to render every single string can have a significant impact on performance, and if the application is split into multiple bundles to reduce download size,
+  it may not be obvious which string file a given string should be added to, especially if that string is referenced from multiple places.
+
+* When we need a new string, we have to somehow come up with a new unique string id, preferably consistent with the naming of the thousands of existing ids.
   We then have to add it to the strings file and reference it from the template, which is less than ideal for rapid prototyping, where templates and strings are subject to change.
 
 * When we change the layout of the application over time, strings will inevitably move around, and their ids may become misleading as to where the string is actually used.
@@ -601,36 +604,77 @@ While this approach does work, it has significant drawbacks that make it annoyin
 * When we need the same string in multiple places, keeping the translations consistent becomes complicated.
   We could reference the same string from multiple places, but what should the id of that string then be?
 
-* When the same string is referenced from multiple places, and we decide to change the text in only one of them, we might accidentally change it everywhere.
-  We could of course search for the id in the code, but can the person making the change, who may not be a developer, do that?
+* When the same string is referenced from multiple places, and we decide to change the text in one of them, we might accidentally change it everywhere.
+  We could search for the id in the code, but that is easily forgotten, and now we have to come up with a new id for the string we are changing.
 
-* When a string is no longer needed, we must remember to remove that string from the strings file.
-  This is easily forgotten, and how do we even know that the string is not still used in other templates?
+* When a string is no longer needed, we have to remember to remove that string from the strings file.
+  This is easily forgotten, leading to unused strings piling up - and how do we even know that the strings are not still in use?
 
-* It decouples the strings from the templates in which they are used, which is a problem when refactoring e.g. binding expressions, markup or class names, which may be part of the string
-  that should be translated. Updating those strings are easily forgotten, which introduces bugs, and even if we do remember, we don't get any tool support for the templating syntax when editing the strings file.
+* Storing strings separately decouples them from the templates in which they are used, which is a problem when refactoring e.g. binding expressions, markup or class names, which may be part of the string
+  that should be translated. Updating the strings is easily forgotten, which introduces bugs that may not be easily found.
 
-* It complicates branching and testing, as string ids may be changed or removed on some branches but not on others.
+* Storing strings separately complicates branching and testing, as string ids may be changed or removed on some branches but not on others.
   This complicates translation management and multilingual testing, as different branches need different versions of the translations.
 
-The approach used with this plugin eases this pain considerably, leaving only a few issues to be considered:
+### A better workflow
+
+The workflow supported by this plugin eases this pain considerably, leaving only a few issues to be considered:
 
 * When a string is changed, it will appear to the translators as if the previous string was removed and a new string was added.
-  While this might introduce some slight translation overhead, e.g. when fixing spelling mistakes in the templates, such overhead really should be minimal, especially given that any modern
-  translation service will have what is known as _translation memory_, meaning that it remembers and suggests previous translations when it encounters similar text.
+  While this might introduce some slight translation overhead, e.g. when fixing a spelling mistake in a template, such overhead really should be minimal, especially given that any modern
+  Translation Management Systems will have what is known as _Translation Memory_, meaning that it remembers and suggests previous translations when it encounters similar text.
 
-* When two occurences of the same string needs different translations, we have to either add a _hint_ to one of them, or to _scope_ the translation to a file or folder.
-  This might seem like a downside, but on the other hand, it also helps guarantee consistency in translation, and in reality, this will rarely be an issue.
-  While not generally recommended, we could also, when integrating with a translation system, combine the source paths with the hashes, thus ensuring a unique translation within each file.
+* When two occurrences of the same string need different translations, we have to either add a _hint_ to one of them, or to _scope_ the translation to a file or folder.
+  This might seem like a downside, but on the other hand, it also helps guarantee consistency in translation, and in reality, this will very rarely be an issue.
+  While not generally recommended, we could also, when integrating with a Translation Management System, combine the source paths with the ids, thus ensuring a unique translation for each file.
 
 * When a large piece of content is reused in multiple places, you might think that we have to repeat all of that content in each place.
-  Generally, this is true, but on the other hand, it could also be argued that such large pieces of content should probably live in a CMS system, and therefore don't belong in the templates in the first place.
-  There's a difference between content needed to construct the interface of the app itself, and the actual _content_ being displayed to users.
+  That would indeed be annoying, but it could be argued that such large pieces of content should probably live in a CMS instead, and don't belong in the templates in the first place.
+  There's a difference between content needed to present the interface of the app itself, and the actual _content_ being displayed to users.
   This plugin is primarily intended to handle the process of localizing the app itself, not things like articles, product descriptions, legal text, etc.
 
-  That being said, we actually _do_ have a really good way of handling such content - just specify the content once in either a JSON content file, or in a template, annotated with a `translate` attribute
-  containing the options `id` and `export: true`. Then, reference it elsewhere by specifying the same `id` in the translate annotation for the elements or attributes in which it should be injected.
-  If you have a CMS system, you could even set up a task to copy the relevant content from there into the import file, before running the import task, or you can use the `missingContentHandler` import option
-  to specify a custom function that locates the content.
+  That said, we actually do have a really good way of handling such content. You just specify the content once in either a JSON content file, or in a template, annotated with a `translate` attribute
+  containing the options `id` and `export: true`. Then, reference it elsewhere by specifying the same `id` in the translate annotation for the elements or attributes into which it should be injected.
 
-Enjoy, and please report any issues in the issue tracker :-)
+  If you prefer to have the content in a Content Management System instead, you can either set up a task to copy the relevant content from there into your import files, or you can use the `missingContentHandler` import option to specify a custom function that fetches the content directly during import.
+
+## Things to consider
+
+While this plugin handles the export and import of your localizable content, it does not solve all your localization problems. You still need to decide how to handle things such as:
+
+* Formatting of dates, times, durations, numbers, currencies, percentages, measures, etc.
+* Choosing the right plural form of a word depending on a number.
+* Formatting a list of items as a string, with appropriate separators.
+* Complex problems related to gender, prepositions, articles and grammatical case.
+
+Depending on your level of ambition, those can be _very_ hard problems to solve. The first ones are relatively easy to deal with, but that last one will give you endless headaches, especially with languages such as French or Finnish.
+
+### The standard solution
+
+If you are using the Angular framework, you should probably consider using on their [built in support](https://angular.io/docs/ts/latest/cookbook/i18n.html) for the [ICU Message Format](http://userguide.icu-project.org/formatparse/messages), which is a commonly used format for expressing localizable content, which provides basic support for support for pluralization and string selection.
+
+Out of the box this may appear somewhat limited, but note that you can actually use pipes to format values inside those messages, exactly as in your binding expressions. This is an Angular feature though, and not part of the ICU Message Format spec - and you will have to write most of those pipes yourself.
+
+Note that while using the ICU Message Format is probably a good idea, the Angular tooling for extracting and injecting strings is missing some features, which is why you might consider using an alternative tool such as this plugin instead. For example, at the time of writing, the Angular tooling has no support for strings stored in JSON files.
+
+### The custom solution
+
+If you are using the [Aurelia](http://aurelia.io) framework, or another framework with good templating and data binding capabilities, a good approach is to simply embrace the binding and templating syntax of your framework of choice. For example, you can easily build a small set of custom value converters for Aurelia, which would allow you to write localizable content like this:
+
+<style>.faded { opacity: .7; margin-right: .7em; }</style>
+
+* `The ticket price is ${price | currency}`<br>
+  <span class="faded">Example:</span>The ticket price is $1,000
+
+* `The nearest airport is ${price | distance}`<br>
+  <span class="faded">Example:</span>The nearest airport is 1.5 km away
+
+* `There are ${count | number} ${count | plural: "airport" : "airports"} nearby`<br>
+  <span class="faded">Example:</span>There are 2 airports nearby
+
+* `The best days to fly are ${days | list: 'and'}`<br>
+  <span class="faded">Example:</span>The best days to fly are Monday, Tuesday and Wednesday
+
+Those are just a few examples to illustrate the concept of using value converters for localization, and while this is not a standard, it works and scales extremely well, and is extensible enough that it will handle just about any localization problem - how far you take it is up to you.
+
+<br>Enjoy, and please report any issues in the issue tracker :-)
