@@ -82,7 +82,7 @@ export class AngularTemplateLanguage implements ITemplateLanguage
                         expectCloseBrace = false;
 
                         expressions.push(template.substring(sequenceStartIndex, i + 1));
-                        result += `{{${expressions.length - 1}}`;
+                        result += `{{${expressions.length - 1}}}`;
                         sequenceStartIndex = i + 1;
                     }
                     else
