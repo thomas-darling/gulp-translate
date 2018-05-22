@@ -651,7 +651,7 @@ Depending on your level of ambition, those can be _very_ hard problems to solve.
 
 ### The standard solution
 
-If you are using the Angular framework, you should probably consider using on their [built in support](https://angular.io/docs/ts/latest/cookbook/i18n.html) for the [ICU Message Format](http://userguide.icu-project.org/formatparse/messages), which is a commonly used format for expressing localizable content, which provides basic support for support for pluralization and string selection.
+If you are using the Angular framework, you should probably consider using on their [built in support](https://angular.io/docs/ts/latest/cookbook/i18n.html) for the [ICU Message Format](http://userguide.icu-project.org/formatparse/messages), which is a commonly used format for expressing localizable content, providing basic support for pluralization and string selection.
 
 Out of the box this may appear somewhat limited, but note that you can actually use pipes to format values inside those messages, exactly as in your binding expressions. This is an Angular feature though, and not part of the ICU Message Format spec - and you will have to write most of those pipes yourself.
 
