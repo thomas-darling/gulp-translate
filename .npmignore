@@ -1,7 +1,6 @@
 ## Ignore source files
 
 /src/
-*.map
 
 ## Ignore example files
 
@@ -15,3 +14,4 @@
 .gitignore
 .npmignore
 tsconfig.json
+tslint.json

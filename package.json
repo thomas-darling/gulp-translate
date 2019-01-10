@@ -1,6 +1,6 @@
 {
   "name": "gulp-translate",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "description": "Gulp plugin that localizes HTML templates and JSON files by extracting and injecting localizable content.",
   "keywords": [
     "gulp",
@@ -31,25 +31,25 @@
     "url": "https://github.com/thomas-darling/gulp-translate.git"
   },
   "dependencies": {
-    "chalk": "^2.3.2",
+    "chalk": "^2.4.2",
     "cheerio": "^0.22.0",
     "csv-parse": "^1.2.0",
     "csv-stringify": "^1.0.4",
     "mkdirp": "^0.5.1",
     "plugin-error": "^1.0.1",
-    "through2": "^2.0.3",
-    "vinyl": "^2.1.0"
+    "through2": "^3.0.0",
+    "vinyl": "^2.2.0"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.7",
+    "@types/cheerio": "^0.22.10",
     "@types/mkdirp": "^0.5.2",
-    "@types/node": "8.0.1",
-    "@types/through2": "^2.0.33",
-    "@types/vinyl": "^2.0.0",
+    "@types/node": "10.12.18",
+    "@types/through2": "^2.0.34",
+    "@types/vinyl": "^2.0.2",
     "del": "^3.0.0",
-    "gulp": "github:gulpjs/gulp#4.0",
-    "gulp-rename": "^1.2.2",
-    "typescript": "^2.7.2"
+    "gulp": "4.0.0",
+    "gulp-rename": "^1.4.0",
+    "typescript": "^3.2.2"
   },
   "scripts": {
     "prepare": "tsc"
