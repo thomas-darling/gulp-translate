@@ -18,10 +18,10 @@ import { ExportTaskConfig } from "./export-task-config";
  */
 export class ExportTask implements IPluginTask
 {
-    private _pluginConfig: PluginConfig;
-    private _taskConfig: ExportTaskConfig;
-    private _templateParser: ITemplateParser;
-    private _exportContentFile: ExportFile;
+    private readonly _pluginConfig: PluginConfig;
+    private readonly _taskConfig: ExportTaskConfig;
+    private readonly _templateParser: ITemplateParser;
+    private readonly _exportContentFile: ExportFile;
 
     /**
      * Creates a new instance of the ExportTask type.
@@ -168,7 +168,7 @@ export class ExportTask implements IPluginTask
         //  If enabled, save the export file.
         if (this._taskConfig.exportFilePath)
         {
-            this._exportContentFile.save(this._taskConfig.exportFilePath);
+            await this._exportContentFile.save(this._taskConfig.exportFilePath);
         }
     }
 }

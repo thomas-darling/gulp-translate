@@ -18,10 +18,10 @@ import { ImportTaskConfig } from "./import-task-config";
  */
 export class ImportTask implements IPluginTask
 {
-    private _pluginConfig: PluginConfig;
-    private _taskConfig: ImportTaskConfig;
-    private _templateParser: ITemplateParser;
-    private _importContentFiles: ImportFile[];
+    private readonly _pluginConfig: PluginConfig;
+    private readonly _taskConfig: ImportTaskConfig;
+    private readonly _templateParser: ITemplateParser;
+    private readonly _importContentFiles: ImportFile[];
 
     /**
      * Creates a new instance of the ImportTask type.

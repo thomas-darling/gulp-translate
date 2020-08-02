@@ -1,6 +1,6 @@
 import * as through from "through2";
 import * as Vinyl from "vinyl";
-import * as PluginError from "plugin-error";
+import PluginError from "plugin-error";
 
 import { Plugin } from "./plugin/plugin";
 import { IPluginConfig } from "./plugin/plugin-config";
@@ -19,7 +19,7 @@ const packageJson: any = require("../package.json");
  */
 export class GulpPlugin
 {
-    private plugin: Plugin;
+    private readonly plugin: Plugin;
 
     /**
      * Creates a new instance of the GulpPlugin type.
@@ -66,7 +66,7 @@ export class GulpPlugin
     private createTransform(task: IPluginTask): NodeJS.ReadWriteStream
     {
         // Return the stream transform.
-        return through.obj((vinyl: Vinyl, encoding: string, callback: (err?: any, data?: any) => void) =>
+        return through.obj(async (vinyl: Vinyl, encoding: string, callback: (err?: any, data?: any) => void) =>
         {
             try
             {
@@ -87,7 +87,7 @@ export class GulpPlugin
                 if (task.process instanceof Function)
                 {
                     // Process the file.
-                    task.process(new GulpFile(vinyl))
+                    await task.process(new GulpFile(vinyl))
 
                         // Notify stream engine that we are done with this file and push it back into the stream.
                         .then((gulpFile: GulpFile) => callback(null, gulpFile.vinyl));
@@ -110,7 +110,7 @@ export class GulpPlugin
             if (task.finalize instanceof Function)
             {
                 // Finalize the task.
-                task.finalize()
+                await task.finalize()
 
                     // Notify stream engine that we are all done.
                     .then(gulpFile => callback());

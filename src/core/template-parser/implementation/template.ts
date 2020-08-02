@@ -106,7 +106,7 @@ export class AttributeContent extends Content
 
     public get content(): string
     {
-        const standardHtml = this.annotation.element.attr(this.annotation.contentAttrName);
+        const standardHtml = this.annotation.element.attr(this.annotation.contentAttrName)!;
         const normalizedHtml = this.templateWhitespace.normalize(standardHtml, this.whitespace);
 
         return this.templateLanguage.toTemplateHtml(normalizedHtml, this.expressions);
@@ -144,7 +144,7 @@ export abstract class Annotation implements IAnnotation
         this.annotationAttrName = annotationAttrName;
         this.isNested = isNested;
 
-        const annotationAttrValue = element.attr(annotationAttrName);
+        const annotationAttrValue = element.attr(annotationAttrName)!;
 
         this.translate = annotationAttrValue !== "no";
 
@@ -236,6 +236,8 @@ export class ElementAnnotation extends Annotation
 
                 this.element.removeAttr(this.annotationAttrName);
                 this.element.attr(this.annotationAttrName, this.translate ? "yes" : "no");
+
+                break;
         }
     }
 }
@@ -274,7 +276,7 @@ export class AttributeAnnotation extends Annotation
                 }
                 else
                 {
-                    const content = this.element.attr(this.contentAttrName);
+                    const content = this.element.attr(this.contentAttrName)!;
                     this.element.removeAttr(this.annotationAttrName);
                     this.contentAttrName = this.targetAttrName;
                     this.element.attr(this.contentAttrName, content);
@@ -291,12 +293,14 @@ export class AttributeAnnotation extends Annotation
                 }
                 else
                 {
-                    const content = this.element.attr(this.contentAttrName);
+                    const content = this.element.attr(this.contentAttrName)!;
                     this.element.removeAttr(this.annotationAttrName);
                     this.contentAttrName = this.annotationAttrName;
                     this.element.attr(this.contentAttrName, content);
                     this.element.attr(this.annotationAttrName, this.translate ? "yes" : "no");
                 }
+
+                break;
         }
     }
 }

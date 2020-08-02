@@ -50,7 +50,7 @@ export class PseudoContentTranslator extends ContentTranslator
                 {
                     case "&": waitingForCharacterEnd = true; break;
                     case " ": waitingForCharacterEnd = false; break;
-                    case ";": waitingForCharacterEnd = false;
+                    case ";": waitingForCharacterEnd = false; break;
                 }
 
                 if (waitingForCharacterEnd)
@@ -63,7 +63,7 @@ export class PseudoContentTranslator extends ContentTranslator
 
                 if (character.match(/\w/) && i < text.length - 1 && text[i + 1].match(/\w/) && !text[i + 1].match(/_/))
                 {
-                    result += ":";
+                    result += "·";
                 }
             }
 

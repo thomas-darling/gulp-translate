@@ -1,4 +1,4 @@
-<template attribute-on-template>
+<template attribute-on-template="value">
 
     <!-- export, import and options -->
 
@@ -35,11 +35,11 @@
 
     <!-- case sensitivity, non-standard attribute names, quote in attribute -->
 
-    <CustomElement translate #reference *ngFor="let item of items" (attr)="1" [attr]="2" [(attr)]="3">
+    <CustomElement translate #reference="value" *ngFor="let item of items" (attr)="1" [attr]="2" [(attr)]="3">
         element with Angular templating syntax
     </CustomElement>
 
-    <div foo="" foo.translate="id: ./content:content-with-quotes; export: false"></div>
+    <div foo="should not be exported" foo.translate="id: ./content:content-with-quotes; export: false"></div>
 
     <!-- encoding, expressions, exclusion, inclusion -->
 

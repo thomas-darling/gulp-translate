@@ -82,7 +82,7 @@ export class AureliaTemplateLanguage implements ITemplateLanguage
                     if (braceDepth === 0)
                     {
                         expressions.push(template.substring(sequenceStartIndex, i + 1));
-                        /* tslint:disable-next-line: prefer-template no-invalid-template-strings */
+                        // tslint:disable-next-line: prefer-template restrict-plus-operands
                         result += "${" + (expressions.length - 1) + "}";
                         sequenceStartIndex = i + 1;
                     }
@@ -90,14 +90,14 @@ export class AureliaTemplateLanguage implements ITemplateLanguage
             }
         }
 
-        if (braceDepth < 0)
-        {
-            throw new Error("Unbalanced braces in expression.");
-        }
-
         if (quoteChar != null)
         {
             throw new Error("Unbalanced quotes in expression.");
+        }
+
+        if (braceDepth < 0)
+        {
+            throw new Error("Unbalanced braces in expression.");
         }
 
         if (escape)

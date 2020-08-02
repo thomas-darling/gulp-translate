@@ -20,9 +20,9 @@ import { ITranslateTaskConfig, TranslateTaskConfig } from "./translate/translate
  */
 export class Plugin
 {
-    private _config: PluginConfig;
-    private _templateParserConfig: TemplateParserConfig;
-    private _templateParser: ITemplateParser;
+    private readonly _config: PluginConfig;
+    private readonly _templateParserConfig: TemplateParserConfig;
+    private readonly _templateParser: ITemplateParser;
 
     /**
      * Creates a new instance of the Plugin type.

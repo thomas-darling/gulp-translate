@@ -12,10 +12,10 @@ import { Template, ElementAnnotation, AttributeAnnotation, ElementContent, Attri
  */
 export class CheerioTemplateParser implements ITemplateParser
 {
-    private templateLanguage: ITemplateLanguage;
-    private templateWhitespace: IContentWhitespace;
-    private contentHash: IContentHash;
-    private config: TemplateParserConfig;
+    private readonly templateLanguage: ITemplateLanguage;
+    private readonly templateWhitespace: IContentWhitespace;
+    private readonly contentHash: IContentHash;
+    private readonly config: TemplateParserConfig;
 
     /**
      * Creates a new instance of the CheerioTemplateParser type.

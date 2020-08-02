@@ -31,28 +31,31 @@
     "url": "https://github.com/thomas-darling/gulp-translate.git"
   },
   "dependencies": {
-    "chalk": "^2.4.2",
+    "chalk": "^4.1.0",
     "cheerio": "^0.22.0",
-    "csv-parse": "^1.2.0",
-    "csv-stringify": "^1.0.4",
-    "mkdirp": "^0.5.1",
+    "csv-parse": "^4.11.1",
+    "csv-stringify": "^5.5.0",
+    "mkdirp": "^1.0.4",
     "plugin-error": "^1.0.1",
-    "through2": "^3.0.0",
+    "through2": "^4.0.2",
+    "tslib": "^2.0.0",
     "vinyl": "^2.2.0"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.10",
-    "@types/mkdirp": "^0.5.2",
-    "@types/node": "10.12.18",
-    "@types/through2": "^2.0.34",
-    "@types/vinyl": "^2.0.2",
-    "del": "^3.0.0",
-    "gulp": "4.0.0",
-    "gulp-rename": "^1.4.0",
-    "typescript": "^3.2.2"
+    "@types/mkdirp": "^1.0.1",
+    "@types/node": "14.0.27",
+    "@types/through2": "^2.0.36",
+    "@types/vinyl": "^2.0.4",
+    "del": "^5.1.0",
+    "gulp": "4.0.2",
+    "gulp-rename": "^2.0.0",
+    "tslint": "^6.1.3",
+    "typescript": "^3.9.7"
   },
   "scripts": {
-    "prepare": "tsc"
+    "prepare": "tsc",
+    "lint": "tslint --project 'tsconfig.json'"
   },
   "types": "lib/index.d.ts",
   "main": "lib/index.js"

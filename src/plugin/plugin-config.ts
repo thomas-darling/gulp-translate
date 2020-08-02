@@ -47,7 +47,7 @@ export interface IPluginConfig
      * easier to work with in code.
      * Note that ids starting with "/" or "./" will not be prefixed.
      * An example of a prefixed id would be "./foo/bar:id", where './foo/bar'
-     * is the file path without the extension and 'id' is a id in the file.
+     * is the file path without the extension and 'id' is an id in the file.
      * Default is false.
      */
     prefixIdsInContentFiles?: boolean;
@@ -180,6 +180,6 @@ export class PluginConfig implements ITemplateParserConfig
             }
         }
 
-        return nameOrInstance as ITemplateLanguage;
+        return nameOrInstance;
     }
 }

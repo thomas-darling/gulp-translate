@@ -7,11 +7,11 @@ import * as path from "path";
  *
  * @example
  *
- * Get a relative path for use as source in an export file or for prefixing ids in content files:
- * `getRelativePath(file.absolutePath, file.globBasePath || taskConfig.baseFilePath)`
+ * // Get a relative path for use as source in an export file or for prefixing ids in content files:
+ * getRelativePath(file.absolutePath, file.globBasePath || taskConfig.baseFilePath)
  *
- * Get a relative path for use when referencing files or folders in log messages:
- * `getRelativePath(file.absolutePath)`
+ * // Get a relative path for use when referencing files or folders in log messages:
+ * getRelativePath(file.absolutePath)
  *
  * @param absolutePath The absolute path of the file for which a relative path should be returned.
  * @param basePath The base path to use, or undefined to use the current working directory.

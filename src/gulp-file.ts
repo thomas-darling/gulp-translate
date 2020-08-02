@@ -46,7 +46,7 @@ export class GulpFile implements IFile
      */
     public set contents(value: string)
     {
-        this.vinyl.contents = new Buffer(value);
+        this.vinyl.contents = Buffer.from(value);
     }
 
     /**

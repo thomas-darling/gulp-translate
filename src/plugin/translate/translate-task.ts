@@ -21,9 +21,9 @@ import { TranslateTaskConfig } from "./translate-task-config";
  */
 export class TranslateTask implements IPluginTask
 {
-    private _pluginConfig: PluginConfig;
-    private _taskConfig: TranslateTaskConfig;
-    private _templateParserConfig: TemplateParserConfig;
+    private readonly _pluginConfig: PluginConfig;
+    private readonly _taskConfig: TranslateTaskConfig;
+    private readonly _templateParserConfig: TemplateParserConfig;
 
     /**
      * Creates a new instance of the TranslateTask type.
@@ -96,6 +96,6 @@ export class TranslateTask implements IPluginTask
             }
         }
 
-        return nameOrInstance as IContentTranslator;
+        return nameOrInstance;
     }
 }

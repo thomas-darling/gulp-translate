@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import * as mkdirp from "mkdirp";
+import mkdirp from "mkdirp";
 import chalk from "chalk";
 import { JsonExportFileFormat } from "./formats/json-format";
 import { CsvExportFileFormat } from "./formats/csv-format";
@@ -92,11 +92,11 @@ export class ExportFile
      * @param encoding The file encoding to use, or undefined to use UTF8.
      * @returns The new instance of the ExportFile type.
      */
-    public static load(filePath: string, encoding = "utf8"): ExportFile
+    public static load(filePath: string, encoding: BufferEncoding = "utf8"): ExportFile
     {
         const text = fs.readFileSync(filePath, { encoding });
 
-        return this.parse(text, path.extname(filePath));
+        return ExportFile.parse(text, path.extname(filePath));
     }
 
     /**
@@ -174,14 +174,14 @@ export class ExportFile
      * Saves the contents to the specified file.
      * @param filePath The absolute path for the file to which the contents should be saved.
      * @param encoding The file encoding to use, or undefined to use UTF8.
+     * @returns A promise that will be resolved when the file has been saved.
      */
-    public save(filePath: string, encoding = "utf8"): void
+    public async save(filePath: string, encoding: BufferEncoding = "utf8"): Promise<void>
     {
         const text = this.stringify(path.extname(filePath));
 
-        mkdirp(path.dirname(filePath), () =>
-        {
-            fs.writeFileSync(filePath, text, { encoding });
-        });
+        await mkdirp(path.dirname(filePath));
+
+        fs.writeFileSync(filePath, text, { encoding });
     }
 }

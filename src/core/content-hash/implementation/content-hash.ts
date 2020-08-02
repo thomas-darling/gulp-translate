@@ -6,8 +6,8 @@ import { IContentHash } from "../content-hash";
  */
 export class ContentHash implements IContentHash
 {
-    private _hashLength: number;
-    private _hashMap: { [shortHash: string]: string } = {};
+    private readonly _hashLength: number;
+    private readonly _hashMap: { [shortHash: string]: string } = {};
 
     /**
      * Creates a new instance of the DefaultContentHash type.
@@ -28,7 +28,7 @@ export class ContentHash implements IContentHash
     {
         const unhashed = `${content}:${hint || ""}`;
 
-        const longHash = crypto.createHash("sha1").update(unhashed, "utf8").digest("hex") as string;
+        const longHash = crypto.createHash("sha1").update(unhashed, "utf8").digest("hex");
         const shortHash = longHash.substring(0, this._hashLength);
         const cachedHash = this._hashMap[shortHash] || (this._hashMap[shortHash] = longHash);
 

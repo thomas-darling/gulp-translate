@@ -23,10 +23,8 @@ export class ContentWhitespace implements IContentWhitespace
 
             return "trim";
         }
-        else
-        {
-            return "pre";
-        }
+
+        return "pre";
     }
 
     /**
@@ -37,6 +35,9 @@ export class ContentWhitespace implements IContentWhitespace
      */
     public normalize(content: string, option: WhitespaceOption): string
     {
+        // tslint:disable-next-line: no-parameter-reassignment
+        content = content.replace(/\r\n/g, "\n");
+
         switch (option)
         {
             case "trim": return this.normalize(content, "normal").replace(/^\s|\s$/g, "");

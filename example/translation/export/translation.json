@@ -134,8 +134,8 @@
       "./template-1.html"
     ]
   },
-  "f219daffd": {
-    "content": "\r\n        attribute  with  default\r\n        whitespace  handling\r\n        ",
+  "a71dc3909": {
+    "content": "\n        attribute  with  default\n        whitespace  handling\n        ",
     "sources": [
       "./template-1.html"
     ]
@@ -152,8 +152,8 @@
       "./template-1.html"
     ]
   },
-  "1ecfe9c0e": {
-    "content": "\r\n            <option>  select  should  default  to  pre  whitespace  handling  </option>\r\n        ",
+  "d51697f34": {
+    "content": "\n            <option>  select  should  default  to  pre  whitespace  handling  </option>\n        ",
     "sources": [
       "./template-1.html"
     ]
@@ -194,14 +194,14 @@
       "./template-1.html"
     ]
   },
-  "b9f25b538": {
-    "content": "\r\n        element  with  pre\r\n        whitespace  handling\r\n    ",
+  "d2a6480b6": {
+    "content": "\n        element  with  pre\n        whitespace  handling\n    ",
     "sources": [
       "./template-1.html"
     ]
   },
-  "ec4f21836": {
-    "content": "\r\n        attribute  with  pre\r\n        whitespace  handling\r\n        ",
+  "63b030163": {
+    "content": "\n        attribute  with  pre\n        whitespace  handling\n        ",
     "sources": [
       "./template-1.html"
     ]

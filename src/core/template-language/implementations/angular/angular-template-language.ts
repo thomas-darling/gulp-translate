@@ -107,14 +107,14 @@ export class AngularTemplateLanguage implements ITemplateLanguage
             }
         }
 
-        if (braceDepth < 0)
-        {
-            throw new Error("Unbalanced braces in expression.");
-        }
-
         if (quoteChar != null)
         {
             throw new Error("Unbalanced quotes in expression.");
+        }
+
+        if (braceDepth < 0)
+        {
+            throw new Error("Unbalanced braces in expression.");
         }
 
         if (escape)

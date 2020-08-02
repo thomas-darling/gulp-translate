@@ -79,7 +79,7 @@ export class TemplateParserConfig
  */
 export class AttributePattern
 {
-    private _pattern: string[];
+    private readonly _pattern: string[];
 
     /**
      * Creates a new instance of the AttributePattern type.

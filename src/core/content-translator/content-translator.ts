@@ -1,7 +1,6 @@
 import * as cheerio from "cheerio";
 import { TemplateParserConfig } from "../template-parser/template-parser-config";
 import { ITemplateLanguage } from "../template-language/template-language";
-import { IContentTranslator } from "./content-translator";
 
 /**
  * Represents a translator implementation, which translates localizable content.
@@ -23,8 +22,8 @@ export interface IContentTranslator
  */
 export abstract class ContentTranslator implements IContentTranslator
 {
-    private templateParserConfig: TemplateParserConfig;
-    private templateLanguage: ITemplateLanguage;
+    private readonly templateParserConfig: TemplateParserConfig;
+    private readonly templateLanguage: ITemplateLanguage;
 
     /**
      * Creates a new instance of the PseudoContentTranslator type.

@@ -101,7 +101,7 @@ Assume we have the template file `template.html`, containing localizable content
     <div translate>Hello World</div>
     <div translate="id: app.hello; export: true">Hello World</div>
     <div translate="hint: this is different">Hello World</div>
-    <div foo="Hello World" foo.translate></div>
+    <div foo.translate="Hello World"></div>
     <div foo="Hello World" foo.translate="hint: this is different"></div>
     <div translate>Binding expressions work too: ${"</div>"}</div>
     <div translate="whitespace: pre">  Whitespace  can  be  preserved  </div>
@@ -219,11 +219,11 @@ but this time replacing the original content with the translated content provide
 </template>
 ```
 
-Additionally, to support scenarios where content is needed in code, e.g. for error or validation messages, JSON files
-like the example below may also be processed, exactly like templates. If the app is using a module loader such as [SystemJS](https://github.com/systemjs/systemjs),
-those JSON files can then be imported directly into ES/TypeScript modules using the [json](https://github.com/systemjs/plugin-json) plugin, which allows the code
-to directly access the contents of the file as an object. To ensure the glob patterns in gulp tasks can reliably select the JSON files containing content, such files
-should always either be placed in a folder with a reserved name, e.g. `strings` or `content`, or named using a reserved name, e.g. `strings.json` or `content.json`.
+Additionally, to support scenarios where content is needed in code, e.g. for error or validation messages, JSON files like the example below may also be processed.
+Those JSON files can then be imported directly into your ES/TypeScript modules, allowing the code to directly access the contents of the file as an object.
+To ensure the glob patterns in the tasks can reliably select the JSON files containing content, such files should always either be placed in a folder with a reserved
+name, e.g. `strings` or `content`, or named using a reserved name, e.g. `strings.json` or `content.json`.
+
 To avoid collisions between ids and hashes, it is recommended to use ids that contain at least one character that cannot appear in a hash - for example, we could use
 ids that begin with a `#`, or always contain at least one `-` or `.`. Alternatively, you should strongly consider enabling the `prefixIdsInContentFiles` option, which
 auto-prefixes the ids with the file path before exporting and importing. This makes the ids shorter, as they only have to be unique within the file, which in turn
