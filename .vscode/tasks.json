@@ -1,10 +1,37 @@
 {
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
-    "version": "0.1.0",
-    "command": "tsc",
-    "isShellCommand": true,
-    "args": ["-p", "."],
-    "showOutput": "silent",
-    "problemMatcher": "$tsc"
+    "version": "2.0.0",
+    "tasks":
+    [
+        /**
+        * Build the project.
+        */
+        {
+            "type": "npm",
+            "script": "prepare",
+            "group":
+            {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher":
+            [
+                "$tsc"
+            ],
+            "isBackground": true
+        },
+
+        /**
+        * Lint the project.
+        */
+        {
+            "type": "npm",
+            "script": "lint",
+            "problemMatcher":
+            [
+                "$tslint5"
+            ]
+        }
+    ]
 }

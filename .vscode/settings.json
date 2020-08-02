@@ -1,27 +1,51 @@
-// Place your settings in this file to overwrite default and user settings.
 {
-    // Configure glob patterns for excluding files and folders.
-    "files.exclude": {
+    // To keep the editor experience focused on development,
+    // we exclude auxiliary files that should not be edited,
+    // or which are not strictly part of the app code base.
+    "files.exclude":
+    {
+        // Because this is created by the operating system.
+        "**/.DS_STORE": true,
+        "**/Thumbs.db": true,
+
+        // Because this is a prefix we use to exclude files and folders from Visual Studio Code.
+        "**/~~*": true,
+
+        // Because this contains temporary files created by Chrome.
+        ".chrome": true,
+
+        // Because this contains files specific to Visual Studio Code.
         ".vscode": true,
+
+        // Because this contains files specific to GitHub.
+        ".github": true,
+
+        // Because this is specific to the Git source control system.
+        ".git/": true,
         ".gitattributes": true,
-		".gitignore": true,
+        ".gitignore": true,
+
+        // Because this is specific to publishing using NPM.
         ".npmignore": true,
-        "lib": true,
-		"node_modules": true
+
+        // Because this is managed by NPM and should not be edited.
+        "package-lock.json": true,
+
+        // Because this contains dependencies installed by NPM.
+        "node_modules": true,
+
+        // Because this contains build artifacts.
+        "lib/": true
 	},
 
-    // When enabled, will trim trailing whitespace when you save a file.
     "files.trimTrailingWhitespace": true,
-
-    // Automatically add a newline at the end of files when saving.
     "files.insertFinalNewline": true,
-
-    // Use the TypeScript version specified in package.json.
-    "typescript.tsdk": "./node_modules/typescript/lib",
-
-    // Defines whether an open brace is put onto a new line for functions or not
     "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
-
-    // Defines whether an open brace is put onto a new line for control blocks or not
-    "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true
+    "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+    "javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+    "typescript.preferences.quoteStyle": "double",
+    "javascript.preferences.quoteStyle": "double",
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "typescript.tsc.autoDetect": "off"
 }

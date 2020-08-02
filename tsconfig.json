@@ -8,10 +8,6 @@
     "module": "commonjs",
     "outDir": "lib",
     "noEmitOnError": true,
-    "noImplicitAny": true,
-    "preserveConstEnums": true,
-    "strictNullChecks": true,
-
     "allowJs": false,
     "declaration": true,
     "declarationMap": false,

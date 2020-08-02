@@ -1,7 +1,14 @@
 {
+    // Use IntelliSense to find out which attributes exist for node debugging
+    // Use hover for the description of the existing attributes
+    // For further information visit https://go.microsoft.com/fwlink/?linkid=830387
 	"version": "0.2.0",
 	"configurations":
 	[
+        /**
+         * Launches the example, with the debugger attached.
+         * Note that the package must already be build.
+         */
         {
             "name": "Example",
             "type": "node",

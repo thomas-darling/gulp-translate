@@ -1,7 +1,18 @@
-## Ignore package folders
+# We recommend that you use a global .gitignore for files that are not related to the project.
+# See: https://help.github.com/articles/ignoring-files/#create-a-global-gitignore
 
+# Because this is created by the operating system.
+/**/.DS_STORE
+/**/Thumbs.db
+
+# Because this is a prefix we use to exclude files and folders from version control.
+/**/~*
+
+# Because this is a log file that may be created by NPM.
+/npm-debug.log
+
+# Because this contains dependencies installed by NPM.
 /node_modules/
 
-## Ignore build artifacts
-
+# Because this contains build artifacts.
 /lib/
