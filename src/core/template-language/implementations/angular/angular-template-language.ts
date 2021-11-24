@@ -51,6 +51,11 @@ export class AngularTemplateLanguage implements ITemplateLanguage
             }
             else
             {
+                if (expectCloseBrace && c !== "}")
+                {
+                    throw new Error("Unbalanced braces in expression.");
+                }
+
                 if (quoteChar != null)
                 {
                     if (c === "\\" && !escape)
@@ -87,11 +92,6 @@ export class AngularTemplateLanguage implements ITemplateLanguage
                     }
                     else
                     {
-                        if (braceDepth === 0)
-                        {
-                            throw new Error("Unbalanced braces in expression.");
-                        }
-
                         braceDepth--;
 
                         if (braceDepth === 0)
@@ -112,7 +112,7 @@ export class AngularTemplateLanguage implements ITemplateLanguage
             throw new Error("Unbalanced quotes in expression.");
         }
 
-        if (braceDepth < 0)
+        if (braceDepth !== 0 || expectCloseBrace)
         {
             throw new Error("Unbalanced braces in expression.");
         }

@@ -47,7 +47,7 @@ export abstract class ContentTranslator implements IContentTranslator
         const expressions: string[] = [];
         const standardHtml = this.templateLanguage.toStandardHtml(templateHtml, expressions);
 
-        // Parse the template as HTML to get the CheerioStatic instance.
+        // Parse the template as HTML to get the cheerio.Selector instance.
         const $ = cheerio.load(standardHtml, { decodeEntities: false, lowerCaseTags: false, lowerCaseAttributeNames: false });
 
         // Get the auto-created root node.
@@ -69,11 +69,11 @@ export abstract class ContentTranslator implements IContentTranslator
 
     /**
      * Recursively parses and translates the element tree and its attributes, starting with the specified element.
-     * @param $ The CheerioStatic instance.
+     * @param $ The cheerio.Selector instance.
      * @param element The element representing the root of the tree.
      * @param translate True if the element should be translated, otherwise false.
      */
-    private parseNode(element: CheerioElement, translate: boolean): void
+    private parseNode(element: cheerio.Element, translate: boolean): void
     {
         // Ignore the node if it does not represent an HTML element.
         if (element.type === "text")
@@ -115,11 +115,11 @@ export abstract class ContentTranslator implements IContentTranslator
 
     /**
      * Parses and translates the specified attribute.
-     * @param $ The CheerioStatic instance.
+     * @param $ The cheerio.Selector instance.
      * @param element The element representing the root of the tree.
      * @param attrName The name of the attribute.
      */
-    private parseAttribute(element: CheerioElement, attrName: string): void
+    private parseAttribute(element: cheerio.Element, attrName: string): void
     {
         // Try to get the name of the target attribute.
         const targetAttrName = this.templateParserConfig.attributePattern.getTargetName(attrName);
