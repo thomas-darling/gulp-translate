@@ -33,6 +33,8 @@
     "stripInternal": true,
     "suppressExcessPropertyErrors": false,
     "suppressImplicitAnyIndexErrors": true,
+    "useUnknownInCatchVariables": false,
+    "exactOptionalPropertyTypes": false, // TODO: Should we enable this?
     "plugins": [
       {
         "name": "typescript-tslint-plugin",

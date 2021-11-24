@@ -72,11 +72,6 @@ export class AureliaTemplateLanguage implements ITemplateLanguage
                 }
                 else if (c === "}")
                 {
-                    if (braceDepth === 0)
-                    {
-                        throw new Error("Unbalanced braces in expression.");
-                    }
-
                     braceDepth--;
 
                     if (braceDepth === 0)
@@ -95,7 +90,7 @@ export class AureliaTemplateLanguage implements ITemplateLanguage
             throw new Error("Unbalanced quotes in expression.");
         }
 
-        if (braceDepth < 0)
+        if (braceDepth !== 0)
         {
             throw new Error("Unbalanced braces in expression.");
         }

@@ -138,7 +138,7 @@ export abstract class Annotation implements IAnnotation
 {
     protected isNested: boolean;
 
-    public constructor(element: Cheerio, annotationAttrName: string, isNested: boolean, isDirectAnnotation: boolean)
+    public constructor(element: cheerio.Cheerio, annotationAttrName: string, isNested: boolean, isDirectAnnotation: boolean)
     {
         this.element = element;
         this.annotationAttrName = annotationAttrName;
@@ -182,7 +182,7 @@ export abstract class Annotation implements IAnnotation
         }
     }
 
-    public readonly element: Cheerio;
+    public readonly element: cheerio.Cheerio;
 
     public readonly annotationAttrName: string;
 
@@ -202,7 +202,7 @@ export abstract class Annotation implements IAnnotation
  */
 export class ElementAnnotation extends Annotation
 {
-    public constructor(element: Cheerio, annotationAttrName: string, isNested: boolean)
+    public constructor(element: cheerio.Cheerio, annotationAttrName: string, isNested: boolean)
     {
         super(element, annotationAttrName, isNested, false);
     }
@@ -247,7 +247,7 @@ export class ElementAnnotation extends Annotation
  */
 export class AttributeAnnotation extends Annotation
 {
-    public constructor(element: Cheerio, annotationAttrName: string, targetAttrName: string, contentAttrName: string, isNested: boolean)
+    public constructor(element: cheerio.Cheerio, annotationAttrName: string, targetAttrName: string, contentAttrName: string, isNested: boolean)
     {
         super(element, annotationAttrName, isNested, contentAttrName === annotationAttrName);
 
@@ -373,11 +373,11 @@ export class AnnotationOptions extends AttributeOptions implements IAnnotationOp
  */
 export class Template implements ITemplate
 {
-    private readonly document: CheerioStatic;
+    private readonly document: cheerio.Root;
     private readonly expressions: string[];
     private readonly templateLanguage: ITemplateLanguage;
 
-    public constructor(document: CheerioStatic, expressions: string[], contents: IContent[], annotations: IAnnotation[],
+    public constructor(document: cheerio.Root, expressions: string[], contents: IContent[], annotations: IAnnotation[],
         templateLanguage: ITemplateLanguage)
     {
         this.document = document;

@@ -47,7 +47,7 @@ export class CheerioTemplateParser implements ITemplateParser
         const expressions: string[] = [];
         const standardHtml = this.templateLanguage.toStandardHtml(template, expressions);
 
-        // Parse the template as HTML to get the CheerioStatic instance.
+        // Parse the template as HTML to get the cheerio.Selector instance.
         const $ = cheerio.load(standardHtml, { decodeEntities: false, lowerCaseTags: false, lowerCaseAttributeNames: false });
 
         // Get the auto-created root node.
@@ -62,7 +62,7 @@ export class CheerioTemplateParser implements ITemplateParser
 
     /**
      * Recursively parses the element tree and its attributes, starting with the specified element.
-     * @param $ The CheerioStatic instance.
+     * @param $ The cheerio.Selector instance.
      * @param element The element representing the root of the tree.
      * @param expressions The array containing the original expressions for the placeholders in the template.
      * @param contents The array to which exported content instances should be added.
@@ -70,7 +70,7 @@ export class CheerioTemplateParser implements ITemplateParser
      * @param extract True if the element or one of its ancestor elements should be exported, otherwise false.
      * @param translate True if the element should be translated, otherwise false.
      */
-    private parseNode($: CheerioStatic, element: CheerioElement, expressions: string[],
+    private parseNode($: cheerio.Selector, element: cheerio.Element, expressions: string[],
         contents: IContent[], annotations: IAnnotation[], extract: boolean, translate: boolean | null): void
     {
         // Ignore the node if it does not represent an HTML element.
@@ -161,7 +161,7 @@ export class CheerioTemplateParser implements ITemplateParser
 
     /**
      * Parses the specified attribute.
-     * @param $ The CheerioStatic instance.
+     * @param $ The cheerio.Selector instance.
      * @param element The element representing the root of the tree.
      * @param attrName The name of the attribute.
      * @param contents The array to which exported content instances should be added.
@@ -170,7 +170,7 @@ export class CheerioTemplateParser implements ITemplateParser
      * @param extract True if the element or one of its ancestor elements should be exported, otherwise false.
      * @param translate True if the element should be translated, otherwise false.
      */
-    private parseAttribute($: CheerioStatic, element: CheerioElement, attrName: string,
+    private parseAttribute($: cheerio.Selector, element: cheerio.Element, attrName: string,
         contents: IContent[], annotations: IAnnotation[], expressions: string[], extract: boolean, translate: boolean | null): void
     {
         // Try to get the name of the target attribute.

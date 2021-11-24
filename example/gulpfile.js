@@ -1,8 +1,7 @@
-
 /* How to run this example:
  * --------------------------------------------------------------------------------------------------------------------
- * 1. Open a command prompt in this folder.
- * 2. Execute the command: gulp
+ * 1. Open a command prompt in the repository folder.
+ * 2. Execute the command: npm run test
  *
  * This will execute all the tasks in the correct order, producing output in the 'translation' and 'artifacts' folders.
  * --------------------------------------------------------------------------------------------------------------------
